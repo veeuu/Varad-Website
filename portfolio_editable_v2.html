@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio — fully editable homepage</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=Bebas+Neue&display=swap');
+
+  :root{
+    --bg:#121214;
+    --container:#1A1A1D;
+    --line:#2B2B2F;
+    --text:#EFEDE6;
+    --text-dim:#9C9A93;
+    --accent:#F0A93C;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif;}
+  .display{font-family:'Archivo Expanded', sans-serif; font-weight:800;}
+  a{color:inherit;}
+
+  /* ---------- CONTROL DOCK ---------- */
+  #dock{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    background:#0A0A0B; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:20px; padding:12px 24px;
+    font-size:12.5px; color:var(--text-dim); flex-wrap:wrap;
+  }
+  #dock strong{color:var(--text); font-weight:600; margin-right:2px;}
+  .dock-group{display:flex; align-items:center; gap:8px;}
+  .swatch-input{width:26px; height:26px; border-radius:6px; border:1px solid var(--line); padding:0; background:none; cursor:pointer;}
+  .dock-btn{background:var(--accent); color:#151515; border:none; padding:8px 14px; border-radius:5px; font-size:12.5px; font-weight:600; cursor:pointer;}
+  .dock-btn.secondary{background:transparent; color:var(--text-dim); border:1px solid var(--line);}
+  #page{ padding-top:58px; }
+  .dock-note{margin-left:auto; opacity:0.7; max-width:340px;}
+
+  /* ---------- TEXT TOOLBAR ---------- */
+  #textToolbar{
+    position:fixed; z-index:1000; display:none;
+    background:#0A0A0B; border:1px solid var(--line); border-radius:8px;
+    padding:8px 10px; gap:10px; align-items:center; box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    font-size:12px; color:var(--text-dim);
+  }
+  #textToolbar select, #textToolbar input[type=number]{
+    background:#161617; color:var(--text); border:1px solid var(--line); border-radius:4px;
+    font-size:12px; padding:4px 6px;
+  }
+  #textToolbar input[type=number]{ width:56px; }
+  #textToolbar input[type=color]{ width:24px; height:24px; border:none; padding:0; border-radius:4px; cursor:pointer; }
+
+  .editable-text{ outline:none; cursor:text; border-radius:3px; }
+  .editable-text:focus{ box-shadow:0 0 0 2px var(--accent); }
+  .editable-text:hover{ box-shadow:0 0 0 1px var(--line); }
+
+  /* ---------- PER-CONTAINER BACKGROUND SWATCH ---------- */
+  .bg-editable{ position:relative; }
+  .section-bg-swatch{
+    position:absolute; top:14px; right:14px; width:24px; height:24px; border-radius:50%;
+    border:1.5px solid var(--line); cursor:pointer; opacity:0.5; z-index:6; padding:0; background:#888;
+  }
+  .section-bg-swatch:hover{ opacity:1; }
+
+  /* ---------- NAV / LOGO ---------- */
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:28px 64px; border-bottom:1px solid var(--line); }
+  .logo-slot{ position:relative; display:flex; align-items:center; gap:12px; }
+  #logoWrap{ position:relative; display:inline-flex; align-items:center; cursor:pointer; }
+  #logoImg{ display:block; }
+  .logo-text{font-family:'Archivo Expanded'; font-weight:800; font-size:22px;}
+  .logo-text span{color:var(--accent);}
+  .logo-hint{font-size:11px; color:var(--text-dim); border:1px dashed var(--line); padding:4px 8px; border-radius:4px; margin-left:10px;}
+  .logo-panel{
+    position:absolute; top:calc(100% + 10px); left:0; z-index:50; display:none;
+    background:#0A0A0B; border:1px solid var(--line); border-radius:8px; padding:14px; width:220px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  }
+  .logo-panel.open{display:block;}
+  .logo-panel label{font-size:11px; color:var(--text-dim); display:block; margin:8px 0 4px;}
+  .logo-panel input[type=range]{width:100%;}
+  .logo-panel-row{display:flex; gap:8px; margin-top:10px;}
+  .logo-panel button{flex:1; font-size:11.5px; padding:7px; border-radius:5px; border:1px solid var(--line); background:transparent; color:var(--text); cursor:pointer;}
+  .logo-panel button.primary{background:var(--accent); color:#151515; border:none; font-weight:600;}
+  .navlinks{display:flex; gap:40px; font-size:14px; color:var(--text-dim);}
+  .navlinks a{text-decoration:none;}
+  .navcta{border:1px solid var(--text); padding:10px 22px; border-radius:2px; font-size:13px;}
+
+  /* ---------- HERO ---------- */
+  .hero{ display:grid; grid-template-columns:1.1fr 0.9fr; padding:80px 64px 100px; gap:60px; align-items:end; border-bottom:1px solid var(--line); }
+  .hero h1{font-size:84px; line-height:0.98; letter-spacing:-1px;}
+  .hero h1 .accent{color:var(--accent);}
+  .hero-meta{display:flex; flex-direction:column; gap:24px;}
+  .timecode{font-size:13px; color:var(--text-dim); display:flex; gap:10px; align-items:center;}
+  .rec-dot{width:8px;height:8px;border-radius:50%; background:var(--accent);}
+  .hero-copy{font-size:16px; color:var(--text-dim); max-width:420px; line-height:1.6;}
+  .role-chips{display:flex; gap:10px; flex-wrap:wrap;}
+  .chip{border:1px solid var(--line); padding:8px 16px; border-radius:20px; font-size:13px;}
+
+  /* ---------- FILTERS ---------- */
+  .filters{display:flex; gap:12px; padding:36px 64px; border-bottom:1px solid var(--line); flex-wrap:wrap;}
+  .filter{font-size:13px; padding:9px 18px; border-radius:20px; color:var(--text-dim); border:1px solid var(--line); cursor:pointer;}
+  .filter.active{background:var(--accent); color:#161616; border-color:var(--accent); font-weight:600;}
+
+  /* ---------- SECTIONS ---------- */
+  .section{padding:70px 64px; border-bottom:1px solid var(--line);}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:24px;}
+  .section-head h2{font-size:34px; letter-spacing:-0.5px;}
+  .section-head p{font-size:14px; color:var(--text-dim); max-width:360px; text-align:right;}
+
+  /* ---------- MEDIA SLOT ---------- */
+  .media-slot{ position:relative; background:var(--container); border:1px solid var(--line); border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .media-slot img, .media-slot video{width:100%; height:100%; object-fit:cover; display:block;}
+  .media-slot .placeholder{font-size:12px; color:var(--text-dim); text-align:center; padding:12px;}
+  .upload-btn{ position:absolute; bottom:10px; right:10px; z-index:2; background:rgba(0,0,0,0.55); color:#fff; border:1px solid rgba(255,255,255,0.3); border-radius:16px; font-size:11px; padding:6px 12px; cursor:pointer; backdrop-filter:blur(2px); }
+  .media-slot input[type=file]{display:none;}
+
+  .channel-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .channel-card{background:var(--container); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  .channel-card .media-slot{height:180px; border:none; border-radius:0;}
+  .channel-body{padding:20px;}
+  .channel-body h3{font-size:17px; margin-bottom:6px;}
+  .channel-body p{font-size:13px; color:var(--text-dim);}
+  .tag-row{display:flex; gap:8px; margin-top:14px;}
+  .tag{font-size:11px; color:var(--text-dim); border:1px solid var(--line); padding:4px 10px; border-radius:12px;}
+
+  .case-row{display:grid; grid-template-columns:220px 1fr 150px; gap:32px; align-items:center; padding:26px 0; border-bottom:1px solid var(--line);}
+  .case-row:last-child{border-bottom:none;}
+  .case-row .media-slot{height:100px;}
+  .case-title{font-size:20px; margin-bottom:6px;}
+  .case-sub{font-size:13px; color:var(--text-dim);}
+  .case-cta{font-size:13px; color:var(--accent); text-align:right;}
+
+  .vfx-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:24px;}
+  .vfx-feature{height:340px;}
+  .vfx-side{display:flex; flex-direction:column; gap:24px;}
+  .vfx-small{height:158px;}
+  .vfx-label{position:absolute; left:16px; top:16px; z-index:2; font-size:13px; background:rgba(0,0,0,0.5); padding:6px 12px; border-radius:14px;}
+
+  .wedding-hero{height:400px; margin-bottom:20px;}
+  .wedding-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
+  .wedding-still{height:100px;}
+
+  .photo-grid{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:180px; gap:16px;}
+  .photo-cell.tall{grid-row:span 2;}
+
+  footer{padding:70px 64px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
+  footer h2{font-size:42px; max-width:600px; letter-spacing:-0.5px;}
+  .footer-links{display:flex; gap:32px; font-size:14px; color:var(--text-dim);}
+  .footer-links a{text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div id="dock">
+  <div class="dock-group"><strong>Background</strong><input class="swatch-input" type="color" id="bgPicker" value="#121214"></div>
+  <div class="dock-group"><strong>Cards / media boxes</strong><input class="swatch-input" type="color" id="containerPicker" value="#1A1A1D"></div>
+  <div class="dock-group"><strong>Accent</strong><input class="swatch-input" type="color" id="accentPicker" value="#F0A93C"></div>
+  <div class="dock-group"><strong>Default text</strong><input class="swatch-input" type="color" id="textPicker" value="#EFEDE6"></div>
+  <button class="dock-btn secondary" id="resetBtn">Reset colors</button>
+  <span class="dock-note">Click text to edit words/font/size/color. Click a media block to upload. Click the logo to replace/resize. The small dot in each section's corner paints that section's own background.</span>
+</div>
+
+<div id="textToolbar">
+  <select id="ffSelect">
+    <option value="Archivo Expanded">Archivo Expanded</option>
+    <option value="Inter">Inter</option>
+    <option value="Playfair Display">Playfair Display</option>
+    <option value="Poppins">Poppins</option>
+    <option value="Montserrat">Montserrat</option>
+    <option value="DM Sans">DM Sans</option>
+    <option value="Space Grotesk">Space Grotesk</option>
+    <option value="Bebas Neue">Bebas Neue</option>
+  </select>
+  <input type="number" id="fsInput" min="8" max="160" step="1">
+  <input type="color" id="fcInput">
+</div>
+
+<div id="page">
+
+<nav class="bg-editable" style="background:linear-gradient(90deg, rgba(31,42,68,0.35), rgba(232,93,93,0.16), rgba(201,130,46,0.18));">
+  <div class="logo-slot">
+    <div id="logoWrap">
+      <img id="logoImg" style="display:none;">
+      <span class="logo-text" id="logoText">STUDIO<span style="color:#FF8A5A;">.</span>CUT</span>
+      <span class="logo-hint" id="logoHint">click to upload logo</span>
+      <div class="logo-panel" id="logoPanel">
+        <label>Width (px)</label>
+        <input type="range" id="logoWidth" min="20" max="400" value="140">
+        <label>Height (px)</label>
+        <input type="range" id="logoHeight" min="16" max="240" value="34">
+        <div class="logo-panel-row">
+          <button id="replaceLogoBtn">Replace</button>
+          <button id="removeLogoBtn">Remove</button>
+        </div>
+      </div>
+    </div>
+    <input type="file" id="logoUpload" accept="image/*" style="display:none;">
+  </div>
+  <div class="navlinks">
+    <a href="#creator" class="editable-text">Creator space</a>
+    <a href="#brand" class="editable-text">Brand &amp; commercial</a>
+    <a href="#vfx" class="editable-text">VFX &amp; 3D</a>
+    <a href="#wedding" class="editable-text">Wedding films</a>
+    <a href="#photo" class="editable-text">Photography</a>
+  </div>
+  <div class="navcta editable-text" style="background:linear-gradient(135deg, #F9C76D, #E85D5D); color:#151515; border:none; font-weight:700;">Let's talk</div>
+</nav>
+
+<section class="hero bg-editable" style="background:linear-gradient(135deg, rgba(233,132,58,0.22), rgba(108,74,182,0.24), rgba(232,93,93,0.2));">
+  <div><h1 class="display editable-text" style="background:linear-gradient(135deg, #F9C76D 0%, #E85D5D 45%, #6C4AB6 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:#F9C76D;">Frames that<br>hold <span class="accent" style="color:#FF8A5A;">attention.</span></h1></div>
+  <div class="hero-meta">
+    <div class="timecode"><span class="rec-dot"></span><span class="editable-text">00:00:03:12 — REC</span></div>
+    <p class="hero-copy editable-text">Shooter, editor, and colorist working across creator channels, brand content, 3D/VFX, and wedding film.</p>
+    <div class="role-chips">
+      <div class="chip editable-text">Video editing</div>
+      <div class="chip editable-text">Cinematography</div>
+      <div class="chip editable-text">3D / Blender</div>
+      <div class="chip editable-text">Photography</div>
+    </div>
+  </div>
+</section>
+
+<div class="filters bg-editable">
+  <div class="filter active editable-text">All work</div>
+  <div class="filter editable-text">Creator space</div>
+  <div class="filter editable-text">Brand &amp; commercial</div>
+  <div class="filter editable-text">VFX &amp; 3D</div>
+  <div class="filter editable-text">Wedding films</div>
+  <div class="filter editable-text">Photography</div>
+</div>
+
+<section class="section bg-editable" id="creator" style="background:linear-gradient(135deg, rgba(31,42,68,0.95), rgba(201,130,46,0.26));">
+  <div class="section-head">
+    <h2 class="display editable-text" style="font-family:'Bebas Neue', sans-serif; letter-spacing:1px; color:#F5EFE0;">Creator space</h2>
+    <p class="editable-text" style="color:#E4D3B0;">Ongoing edit work for three YouTube channels.</p>
+  </div>
+  <div class="channel-grid">
+    <div class="channel-card" style="background:linear-gradient(135deg, #1F2A44 0%, #C9822E 48%, #E85D5D 100%); border-color:#F5EFE0; box-shadow:0 16px 32px rgba(201,130,46,0.22);">
+      <div class="media-slot" data-slot></div>
+      <div class="channel-body">
+        <h3 class="editable-text" style="color:#E4D3B0;">Xyaa</h3>
+        <p class="editable-text" style="color:#F5EFE0;">Cinematic travel, vlogs, gaming</p>
+        <div class="tag-row">
+          <span class="tag editable-text" style="color:#E4D3B0; border-color:#C9822E; background:rgba(201,130,46,0.18);">Cinematic</span>
+          <span class="tag editable-text" style="color:#E4D3B0; border-color:#C9822E; background:rgba(201,130,46,0.18);">Vlog</span>
+        </div>
+      </div>
+    </div>
+    <div class="channel-card" style="background:linear-gradient(135deg, #2B2E30 0%, #2E6F95 50%, #6FE7C6 100%); border-color:#6FE7C6; box-shadow:0 16px 32px rgba(46,111,149,0.18);">
+      <div class="media-slot" data-slot></div>
+      <div class="channel-body">
+        <h3 class="editable-text" style="color:#6FE7C6;">Techshot</h3>
+        <p class="editable-text" style="color:#F5EFE0;">Gadget reviews and tech storytelling</p>
+        <div class="tag-row">
+          <span class="tag editable-text" style="color:#6FE7C6; border-color:#2E6F95; background:rgba(46,111,149,0.18);">Reviews</span>
+          <span class="tag editable-text" style="color:#6FE7C6; border-color:#2E6F95; background:rgba(46,111,149,0.18);">Reels</span>
+        </div>
+      </div>
+    </div>
+    <div class="channel-card" style="background:linear-gradient(135deg, #16233A 0%, #5C9EAD 50%, #EFE6D8 100%); border-color:#5C9EAD; box-shadow:0 16px 32px rgba(92,158,173,0.18);">
+      <div class="media-slot" data-slot></div>
+      <div class="channel-body">
+        <h3 class="editable-text" style="color:#EFE6D8;">Sufiyan Alam</h3>
+        <p class="editable-text" style="color:#F5EFE0;">Science and philosophy explainers</p>
+        <div class="tag-row">
+          <span class="tag editable-text" style="color:#EFE6D8; border-color:#5C9EAD; background:rgba(92,158,173,0.18);">Explainer</span>
+          <span class="tag editable-text" style="color:#EFE6D8; border-color:#5C9EAD; background:rgba(92,158,173,0.18);">Long-form</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-editable" id="brand" style="background:linear-gradient(135deg, #1B4A44 0%, #2A2A28 100%);">
+  <div class="section-head">
+    <h2 class="display editable-text" style="font-family:'Montserrat', sans-serif; letter-spacing:0.5px; color:#C9A66B;">Brand &amp; commercial</h2>
+    <p class="editable-text" style="color:#EFE6D8;">Client-facing edits across brand partnerships.</p>
+  </div>
+  <div class="case-list">
+    <div class="case-row" style="border-bottom-color:#C9A66B;">
+      <div class="media-slot" data-slot></div>
+      <div><div class="case-title editable-text" style="color:#EFE6D8;">Bajaj Electricals</div><div class="case-sub editable-text" style="color:#D7D1C3;">Instagram reel campaign</div></div>
+      <div class="case-cta editable-text" style="color:#C9A66B;">View project →</div>
+    </div>
+    <div class="case-row" style="border-bottom-color:#C9A66B;">
+      <div class="media-slot" data-slot></div>
+      <div><div class="case-title editable-text" style="color:#EFE6D8;">Rahul Dua — Gupshup</div><div class="case-sub editable-text" style="color:#D7D1C3;">Personal account content</div></div>
+      <div class="case-cta editable-text" style="color:#C9A66B;">View project →</div>
+    </div>
+    <div class="case-row" style="border-bottom-color:#C9A66B;">
+      <div class="media-slot" data-slot></div>
+      <div><div class="case-title editable-text" style="color:#EFE6D8;">Comic Con reels</div><div class="case-sub editable-text" style="color:#D7D1C3;">Event recap content</div></div>
+      <div class="case-cta editable-text" style="color:#C9A66B;">View project →</div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-editable" id="vfx" style="background:linear-gradient(135deg, #3E2740 0%, #8A8D91 50%, #D6339C 100%);">
+  <div class="section-head">
+    <h2 class="display editable-text" style="font-family:'Space Grotesk', sans-serif; letter-spacing:-0.8px; color:#F5EFE0;">VFX &amp; 3D</h2>
+    <p class="editable-text" style="color:#EFE6D8;">Blender renders and motion work.</p>
+  </div>
+  <div class="vfx-grid">
+    <div class="media-slot vfx-feature" data-slot style="background:#8A8D91;"><span class="vfx-label editable-text" style="color:#F5EFE0; background:rgba(62,39,64,0.55);">Concept vape ad</span></div>
+    <div class="vfx-side">
+      <div class="media-slot vfx-small" data-slot style="background:#8A8D91;"><span class="vfx-label editable-text" style="color:#F5EFE0; background:rgba(62,39,64,0.55);">Blender studies</span></div>
+      <div class="media-slot vfx-small" data-slot style="background:#8A8D91;"><span class="vfx-label editable-text" style="color:#F5EFE0; background:rgba(62,39,64,0.55);">Client 3D work</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-editable" id="wedding" style="background:linear-gradient(135deg, #E85D5D 0%, #C89A8B 38%, #EFDDCB 100%);">
+  <div class="section-head">
+    <h2 class="display editable-text" style="font-family:'Playfair Display', serif; letter-spacing:0.2px; color:#5F1F24;">Wedding films</h2>
+    <p class="editable-text" style="color:#5F3E3A;">Full-day coverage cut into trailer and film.</p>
+  </div>
+  <div class="media-slot wedding-hero" data-slot style="background:linear-gradient(135deg, #E85D5D, #C89A8B, #EFDDCB);"><span class="vfx-label editable-text" style="color:#5F1F24; background:rgba(255,255,255,0.28);">Pooja &amp; Sanket</span></div>
+  <div class="wedding-strip">
+    <div class="media-slot wedding-still" data-slot style="background:#EFDDCB;"></div>
+    <div class="media-slot wedding-still" data-slot style="background:#EFDDCB;"></div>
+    <div class="media-slot wedding-still" data-slot style="background:#EFDDCB;"></div>
+    <div class="media-slot wedding-still" data-slot style="background:#EFDDCB;"></div>
+    <div class="media-slot wedding-still" data-slot style="background:#EFDDCB;"></div>
+  </div>
+</section>
+
+<section class="section bg-editable" id="photo" style="border-bottom:none; background:linear-gradient(135deg, #EFDDCB 0%, #C89A8B 100%);">
+  <div class="section-head">
+    <h2 class="display editable-text" style="font-family:'Poppins', sans-serif; font-weight:700; color:#8E5B54;">Photography</h2>
+    <p class="editable-text" style="color:#5F3E3A;">Event and behind-the-scenes stills.</p>
+  </div>
+  <div class="photo-grid">
+    <div class="media-slot photo-cell tall" data-slot style="background:#C89A8B;"></div>
+    <div class="media-slot photo-cell" data-slot style="background:#EFDDCB;"></div>
+    <div class="media-slot photo-cell" data-slot style="background:#8E5B54;"></div>
+    <div class="media-slot photo-cell tall" data-slot style="background:#C89A8B;"></div>
+    <div class="media-slot photo-cell" data-slot style="background:#EFDDCB;"></div>
+    <div class="media-slot photo-cell" data-slot style="background:#8E5B54;"></div>
+  </div>
+</section>
+
+<footer class="bg-editable">
+  <h2 class="display editable-text">Got a project<br>worth cutting well?</h2>
+  <div class="footer-links"><a href="#" class="editable-text">Email</a><a href="#" class="editable-text">Instagram</a><a href="#" class="editable-text">YouTube</a></div>
+</footer>
+
+</div>
+
+<script>
+  /* ---------------- COLOR DOCK ---------------- */
+  const root = document.documentElement.style;
+  const defaults = { bg:'#121214', container:'#1A1A1D', accent:'#F0A93C', text:'#EFEDE6' };
+  function applyColor(varName, val){ root.setProperty('--'+varName, val); }
+  document.getElementById('bgPicker').addEventListener('input', e => applyColor('bg', e.target.value));
+  document.getElementById('containerPicker').addEventListener('input', e => applyColor('container', e.target.value));
+  document.getElementById('accentPicker').addEventListener('input', e => applyColor('accent', e.target.value));
+  document.getElementById('textPicker').addEventListener('input', e => applyColor('text', e.target.value));
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    Object.entries(defaults).forEach(([k,v]) => { applyColor(k, v); document.getElementById(k+'Picker').value = v; });
+  });
+
+  /* ---------------- TEXT TOOLBAR ---------------- */
+  const toolbar = document.getElementById('textToolbar');
+  const ffSelect = document.getElementById('ffSelect');
+  const fsInput = document.getElementById('fsInput');
+  const fcInput = document.getElementById('fcInput');
+  let activeEl = null;
+
+  function rgbToHex(rgb){
+    const m = rgb.match(/\d+/g);
+    if(!m) return '#efeded';
+    return '#' + m.slice(0,3).map(n => (+n).toString(16).padStart(2,'0')).join('');
+  }
+
+  function showToolbarFor(el){
+    activeEl = el;
+    const cs = getComputedStyle(el);
+    ffSelect.value = cs.fontFamily.split(',')[0].replace(/"/g,'').trim();
+    if(![...ffSelect.options].some(o => o.value === ffSelect.value)) ffSelect.value = 'Inter';
+    fsInput.value = parseInt(cs.fontSize);
+    fcInput.value = rgbToHex(cs.color);
+
+    const r = el.getBoundingClientRect();
+    toolbar.style.display = 'flex';
+    let top = r.top - 48;
+    if(top < 8) top = r.bottom + 8;
+    toolbar.style.top = top + 'px';
+    toolbar.style.left = Math.max(8, r.left) + 'px';
+  }
+
+  document.querySelectorAll('.editable-text').forEach(el => {
+    el.setAttribute('contenteditable', 'true');
+    el.addEventListener('focus', () => showToolbarFor(el));
+    el.addEventListener('click', () => showToolbarFor(el));
+  });
+
+  document.addEventListener('focusin', e => {
+    if(!e.target.classList || !e.target.classList.contains('editable-text')){
+      if(!toolbar.contains(e.target)) toolbar.style.display = 'none';
+    }
+  });
+
+  ffSelect.addEventListener('change', () => { if(activeEl) activeEl.style.fontFamily = ffSelect.value; });
+  fsInput.addEventListener('input', () => { if(activeEl) activeEl.style.fontSize = fsInput.value + 'px'; });
+  fcInput.addEventListener('input', () => { if(activeEl) activeEl.style.color = fcInput.value; });
+
+  // NOTE: we deliberately do NOT preventDefault on toolbar mousedown —
+  // that was blocking the select/number/color inputs from ever receiving
+  // clicks or keyboard focus. The focusin handler above already keeps the
+  // toolbar open when focus moves into it, so this isn't needed.
+
+  /* ---------------- LOGO ---------------- */
+  const logoWrap = document.getElementById('logoWrap');
+  const logoImg = document.getElementById('logoImg');
+  const logoText = document.getElementById('logoText');
+  const logoHint = document.getElementById('logoHint');
+  const logoPanel = document.getElementById('logoPanel');
+  const logoUpload = document.getElementById('logoUpload');
+  const logoWidth = document.getElementById('logoWidth');
+  const logoHeight = document.getElementById('logoHeight');
+  let hasLogo = false;
+
+  logoWrap.addEventListener('click', e => {
+    if(logoPanel.contains(e.target)) return;
+    if(!hasLogo){ logoUpload.click(); }
+    else { logoPanel.classList.toggle('open'); }
+  });
+
+  logoUpload.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const url = URL.createObjectURL(file);
+    logoImg.src = url;
+    logoImg.style.display = 'block';
+    logoImg.style.width = logoWidth.value + 'px';
+    logoImg.style.height = logoHeight.value + 'px';
+    logoText.style.display = 'none';
+    logoHint.style.display = 'none';
+    hasLogo = true;
+    logoPanel.classList.remove('open');
+  });
+
+  document.getElementById('replaceLogoBtn').addEventListener('click', e => { e.stopPropagation(); logoUpload.click(); });
+  document.getElementById('removeLogoBtn').addEventListener('click', e => {
+    e.stopPropagation();
+    logoImg.style.display = 'none';
+    logoImg.src = '';
+    logoText.style.display = 'inline';
+    logoHint.style.display = 'inline';
+    hasLogo = false;
+    logoPanel.classList.remove('open');
+  });
+
+  logoWidth.addEventListener('click', e => e.stopPropagation());
+  logoHeight.addEventListener('click', e => e.stopPropagation());
+  logoWidth.addEventListener('input', () => { logoImg.style.width = logoWidth.value + 'px'; });
+  logoHeight.addEventListener('input', () => { logoImg.style.height = logoHeight.value + 'px'; });
+
+  document.addEventListener('click', e => {
+    if(!logoWrap.contains(e.target)) logoPanel.classList.remove('open');
+  });
+
+  /* ---------------- PER-CONTAINER BACKGROUND SWATCHES ---------------- */
+  // Every major container (nav, hero, filter bar, each section, footer) gets
+  // its own small color swatch in the top-right corner. Clicking it opens the
+  // native color picker and paints just that one container, independent of
+  // the global "Containers" color in the dock (which only tints cards/media boxes).
+  document.querySelectorAll('.bg-editable').forEach(el => {
+    const swatch = document.createElement('input');
+    swatch.type = 'color';
+    swatch.className = 'section-bg-swatch';
+    swatch.value = '#1a1a1d';
+    swatch.title = 'Set this section\'s background color';
+    swatch.addEventListener('click', e => e.stopPropagation());
+    swatch.addEventListener('input', () => { el.style.backgroundColor = swatch.value; });
+    el.appendChild(swatch);
+  });
+
+  /* ---------------- MEDIA SLOT UPLOADS ---------------- */
+  document.querySelectorAll('[data-slot]').forEach((slot, i) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*,video/*';
+    input.id = 'slotInput'+i;
+
+    const label = document.createElement('label');
+    label.className = 'upload-btn';
+    label.textContent = 'Upload';
+    label.setAttribute('for', input.id);
+
+    const placeholder = document.createElement('div');
+    placeholder.className = 'placeholder';
+    placeholder.textContent = 'Click "Upload" to add an image or video';
+
+    slot.appendChild(placeholder);
+    slot.appendChild(label);
+    slot.appendChild(input);
+
+    input.addEventListener('change', ev => {
+      const file = ev.target.files[0];
+      if(!file) return;
+      const url = URL.createObjectURL(file);
+      placeholder.remove();
+      let media;
+      if(file.type.startsWith('video')){
+        media = document.createElement('video');
+        media.src = url; media.muted = true; media.loop = true; media.autoplay = true; media.playsInline = true;
+      } else {
+        media = document.createElement('img');
+        media.src = url;
+      }
+      slot.insertBefore(media, slot.firstChild);
+    });
+  });
+</script>
+
+</body>
+</html>
