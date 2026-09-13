@@ -26,14 +26,19 @@
   #dock{
     position:fixed; top:0; left:0; right:0; z-index:999;
     background:#0A0A0B; border-bottom:1px solid var(--line);
-    display:flex; align-items:center; gap:20px; padding:12px 24px;
-    font-size:12.5px; color:var(--text-dim); flex-wrap:wrap;
+    display:flex; align-items:center; gap:12px; padding:12px 24px;
+    font-size:12.5px; color:var(--text-dim); flex-wrap:nowrap;
+    transition:padding 0.2s ease;
   }
+  #dock.collapsed{ padding:10px 24px; }
+  #dockControls{display:flex; align-items:center; gap:20px; flex:1; flex-wrap:wrap;}
   #dock strong{color:var(--text); font-weight:600; margin-right:2px;}
   .dock-group{display:flex; align-items:center; gap:8px;}
   .swatch-input{width:26px; height:26px; border-radius:6px; border:1px solid var(--line); padding:0; background:none; cursor:pointer;}
   .dock-btn{background:var(--accent); color:#151515; border:none; padding:8px 14px; border-radius:5px; font-size:12.5px; font-weight:600; cursor:pointer;}
   .dock-btn.secondary{background:transparent; color:var(--text-dim); border:1px solid var(--line);}
+  #dockToggle{white-space:nowrap; min-width:120px;}
+  #dock.collapsed #dockControls{display:none;}
   #page{ padding-top:58px; }
   .dock-note{margin-left:auto; opacity:0.7; max-width:340px;}
 
@@ -153,12 +158,15 @@
 <body>
 
 <div id="dock">
-  <div class="dock-group"><strong>Background</strong><input class="swatch-input" type="color" id="bgPicker" value="#121214"></div>
-  <div class="dock-group"><strong>Cards / media boxes</strong><input class="swatch-input" type="color" id="containerPicker" value="#1A1A1D"></div>
-  <div class="dock-group"><strong>Accent</strong><input class="swatch-input" type="color" id="accentPicker" value="#F0A93C"></div>
-  <div class="dock-group"><strong>Default text</strong><input class="swatch-input" type="color" id="textPicker" value="#EFEDE6"></div>
-  <button class="dock-btn secondary" id="resetBtn">Reset colors</button>
-  <span class="dock-note">Click text to edit words/font/size/color. Click a media block to upload. Click the logo to replace/resize. The small dot in each section's corner paints that section's own background.</span>
+  <div id="dockControls">
+    <div class="dock-group"><strong>Background</strong><input class="swatch-input" type="color" id="bgPicker" value="#121214"></div>
+    <div class="dock-group"><strong>Cards / media boxes</strong><input class="swatch-input" type="color" id="containerPicker" value="#1A1A1D"></div>
+    <div class="dock-group"><strong>Accent</strong><input class="swatch-input" type="color" id="accentPicker" value="#F0A93C"></div>
+    <div class="dock-group"><strong>Default text</strong><input class="swatch-input" type="color" id="textPicker" value="#EFEDE6"></div>
+    <button class="dock-btn secondary" id="resetBtn">Reset colors</button>
+    <span class="dock-note">Click text to edit words/font/size/color. Click a media block to upload. Click the logo to replace/resize. The small dot in each section's corner paints that section's own background.</span>
+  </div>
+  <button class="dock-btn secondary" id="dockToggle" type="button" aria-expanded="true">Hide controls</button>
 </div>
 
 <div id="textToolbar">
@@ -349,8 +357,17 @@
 
 <script>
   /* ---------------- COLOR DOCK ---------------- */
+  const dock = document.getElementById('dock');
+  const dockToggle = document.getElementById('dockToggle');
   const root = document.documentElement.style;
   const defaults = { bg:'#121214', container:'#1A1A1D', accent:'#F0A93C', text:'#EFEDE6' };
+
+  dockToggle.addEventListener('click', () => {
+    dock.classList.toggle('collapsed');
+    const isCollapsed = dock.classList.contains('collapsed');
+    dockToggle.textContent = isCollapsed ? 'Show controls' : 'Hide controls';
+    dockToggle.setAttribute('aria-expanded', String(!isCollapsed));
+  });
   function applyColor(varName, val){ root.setProperty('--'+varName, val); }
   document.getElementById('bgPicker').addEventListener('input', e => applyColor('bg', e.target.value));
   document.getElementById('containerPicker').addEventListener('input', e => applyColor('container', e.target.value));
