@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Portfolio — fully editable homepage</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=Bebas+Neue&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@700;800&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&family=Bebas+Neue&family=Sora:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Righteous&display=swap');
 
   :root{
     --bg:#121214;
@@ -13,6 +13,9 @@
     --text:#EFEDE6;
     --text-dim:#9C9A93;
     --accent:#F0A93C;
+    --nav-font:'Sora',sans-serif;
+    --hero-font:'Bricolage Grotesque',sans-serif;
+    --section-font:'Righteous',cursive;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif;}
@@ -61,13 +64,13 @@
   .section-bg-swatch:hover{ opacity:1; }
 
   /* ---------- NAV / LOGO ---------- */
-  nav{ display:flex; align-items:center; justify-content:space-between; padding:28px 64px; border-bottom:1px solid var(--line); }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:22px 64px; border-bottom:1px solid var(--line); background:linear-gradient(135deg, rgba(31,42,68,0.4), rgba(232,93,93,0.12), rgba(201,130,46,0.1)); box-shadow:0 12px 30px rgba(0,0,0,0.2); }
   .logo-slot{ position:relative; display:flex; align-items:center; gap:12px; }
   #logoWrap{ position:relative; display:inline-flex; align-items:center; cursor:pointer; }
   #logoImg{ display:block; }
-  .logo-text{font-family:'Archivo Expanded'; font-weight:800; font-size:22px;}
+  .logo-text{font-family:var(--nav-font); font-weight:800; font-size:22px; letter-spacing:-0.06em; }
   .logo-text span{color:var(--accent);}
-  .logo-hint{font-size:11px; color:var(--text-dim); border:1px dashed var(--line); padding:4px 8px; border-radius:4px; margin-left:10px;}
+  .logo-hint{font-size:11px; color:var(--text-dim); border:1px dashed var(--line); padding:4px 8px; border-radius:4px; margin-left:10px; font-family:var(--nav-font);}
   .logo-panel{
     position:absolute; top:calc(100% + 10px); left:0; z-index:50; display:none;
     background:#0A0A0B; border:1px solid var(--line); border-radius:8px; padding:14px; width:220px;
@@ -79,20 +82,20 @@
   .logo-panel-row{display:flex; gap:8px; margin-top:10px;}
   .logo-panel button{flex:1; font-size:11.5px; padding:7px; border-radius:5px; border:1px solid var(--line); background:transparent; color:var(--text); cursor:pointer;}
   .logo-panel button.primary{background:var(--accent); color:#151515; border:none; font-weight:600;}
-  .navlinks{display:flex; gap:40px; font-size:14px; color:var(--text-dim);}
-  .navlinks a{text-decoration:none;}
-  .navcta{border:1px solid var(--text); padding:10px 22px; border-radius:2px; font-size:13px;}
+  .navlinks{display:flex; gap:40px; font-size:14px; color:var(--text-dim); font-family:var(--nav-font); font-weight:600;}
+  .navlinks a{text-decoration:none; letter-spacing:0.01em;}
+  .navcta{border:1px solid var(--text); padding:10px 22px; border-radius:2px; font-size:13px; font-family:var(--nav-font); font-weight:700; letter-spacing:0.02em;}
 
   /* ---------- HERO ---------- */
-  .hero{ display:grid; grid-template-columns:1.1fr 0.9fr; padding:80px 64px 100px; gap:60px; align-items:end; border-bottom:1px solid var(--line); }
-  .hero h1{font-size:84px; line-height:0.98; letter-spacing:-1px;}
-  .hero h1 .accent{color:var(--accent);}
+  .hero{ display:grid; grid-template-columns:1.1fr 0.9fr; padding:84px 64px 100px; gap:60px; align-items:end; border-bottom:1px solid var(--line); background:radial-gradient(circle at top right, rgba(232,93,93,0.25), transparent 35%), linear-gradient(135deg, rgba(201,130,46,0.18), rgba(108,74,182,0.22), rgba(31,42,68,0.2)); }
+  .hero h1{font-size:84px; line-height:0.92; letter-spacing:-1px; font-family:var(--hero-font); font-weight:800; text-shadow:0 12px 30px rgba(0,0,0,0.28);}
+  .hero h1 .accent{color:var(--accent); font-family:var(--hero-font);}
   .hero-meta{display:flex; flex-direction:column; gap:24px;}
-  .timecode{font-size:13px; color:var(--text-dim); display:flex; gap:10px; align-items:center;}
-  .rec-dot{width:8px;height:8px;border-radius:50%; background:var(--accent);}
-  .hero-copy{font-size:16px; color:var(--text-dim); max-width:420px; line-height:1.6;}
+  .timecode{font-size:13px; color:var(--text-dim); display:flex; gap:10px; align-items:center; font-family:var(--nav-font); font-weight:600;}
+  .rec-dot{width:8px;height:8px;border-radius:50%; background:var(--accent); box-shadow:0 0 0 6px rgba(240,169,60,0.15);}
+  .hero-copy{font-size:16px; color:var(--text-dim); max-width:420px; line-height:1.6; font-family:var(--nav-font); font-weight:500;}
   .role-chips{display:flex; gap:10px; flex-wrap:wrap;}
-  .chip{border:1px solid var(--line); padding:8px 16px; border-radius:20px; font-size:13px;}
+  .chip{border:1px solid var(--line); padding:8px 16px; border-radius:20px; font-size:13px; font-family:var(--nav-font); font-weight:600; background:rgba(255,255,255,0.02);}
 
   /* ---------- FILTERS ---------- */
   .filters{display:flex; gap:12px; padding:36px 64px; border-bottom:1px solid var(--line); flex-wrap:wrap;}
@@ -102,8 +105,8 @@
   /* ---------- SECTIONS ---------- */
   .section{padding:70px 64px; border-bottom:1px solid var(--line);}
   .section-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; gap:24px;}
-  .section-head h2{font-size:34px; letter-spacing:-0.5px;}
-  .section-head p{font-size:14px; color:var(--text-dim); max-width:360px; text-align:right;}
+  .section-head h2{font-size:34px; letter-spacing:-0.5px; font-family:var(--section-font); font-weight:400; }
+  .section-head p{font-size:14px; color:var(--text-dim); max-width:360px; text-align:right; font-family:var(--nav-font); font-weight:500;}
 
   /* ---------- MEDIA SLOT ---------- */
   .media-slot{ position:relative; background:var(--container); border:1px solid var(--line); border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
