@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PixelBloom — Elevating with Digital Buzz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&family=Inter:wght@200;300;400;500;600&family=Bebas+Neue&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+  /* ══════════════════════ TOKENS ══════════════════════ */
+  :root{
+    --paper:#F4F2ED; --paper2:#EEECEA; --paper3:#E8E5DF;
+    --ink:#252523; --ink2:#4A4A47; --gray:#8F8F8B; --gray2:#BFBFBB;
+    --wedding:#C8957A; --creator:#B8923A; --brand:#A05040;
+    --vfx:#5A7870; --photo:#7A8A6A;
+    --serif:'Playfair Display',Georgia,serif;
+    --mono:'Cormorant',Georgia,serif;
+    --sans:'Inter',system-ui,sans-serif;
+    --bebas:'Bebas Neue',sans-serif;
+    --r:6px; --r-lg:14px; --r-pill:999px;
+    --ease:cubic-bezier(.16,1,.3,1);
+    --ease2:cubic-bezier(.4,0,.2,1);
+    --t:.4s var(--ease);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  ::selection{background:var(--ink);color:var(--paper)}
+  ::-webkit-scrollbar{width:2px}
+  ::-webkit-scrollbar-track{background:var(--paper)}
+  ::-webkit-scrollbar-thumb{background:var(--gray2)}
+  /* ══════════ LOADER ══════════ */
+  #loader{position:fixed;inset:0;z-index:999;background:var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+    transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  #loader.out{opacity:0;pointer-events:none}
+  .loader-logo{width:100px;opacity:0;animation:ldFade .8s var(--ease) .3s forwards}
+  .loader-bar-wrap{width:200px;height:1px;background:rgba(244,242,237,.15)}
+  .loader-bar{height:100%;background:var(--paper);width:0;animation:ldBar 1.6s var(--ease) .5s forwards}
+  .loader-txt{font-family:var(--bebas);font-size:11px;letter-spacing:.35em;color:rgba(244,242,237,.4);
+    opacity:0;animation:ldFade .6s var(--ease) .8s forwards}
+  @keyframes ldFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @keyframes ldBar{from{width:0}to{width:100%}}
+
+  /* ══════════ NAV ══════════ */
+  #nav{position:fixed;top:0;left:0;right:0;z-index:90;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 60px;height:72px;
+    transition:background .5s,border-color .5s,backdrop-filter .5s}
+  #nav.stuck{background:rgba(244,242,237,.92);border-bottom:1px solid rgba(37,37,35,.08);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  .nav-logo-img{height:54px;width:auto;transition:opacity var(--t)}
+  .nav-logo-img:hover{opacity:.7}
+  .nav-links{display:flex;gap:36px;list-style:none}
+  .nav-links a{font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--gray);transition:color var(--t)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink);padding:10px 24px;border:1px solid var(--ink);border-radius:var(--r-pill);
+    transition:var(--t)}
+  .nav-cta:hover{background:var(--ink);color:var(--paper)}
+  /* ══════════ HERO ══════════ */
+  #hero{min-height:100vh;padding-top:72px;display:grid;
+    grid-template-columns:1fr 1fr;position:relative;overflow:hidden;
+    background:var(--paper)}
+  .hero-left{display:flex;flex-direction:column;justify-content:center;
+    padding:80px 60px 80px 60px;position:relative;z-index:2}
+  .hero-tag{display:flex;align-items:center;gap:12px;margin-bottom:48px;
+    overflow:hidden}
+  .hero-tag-line{width:32px;height:1px;background:var(--gray);
+    transform:scaleX(0);transform-origin:left;
+    animation:lineIn .8s var(--ease) .8s forwards}
+  .hero-tag-txt{font-size:9.5px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gray);opacity:0;animation:fadeUp .6s var(--ease) 1s forwards}
+  /* Word-split headline */
+  .hero-h1{font-family:var(--serif);font-weight:900;line-height:.95;
+    font-size:clamp(64px,7.5vw,110px);letter-spacing:-.03em;margin-bottom:32px}
+  .word{display:inline-block;overflow:hidden;vertical-align:top;margin-right:.08em}
+  .word-inner{display:inline-block;
+    transform:translateY(110%) rotate(4deg);opacity:0}
+  .hero-italic{font-style:italic;font-weight:400}
+  .hero-sub{font-size:14px;font-weight:300;color:var(--gray);line-height:1.85;
+    max-width:400px;margin-bottom:52px;opacity:0;
+    animation:fadeUp .8s var(--ease) 1.6s forwards}
+  .hero-btns{display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    opacity:0;animation:fadeUp .8s var(--ease) 1.8s forwards}
+  .btn-ink{display:inline-flex;align-items:center;gap:10px;
+    font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--paper);background:var(--ink);padding:14px 30px;
+    border-radius:var(--r-pill);border:1px solid var(--ink);transition:var(--t)}
+  .btn-ink:hover{background:var(--ink2)}
+  .btn-ink svg{transition:transform .3s}
+  .btn-ink:hover svg{transform:translateX(5px)}
+  .btn-line{display:inline-flex;align-items:center;gap:10px;
+    font-size:11px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink);padding:14px 30px;border-radius:var(--r-pill);
+    border:1px solid rgba(37,37,35,.2);transition:var(--t)}
+  .btn-line:hover{border-color:var(--ink)}
+  /* hero stats */
+  .hero-stats{display:flex;gap:48px;margin-top:72px;padding-top:40px;
+    border-top:1px solid rgba(37,37,35,.10);opacity:0;
+    animation:fadeUp .8s var(--ease) 2s forwards}
+  .stat-big{font-family:var(--bebas);font-size:52px;line-height:1;color:var(--ink);margin-bottom:2px}
+  .stat-lbl{font-size:9.5px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--gray)}
+  .hero-right{position:relative;overflow:hidden;background:var(--ink)}
+  .hero-img-main{position:absolute;inset:0;
+    background:var(--ink);
+    clip-path:polygon(0 0,100% 0,100% 0,0 0);
+    transition:clip-path 1.2s var(--ease);
+    display:flex;align-items:center;justify-content:center}
+  .hero-img-main.revealed{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+  .hero-img-main img{width:72%;max-width:340px;height:auto;object-fit:contain;opacity:.9;
+    filter:grayscale(10%) contrast(1.05)}
+  /* floating editorial number */
+  .hero-num{position:absolute;bottom:48px;left:-20px;
+    font-family:var(--bebas);font-size:180px;line-height:1;
+    color:rgba(37,37,35,.06);pointer-events:none;letter-spacing:-.02em;
+    animation:numFloat 8s ease-in-out infinite}
+  /* floating accent chips */
+  .hero-chip{position:absolute;background:rgba(244,242,237,.9);
+    border:1px solid rgba(37,37,35,.12);border-radius:4px;
+    padding:8px 14px;font-size:10px;font-weight:400;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink);white-space:nowrap;
+    display:flex;align-items:center;gap:8px;
+    animation:chipFloat 5s ease-in-out infinite;
+    opacity:0}
+  .hc1{top:22%;right:8%;animation-delay:.5s}
+  .hc2{bottom:26%;right:12%;animation-delay:2s}
+  .chip-col{width:6px;height:6px;border-radius:50%}
+  .scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:10px;z-index:10;
+    opacity:0;animation:fadeUp .6s var(--ease) 2.2s forwards}
+  .scroll-cue-line{width:1px;height:48px;
+    background:linear-gradient(to bottom,var(--gray),transparent);
+    animation:scrollBounce 2s ease-in-out infinite}
+  .scroll-cue span{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray2)}
+  /* ══════════ MARQUEE ══════════ */
+  .marquee-band{overflow:hidden;padding:18px 0;
+    border-top:1px solid rgba(37,37,35,.08);
+    border-bottom:1px solid rgba(37,37,35,.08);
+    background:var(--ink)}
+  .marquee-inner{display:flex;width:max-content;
+    animation:marquee 20s linear infinite}
+  .marquee-inner:hover{animation-play-state:paused}
+  .mi{display:flex;align-items:center;gap:28px;padding:0 32px;
+    font-family:var(--bebas);font-size:13px;letter-spacing:.22em;
+    color:rgba(244,242,237,.4);white-space:nowrap}
+  .mi .dot{width:3px;height:3px;border-radius:50%;background:rgba(244,242,237,.25)}
+
+  /* ══════════ SECTION COMMON ══════════ */
+  .wrap{max-width:1200px;margin:0 auto;padding:0 60px}
+  .wrap--wide{max-width:1440px;margin:0 auto;padding:0 60px}
+
+  /* Section reveal base */
+  .reveal{opacity:0;transform:translateY(40px);
+    transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}
+  .reveal.d3{transition-delay:.3s}.reveal.d4{transition-delay:.4s}
+  .reveal.d5{transition-delay:.5s}.reveal.d6{transition-delay:.6s}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* Section eyebrow */
+  .eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .eyebrow-line{width:28px;height:1px;background:var(--gray);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .8s var(--ease)}
+  .eyebrow.visible .eyebrow-line{transform:scaleX(1)}
+  .eyebrow-txt{font-size:9.5px;font-weight:400;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gray)}
+  .sec-title{font-family:var(--serif);font-size:clamp(38px,4.5vw,64px);
+    font-weight:700;line-height:1.08;letter-spacing:-.02em;color:var(--ink)}
+  .sec-title em{font-style:italic;font-weight:400}
+  .sec-sub{font-size:14px;font-weight:300;color:var(--gray);
+    line-height:1.8;max-width:380px}
+
+  /* ══════════ SERVICES ══════════ */
+  #services{padding:140px 0;overflow:hidden}
+  .svc-intro{display:grid;grid-template-columns:1fr 1fr;
+    gap:60px;align-items:end;margin-bottom:80px}
+  /* Horizontal scroll strip */
+  .svc-strip-outer{overflow:hidden;margin:0 -60px;padding:0 60px}
+  .svc-strip{display:flex;gap:2px;transition:transform .6s var(--ease)}
+  .svc-item{flex:0 0 340px;background:var(--paper2);border:1px solid rgba(37,37,35,.08);
+    padding:48px 40px;position:relative;overflow:hidden;cursor:default;
+    transition:background var(--t),transform var(--t),box-shadow var(--t)}
+  .svc-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+    background:var(--accent,var(--gray2));transform:scaleX(0);transform-origin:left;
+    transition:transform .5s var(--ease)}
+  .svc-item:hover{background:var(--paper3);transform:translateY(-6px);
+    box-shadow:0 24px 60px rgba(37,37,35,.09)}
+  .svc-item:hover::after{transform:scaleX(1)}
+  .svc-n{font-family:var(--bebas);font-size:11px;letter-spacing:.24em;
+    color:var(--gray2);margin-bottom:36px}
+  .svc-icon-wrap{width:48px;height:48px;border:1px solid rgba(37,37,35,.12);
+    border-radius:var(--r);display:flex;align-items:center;justify-content:center;
+    margin-bottom:24px;transition:border-color var(--t),background var(--t)}
+  .svc-item:hover .svc-icon-wrap{border-color:var(--accent,var(--gray));
+    background:color-mix(in srgb,var(--accent,var(--gray)) 10%,transparent)}
+  .svc-icon-wrap svg{width:20px;height:20px;stroke:var(--gray);fill:none;
+    stroke-width:1.5;transition:stroke var(--t)}
+  .svc-item:hover .svc-icon-wrap svg{stroke:var(--accent,var(--ink))}
+  .svc-name{font-family:var(--serif);font-size:22px;font-weight:500;
+    margin-bottom:12px;letter-spacing:-.01em}
+  .svc-desc{font-size:13px;font-weight:300;color:var(--gray);line-height:1.78;margin-bottom:28px}
+  .svc-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .stag{font-size:9.5px;letter-spacing:.08em;color:var(--gray);
+    padding:3px 10px;border:1px solid rgba(37,37,35,.12);border-radius:var(--r-pill);
+    transition:border-color var(--t),color var(--t)}
+  .svc-item:hover .stag{border-color:color-mix(in srgb,var(--accent,var(--gray)) 35%,transparent);
+    color:var(--ink2)}
+  /* ══════════ BIG STATEMENT ══════════ */
+  .statement{padding:120px 0;background:var(--ink);overflow:hidden;position:relative}
+  .statement::before{content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 50%,rgba(244,242,237,.04) 0%,transparent 65%)}
+  .stmt-line{font-family:var(--bebas);font-size:clamp(80px,10vw,160px);
+    letter-spacing:.02em;color:rgba(244,242,237,.07);line-height:.88;
+    white-space:nowrap;user-select:none;overflow:hidden}
+  .stmt-line span{display:inline-block;transform:translateX(-100%);
+    transition:transform 1.2s var(--ease)}
+  .stmt-line.visible span{transform:none}
+  .stmt-line.right span{transform:translateX(100%)}
+  .stmt-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    text-align:center;z-index:2;width:100%}
+  .stmt-main{font-family:var(--serif);font-size:clamp(36px,4.5vw,62px);
+    font-weight:400;color:var(--paper);line-height:1.2;margin-bottom:20px}
+  .stmt-main em{font-style:italic;color:rgba(244,242,237,.6)}
+  .stmt-sub{font-size:13px;font-weight:300;color:rgba(244,242,237,.45);
+    letter-spacing:.06em}
+
+  /* ══════════ WORK / TABS ══════════ */
+  #work{padding:140px 0;background:var(--paper)}
+  .work-hdr{display:flex;align-items:flex-end;justify-content:space-between;
+    margin-bottom:48px;gap:24px}
+  .tab-row{display:flex;gap:2px;border-bottom:1px solid rgba(37,37,35,.10);
+    margin-bottom:56px}
+  .tbtn{font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;
+    padding:10px 22px 11px;color:var(--gray);background:transparent;
+    border:none;cursor:pointer;transition:color var(--t);position:relative;bottom:-1px}
+  .tbtn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+    background:var(--ink);transform:scaleX(0);transform-origin:left;
+    transition:transform .35s var(--ease)}
+  .tbtn:hover{color:var(--ink)}
+  .tbtn.on{color:var(--ink);font-weight:500}
+  .tbtn.on::after{transform:scaleX(1)}
+  .tab-panel{display:none}
+  .tab-panel.on{display:block}
+  /* channel header */
+  .ch-hdr2{display:flex;align-items:center;gap:14px;margin-bottom:28px;
+    padding-bottom:18px;border-bottom:1px solid rgba(37,37,35,.08)}
+  .ch-dot2{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .ch-nm{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
+  .ch-lnk{font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gray);transition:color var(--t)}
+  .ch-lnk:hover{color:var(--ink)}
+  .ch-badge2{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 10px;border-radius:var(--r-pill);margin-left:auto}
+  .ch-sec2{margin-bottom:64px}
+  .ch-sec2:last-child{margin-bottom:0}
+  /* media cards */
+  .mc{display:block;border-radius:var(--r-lg);overflow:hidden;
+    border:1px solid rgba(37,37,35,.09);background:var(--paper2);
+    position:relative;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color var(--t)}
+  .mc:hover{transform:translateY(-5px) scale(1.01);
+    box-shadow:0 24px 64px rgba(37,37,35,.14);border-color:rgba(37,37,35,.18)}
+  .mc-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
+    transition:transform .7s var(--ease)}
+  .mc:hover .mc-thumb{transform:scale(1.04)}
+  .mc-play{position:absolute;top:0;left:0;right:0;aspect-ratio:16/9;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(37,37,35,.15);transition:background var(--t)}
+  .mc:hover .mc-play{background:rgba(37,37,35,.42)}
+  .pbt{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    transition:transform .3s var(--ease)}
+  .pbt.yt{background:#FF0000}
+  .pbt.ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+  .pbt svg{width:18px;height:18px;fill:#fff;margin-left:3px}
+  .mc:hover .pbt{transform:scale(1.12)}
+  .mc-meta{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;border-top:1px solid rgba(37,37,35,.07)}
+  .mc-lbl{font-size:12px;font-weight:300;color:var(--ink2);flex:1;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mc-bdg{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 9px;border-radius:var(--r-pill);flex-shrink:0}
+  .bdg-yt{background:#FFEDED;color:#CC0000}
+  .bdg-ig{background:#FFF0F6;color:#bc1888}
+  /* ig gradient placeholder card */
+  .ig-grad-card{
+    display:flex;align-items:center;justify-content:center;
+    min-height:200px;
+    width:100%;
+  }
+  /* reel col */
+  .reel-col2{display:flex;flex-direction:column;gap:14px}
+  /* grids */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .mt14{margin-top:14px}
+  .mt20{margin-top:20px}
+  .creator-layout2{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start}
+  /* ══════════ PROCESS ══════════ */
+  #process{padding:140px 0;background:var(--paper2);overflow:hidden}
+  .process-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .process-left{}
+  .psteps{margin-top:56px;display:flex;flex-direction:column;gap:0}
+  .pstep2{display:grid;grid-template-columns:48px 1fr;gap:0;
+    padding:28px 0;border-bottom:1px solid rgba(37,37,35,.08);
+    cursor:default;transition:background var(--t)}
+  .pstep2:first-child{border-top:1px solid rgba(37,37,35,.08)}
+  .pstep2:hover .pstep-bar{transform:scaleY(1)}
+  .pstep-num{font-family:var(--bebas);font-size:13px;letter-spacing:.2em;
+    color:var(--gray2);padding-top:4px}
+  .pstep-content{}
+  .pstep-name2{font-family:var(--serif);font-size:18px;font-weight:500;
+    margin-bottom:8px;letter-spacing:-.01em;transition:color var(--t)}
+  .pstep2:hover .pstep-name2{color:var(--creator)}
+  .pstep-desc2{font-size:13px;font-weight:300;color:var(--gray);line-height:1.75;
+    max-height:0;overflow:hidden;opacity:0;
+    transition:max-height .5s var(--ease),opacity .4s var(--ease)}
+  .pstep2:hover .pstep-desc2,.pstep2.open .pstep-desc2{max-height:80px;opacity:1}
+  /* right side — big rotating circle */
+  .process-right{position:relative;display:flex;align-items:center;justify-content:center}
+  .proc-ring-outer{width:380px;height:380px;border-radius:50%;
+    border:1px solid rgba(37,37,35,.08);position:relative;
+    animation:spinRing 40s linear infinite}
+  .proc-ring-dot{position:absolute;top:-4px;left:50%;margin-left:-4px;
+    width:8px;height:8px;border-radius:50%;background:var(--creator);
+    box-shadow:0 0 12px var(--creator)}
+  .proc-ring-inner{position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:260px;height:260px;border-radius:50%;
+    border:1px solid rgba(37,37,35,.06);
+    animation:spinRing 28s linear infinite reverse}
+  .proc-center{position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);text-align:center}
+  .proc-center-num{font-family:var(--bebas);font-size:72px;line-height:1;color:var(--ink)}
+  .proc-center-lbl{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gray)}
+
+  /* ══════════ ABOUT ══════════ */
+  #about{padding:140px 0;overflow:hidden}
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+  .about-visual{position:relative}
+  .about-img-stack{position:relative;height:520px}
+  .about-img-a{position:absolute;left:0;top:0;width:70%;aspect-ratio:3/4;
+    object-fit:cover;border-radius:var(--r-lg);
+    border:1px solid rgba(37,37,35,.09);
+    box-shadow:0 16px 48px rgba(37,37,35,.1);
+    transition:transform var(--t)}
+  .about-img-a:hover{transform:scale(1.02)}
+  .about-img-b{position:absolute;right:0;bottom:40px;width:52%;aspect-ratio:1;
+    object-fit:cover;border-radius:var(--r-lg);
+    border:6px solid var(--paper);
+    box-shadow:0 20px 56px rgba(37,37,35,.14);
+    transition:transform var(--t);animation:floatB 6s ease-in-out infinite}
+  .about-stat-pill{position:absolute;bottom:10px;left:-20px;
+    background:var(--ink);color:var(--paper);
+    border-radius:var(--r-pill);padding:14px 22px;
+    display:flex;flex-direction:column;gap:2px;
+    animation:floatC 5s ease-in-out infinite;
+    box-shadow:0 12px 36px rgba(37,37,35,.2)}
+  .asp-n{font-family:var(--bebas);font-size:32px;line-height:1;color:var(--paper)}
+  .asp-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,237,.5)}
+  .about-content{}
+  .about-body{font-size:14.5px;font-weight:300;color:var(--gray);line-height:1.85;margin-bottom:16px}
+  .about-rule{width:32px;height:1px;background:var(--gray2);margin:32px 0}
+  .about-vals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+  .av{padding:16px 18px;border:1px solid rgba(37,37,35,.08);border-radius:var(--r);
+    transition:border-color var(--t),transform var(--t)}
+  .av:hover{border-color:var(--ink);transform:translateX(4px)}
+  .av-n{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
+  .av-d{font-size:11.5px;font-weight:300;color:var(--gray);line-height:1.5}
+  .clients-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray2);margin-bottom:14px}
+  .clients-row{display:flex;flex-wrap:wrap;gap:6px 24px}
+  .cn{font-size:12.5px;font-weight:300;color:var(--gray);transition:color var(--t)}
+  .cn:hover{color:var(--ink)}
+  /* ══════════ TESTIMONIALS ══════════ */
+  #testi{padding:140px 0;background:var(--paper2);overflow:hidden}
+  .ttrack-wrap{overflow:hidden;margin:56px -60px 0;padding:0}
+  .ttrack{display:flex;gap:20px;width:max-content;animation:marquee 36s linear infinite}
+  .ttrack:hover{animation-play-state:paused}
+  .tcard2{width:380px;flex-shrink:0;background:var(--paper);
+    border:1px solid rgba(37,37,35,.08);border-radius:var(--r-lg);
+    padding:36px 32px;transition:border-color var(--t),transform var(--t),box-shadow var(--t)}
+  .tcard2:hover{border-color:rgba(37,37,35,.18);transform:translateY(-4px);
+    box-shadow:0 16px 48px rgba(37,37,35,.09)}
+  .tcard2-stars{color:var(--creator);font-size:12px;letter-spacing:3px;margin-bottom:20px}
+  .tcard2-q{font-family:var(--mono);font-size:17px;font-weight:300;font-style:italic;
+    color:var(--ink);line-height:1.72;margin-bottom:28px}
+  .tcard2-author{display:flex;align-items:center;gap:14px}
+  .tcard2-av{width:40px;height:40px;border-radius:50%;background:var(--paper2);
+    border:1px solid rgba(37,37,35,.1);display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:500;color:var(--gray);flex-shrink:0}
+  .tcard2-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+  .tcard2-role{font-size:11px;font-weight:300;color:var(--gray)}
+
+  /* ══════════ CONTACT ══════════ */
+  #contact{padding:140px 0;overflow:hidden}
+  .contact-inner{display:grid;grid-template-columns:1fr 1.3fr;gap:100px;align-items:start}
+  .contact-chs{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+  .cch{display:flex;align-items:center;gap:14px;padding:14px 18px;
+    border:1px solid rgba(37,37,35,.08);border-radius:var(--r);
+    background:var(--paper);transition:border-color var(--t),transform var(--t)}
+  .cch:hover{border-color:var(--brand);transform:translateX(4px)}
+  .cch-icon{width:36px;height:36px;flex-shrink:0;border-radius:var(--r);
+    border:1px solid rgba(37,37,35,.1);display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb,var(--brand) 8%,var(--paper));transition:background var(--t)}
+  .cch:hover .cch-icon{background:color-mix(in srgb,var(--brand) 15%,var(--paper))}
+  .cch-icon svg{width:15px;height:15px;stroke:var(--brand);fill:none;stroke-width:1.5}
+  .cch-lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:2px}
+  .cch-val{font-size:13px;font-weight:400;color:var(--ink)}
+  /* form */
+  .cform{background:var(--paper2);border:1px solid rgba(37,37,35,.08);
+    border-radius:var(--r-lg);padding:48px}
+  .cform-title{font-family:var(--serif);font-size:26px;font-weight:500;margin-bottom:6px}
+  .cform-sub{font-size:12px;font-weight:300;color:var(--gray);margin-bottom:36px}
+  .crow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fg{margin-bottom:18px}
+  .fg label{display:block;font-size:9.5px;font-weight:500;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+  .fg input,.fg select,.fg textarea{width:100%;background:var(--paper);
+    border:1px solid rgba(37,37,35,.1);border-radius:var(--r);
+    padding:12px 15px;font-family:var(--sans);font-size:13.5px;
+    font-weight:300;color:var(--ink);outline:none;
+    transition:border-color var(--t),box-shadow var(--t);-webkit-appearance:none}
+  .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%238F8F8B' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;cursor:pointer}
+  .fg input::placeholder,.fg textarea::placeholder{color:var(--gray2)}
+  .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--brand);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 10%,transparent)}
+  .fg textarea{height:116px;resize:none}
+  .fg select option{background:var(--paper)}
+  .cform-btn{width:100%;margin-top:6px;padding:15px;
+    background:var(--ink);border:none;border-radius:var(--r-pill);
+    font-family:var(--sans);font-size:11px;font-weight:500;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--paper);
+    cursor:pointer;transition:var(--t)}
+  .cform-btn:hover{background:var(--ink2)}
+  /* ══════════ FOOTER ══════════ */
+  footer{background:var(--ink);padding:80px 0 44px}
+  .footer-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;
+    gap:60px;padding-bottom:60px;
+    border-bottom:1px solid rgba(244,242,237,.08);margin-bottom:36px}
+  .fbrand-logo{margin-bottom:16px}
+  .fbrand-logo img{height:44px;opacity:.6}
+  .fbrand-desc{font-size:12.5px;font-weight:300;
+    color:rgba(244,242,237,.35);line-height:1.75;max-width:240px;margin-bottom:24px}
+  .fbrand-tag{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;
+    color:rgba(244,242,237,.2)}
+  .fcol-title{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(244,242,237,.3);margin-bottom:20px}
+  .flinks{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .flinks a{font-size:12.5px;font-weight:300;
+    color:rgba(244,242,237,.4);transition:color var(--t)}
+  .flinks a:hover{color:rgba(244,242,237,.8)}
+  .fsocs{display:flex;gap:8px;margin-top:4px}
+  .fsoc{width:34px;height:34px;border-radius:var(--r);
+    border:1px solid rgba(244,242,237,.1);display:flex;align-items:center;justify-content:center;
+    transition:border-color var(--t),background var(--t)}
+  .fsoc:hover{border-color:rgba(244,242,237,.28);background:rgba(244,242,237,.05)}
+  .fsoc svg{width:13px;height:13px;stroke:rgba(244,242,237,.35);fill:none;stroke-width:1.5;transition:stroke var(--t)}
+  .fsoc:hover svg{stroke:rgba(244,242,237,.7)}
+  .footer-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .fcopy{font-size:11px;font-weight:300;color:rgba(244,242,237,.22)}
+  .fcopy span{color:rgba(200,149,122,.45)}
+  .flegal{display:flex;gap:20px}
+  .flegal a{font-size:11px;font-weight:300;color:rgba(244,242,237,.22);transition:color var(--t)}
+  .flegal a:hover{color:rgba(244,242,237,.45)}
+
+  /* ══════════ LIGHTBOX ══════════ */
+  #lb{position:fixed;inset:0;z-index:200;background:rgba(37,37,35,.94);
+    display:none;align-items:center;justify-content:center;padding:24px;
+    backdrop-filter:blur(8px)}
+  #lb.open{display:flex}
+  #lb img{max-width:90vw;max-height:88vh;border-radius:var(--r-lg);object-fit:contain}
+  #lb-x{position:absolute;top:20px;right:24px;font-size:28px;color:var(--paper);
+    cursor:pointer;opacity:.6;transition:opacity .2s}
+  #lb-x:hover{opacity:1}
+
+  /* ══════════ KEYFRAMES ══════════ */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes lineIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes numFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+  @keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes scrollBounce{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.6);opacity:.4}}
+  @keyframes spinRing{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  @keyframes floatC{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  @keyframes wordIn{from{transform:translateY(110%) rotate(4deg);opacity:0}to{transform:none;opacity:1}}
+
+  /* ══════════ RESPONSIVE ══════════ */
+  @media(max-width:1100px){
+    .wrap,.wrap--wide{padding:0 36px}
+    #nav{padding:0 36px}
+    #hero{grid-template-columns:1fr}
+    .hero-left{padding:72px 36px 48px}
+    .hero-right{min-height:55vh}
+    .hc1,.hc2{display:none}
+    .svc-strip-outer{margin:0 -36px;padding:0 36px}
+    .about-inner,.process-inner,.contact-inner{grid-template-columns:1fr;gap:60px}
+    .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+    .creator-layout2{grid-template-columns:1fr}
+    .ttrack-wrap{margin:56px -36px 0}
+  }
+  @media(max-width:768px){
+    .wrap,.wrap--wide{padding:0 24px}
+    #nav{padding:0 24px}
+    .nav-links,.nav-cta{display:none}
+    .svc-strip-outer{margin:0 -24px;padding:0 24px}
+    .g2,.g3,.g4{grid-template-columns:1fr 1fr}
+    .footer-top{grid-template-columns:1fr}
+    .crow,.about-vals{grid-template-columns:1fr}
+    .proc-ring-outer{width:260px;height:260px}
+    .ttrack-wrap{margin:56px -24px 0}
+  }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lb" role="dialog"><span id="lb-x">&times;</span><img id="lb-img" src="" alt=""/></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <img class="loader-logo" src="option2-pixelbloom_logo.png" alt="PixelBloom">
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-txt">Loading</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" style="display:flex;align-items:center;">
+    <img class="nav-logo-img" src="option2-pixelbloom_logo.png" alt="PixelBloom">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's create</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <div class="hero-tag-line"></div>
+      <span class="hero-tag-txt">Creative Digital Studio · Est. 2023</span>
+    </div>
+    <h1 class="hero-h1">
+      <div class="word"><div class="word-inner">We</div></div>
+      <div class="word"><div class="word-inner hero-italic">craft</div></div>
+      <br>
+      <div class="word"><div class="word-inner">stories</div></div>
+      <br>
+      <div class="word"><div class="word-inner hero-italic">that</div></div>
+      <div class="word"><div class="word-inner">bloom.</div></div>
+    </h1>
+    <p class="hero-sub">PixelBloom is a full-service digital creative studio — where strategy meets storytelling, and every frame is built to elevate your brand's buzz.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn-ink">Explore our work <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
+      <a href="#contact" class="btn-line">Start a project</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-big" id="cnt1">80+</div><div class="stat-lbl">Projects Delivered</div></div>
+      <div><div class="stat-big" id="cnt2">3+</div><div class="stat-lbl">Years Active</div></div>
+      <div><div class="stat-big" id="cnt3">40+</div><div class="stat-lbl">Happy Clients</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-main" id="heroImgMain">
+      <img src="option2-pixelbloom_logo.png" alt="PixelBloom" style="filter:grayscale(30%);">
+    </div>
+    <div class="hero-num">01</div>
+    <div class="hero-chip hc1" id="hc1">
+      <span class="chip-col" style="background:var(--wedding);"></span>Wedding Films
+    </div>
+    <div class="hero-chip hc2" id="hc2">
+      <span class="chip-col" style="background:var(--vfx);"></span>VFX &amp; 3D
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-inner">
+    <div class="mi">Video Editing <span class="dot"></span></div>
+    <div class="mi">Cinematography <span class="dot"></span></div>
+    <div class="mi">3D &amp; Blender <span class="dot"></span></div>
+    <div class="mi">Photography <span class="dot"></span></div>
+    <div class="mi">Brand Content <span class="dot"></span></div>
+    <div class="mi">Wedding Films <span class="dot"></span></div>
+    <div class="mi">VFX &amp; Motion <span class="dot"></span></div>
+    <div class="mi">Color Grading <span class="dot"></span></div>
+    <div class="mi">Social Reels <span class="dot"></span></div>
+    <div class="mi">Video Editing <span class="dot"></span></div>
+    <div class="mi">Cinematography <span class="dot"></span></div>
+    <div class="mi">3D &amp; Blender <span class="dot"></span></div>
+    <div class="mi">Photography <span class="dot"></span></div>
+    <div class="mi">Brand Content <span class="dot"></span></div>
+    <div class="mi">Wedding Films <span class="dot"></span></div>
+    <div class="mi">VFX &amp; Motion <span class="dot"></span></div>
+    <div class="mi">Color Grading <span class="dot"></span></div>
+    <div class="mi">Social Reels <span class="dot"></span></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="svc-intro">
+      <div>
+        <div class="eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-txt">What we do</span></div>
+        <h2 class="sec-title reveal d1">Built for creators,<br>brands &amp; <em>beyond</em></h2>
+      </div>
+      <p class="sec-sub reveal d2">We don't just edit videos — we build visual identities, tell compelling stories, and craft content that actually moves people.</p>
+    </div>
+  </div>
+  <div class="wrap--wide">
+    <div class="svc-strip-outer reveal d2">
+      <div class="svc-strip" id="svcStrip">
+        <div class="svc-item" style="--accent:var(--wedding);">
+          <div class="svc-n">01</div>
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div class="svc-name">Wedding Films</div>
+          <div class="svc-desc">Full-day coverage cut into cinematic trailers and long-form films. We shoot, we edit, we preserve the feeling — forever.</div>
+          <div class="svc-tags"><span class="stag">Trailer</span><span class="stag">Long-form</span><span class="stag">Highlight</span></div>
+        </div>
+        <div class="svc-item" style="--accent:var(--creator);">
+          <div class="svc-n">02</div>
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="svc-name">Creator Space</div>
+          <div class="svc-desc">Ongoing edit partnerships with YouTube creators. We handle post-production so creators can focus on what they do best.</div>
+          <div class="svc-tags"><span class="stag">Xyaa</span><span class="stag">Techshot</span><span class="stag">Long-form</span></div>
+        </div>
+        <div class="svc-item" style="--accent:var(--brand);">
+          <div class="svc-n">03</div>
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+          <div class="svc-name">Brand &amp; Commercial</div>
+          <div class="svc-desc">Campaigns, partnership content and commercial edits for brands looking to grow their digital presence with cinematic quality.</div>
+          <div class="svc-tags"><span class="stag">Campaigns</span><span class="stag">Reels</span><span class="stag">Partnerships</span></div>
+        </div>
+        <div class="svc-item" style="--accent:var(--vfx);">
+          <div class="svc-n">04</div>
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg></div>
+          <div class="svc-name">VFX &amp; 3D</div>
+          <div class="svc-desc">Blender renders, motion graphics and visual effects that add dimension and magic to your content. Concept to completion, in-house.</div>
+          <div class="svc-tags"><span class="stag">Blender</span><span class="stag">Motion GFX</span><span class="stag">3D Renders</span></div>
+        </div>
+        <div class="svc-item" style="--accent:var(--photo);">
+          <div class="svc-n">05</div>
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <div class="svc-name">Photography</div>
+          <div class="svc-desc">Event stills, behind-the-scenes documentation, and product photography. Capturing moments that live beyond the reel.</div>
+          <div class="svc-tags"><span class="stag">Events</span><span class="stag">BTS</span><span class="stag">Product</span></div>
+        </div>
+        <div class="svc-item" style="--accent:var(--brand);">
+          <div class="svc-n">06</div>
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <div class="svc-name">Video Editing</div>
+          <div class="svc-desc">From raw footage to a polished final cut. We edit for YouTube, Instagram, brand films — story always at the centre.</div>
+          <div class="svc-tags"><span class="stag">YouTube</span><span class="stag">Reels</span><span class="stag">Colour Grade</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG STATEMENT -->
+<div class="statement">
+  <div class="stmt-line reveal"><span>EVERY FRAME TELLS A STORY</span></div>
+  <div class="stmt-line right reveal" style="text-align:right"><span>EVERY PIXEL MATTERS</span></div>
+  <div class="stmt-center">
+    <div class="stmt-main reveal d2">Your story deserves<br>to <em>bloom.</em></div>
+    <div class="stmt-sub reveal d3">Elevating with Digital Buzz</div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wrap--wide">
+    <div class="work-hdr">
+      <div>
+        <div class="eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-txt">Selected work</span></div>
+        <h2 class="sec-title reveal d1">Projects we're <em>proud of</em></h2>
+      </div>
+    </div>
+    <div class="tab-row reveal d2">
+      <button class="tbtn on" data-tab="t-creator">Creator Space</button>
+      <button class="tbtn" data-tab="t-brand">Brand &amp; Commercial</button>
+      <button class="tbtn" data-tab="t-vfx">VFX &amp; 3D</button>
+      <button class="tbtn" data-tab="t-wedding">Wedding Films</button>
+    </div>
+
+    <!-- CREATOR -->
+    <div class="tab-panel on" id="t-creator">
+      <!-- XYAA -->
+      <div class="ch-sec2">
+        <div class="ch-hdr2">
+          <span class="ch-dot2" style="background:var(--creator);"></span>
+          <span class="ch-nm">Xyaa</span>
+          <a href="https://www.youtube.com/@XyaaLive" target="_blank" rel="noopener" class="ch-lnk">@XyaaLive ↗</a>
+          <span class="ch-badge2" style="background:color-mix(in srgb,var(--creator) 15%,var(--paper));color:var(--creator);">Creator</span>
+        </div>
+        <div class="creator-layout2">
+          <div>
+            <a href="https://www.youtube.com/watch?v=Npb0Pc6AItM&t=59s" target="_blank" rel="noopener" class="mc">
+              <img class="mc-thumb" src="https://img.youtube.com/vi/Npb0Pc6AItM/hqdefault.jpg" alt="Xyaa cinematic edit" loading="lazy">
+              <div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Cinematic edit — Xyaa</span><span class="mc-bdg bdg-yt">YouTube</span></div>
+            </a>
+            <div class="g2 mt14">
+              <a href="https://www.youtube.com/watch?v=lcCwt0msehY&t=35s" target="_blank" rel="noopener" class="mc">
+                <img class="mc-thumb" src="https://img.youtube.com/vi/lcCwt0msehY/hqdefault.jpg" alt="Xyaa travel" loading="lazy">
+                <div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                <div class="mc-meta"><span class="mc-lbl">Travel edit</span><span class="mc-bdg bdg-yt">YouTube</span></div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=j5qu2UALoMw&t=7s" target="_blank" rel="noopener" class="mc">
+                <img class="mc-thumb" src="https://img.youtube.com/vi/j5qu2UALoMw/hqdefault.jpg" alt="Xyaa vlog" loading="lazy">
+                <div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                <div class="mc-meta"><span class="mc-lbl">Vlog edit</span><span class="mc-bdg bdg-yt">YouTube</span></div>
+              </a>
+            </div>
+            <a href="https://youtube.com/shorts/5Uj3eNp2SWg" target="_blank" rel="noopener" class="mc mt14">
+              <img class="mc-thumb" src="https://img.youtube.com/vi/5Uj3eNp2SWg/hqdefault.jpg" alt="Xyaa short" loading="lazy">
+              <div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">YouTube Short</span><span class="mc-bdg bdg-yt">Short</span></div>
+            </a>
+          </div>
+          <div class="reel-col2">
+            <a href="https://www.instagram.com/reel/DPBd14JCCFZ/" target="_blank" rel="noopener" class="mc">
+              <div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Reel — Xyaa</span><span class="mc-bdg bdg-ig">Instagram</span></div>
+            </a>
+            <a href="https://www.instagram.com/reel/DTFyKiKiNTi/" target="_blank" rel="noopener" class="mc">
+              <div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#e6683c,#cc2366,#bc1888);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Reel — Xyaa</span><span class="mc-bdg bdg-ig">Instagram</span></div>
+            </a>
+            <a href="https://www.instagram.com/reel/DN74BAwCNoh/" target="_blank" rel="noopener" class="mc">
+              <div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Reel — Xyaa</span><span class="mc-bdg bdg-ig">Instagram</span></div>
+            </a>
+            <a href="https://www.instagram.com/reel/DONR2zukRh7/" target="_blank" rel="noopener" class="mc">
+              <div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#dc2743,#cc2366,#bc1888);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Reel — Xyaa</span><span class="mc-bdg bdg-ig">Instagram</span></div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- TECHSHOT -->
+      <div class="ch-sec2">
+        <div class="ch-hdr2">
+          <span class="ch-dot2" style="background:var(--vfx);"></span>
+          <span class="ch-nm">Techshot</span>
+          <a href="https://www.youtube.com/@TechShotTG" target="_blank" rel="noopener" class="ch-lnk">@TechShotTG ↗</a>
+          <span class="ch-badge2" style="background:color-mix(in srgb,var(--vfx) 15%,var(--paper));color:var(--vfx);">Creator</span>
+        </div>
+        <div class="creator-layout2">
+          <div>
+            <a href="https://www.youtube.com/watch?v=EihtVYbheBc&t=138s" target="_blank" rel="noopener" class="mc">
+              <img class="mc-thumb" src="https://img.youtube.com/vi/EihtVYbheBc/hqdefault.jpg" alt="Techshot" loading="lazy">
+              <div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Gadget review</span><span class="mc-bdg bdg-yt">YouTube</span></div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=yASbKDe-sjg&t=373s" target="_blank" rel="noopener" class="mc mt14">
+              <img class="mc-thumb" src="https://img.youtube.com/vi/yASbKDe-sjg/hqdefault.jpg" alt="Techshot long-form" loading="lazy">
+              <div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+              <div class="mc-meta"><span class="mc-lbl">Long-form review</span><span class="mc-bdg bdg-yt">YouTube</span></div>
+            </a>
+          </div>
+          <div class="reel-col2">
+            <a href="https://www.instagram.com/reel/DOyD3PqiCQ-/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#2E6F95,#6FE7C6);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Reel — Techshot</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+            <a href="https://www.instagram.com/reel/DMVAIWkxVxg/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#6E8B89,#DDE0DB);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Reel — Techshot</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+            <a href="https://www.instagram.com/reel/DSaRIyJCJl9/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#2E6F95,#DDE0DB);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Reel — Techshot</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+            <a href="https://www.instagram.com/reel/DSc6xq3kkTS/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#6E8B89,#6FE7C6);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Reel — Techshot</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+            <a href="https://www.instagram.com/reel/DS7R3ipiBCS/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:200px;background:linear-gradient(135deg,#2E6F95,#6E8B89);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Reel — Techshot</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+          </div>
+        </div>
+      </div>
+      <!-- SUFIYAN ALAM -->
+      <div class="ch-sec2">
+        <div class="ch-hdr2">
+          <span class="ch-dot2" style="background:var(--photo);"></span>
+          <span class="ch-nm">Sufiyan Alam</span>
+          <span class="ch-badge2" style="background:color-mix(in srgb,var(--photo) 15%,var(--paper));color:var(--photo);">Creator</span>
+        </div>
+        <div class="g3">
+          <a href="https://youtu.be/NZvogU288Ew" target="_blank" rel="noopener" class="mc"><img class="mc-thumb" src="https://img.youtube.com/vi/NZvogU288Ew/hqdefault.jpg" alt="" loading="lazy"><div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Science explainer</span><span class="mc-bdg bdg-yt">YouTube</span></div></a>
+          <a href="https://youtu.be/NJjCXM3GBNc" target="_blank" rel="noopener" class="mc"><img class="mc-thumb" src="https://img.youtube.com/vi/NJjCXM3GBNc/hqdefault.jpg" alt="" loading="lazy"><div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Philosophy explainer</span><span class="mc-bdg bdg-yt">YouTube</span></div></a>
+          <a href="https://youtu.be/xfgt7GVWmk4" target="_blank" rel="noopener" class="mc"><img class="mc-thumb" src="https://img.youtube.com/vi/xfgt7GVWmk4/hqdefault.jpg" alt="" loading="lazy"><div class="mc-play"><div class="pbt yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Long-form</span><span class="mc-bdg bdg-yt">YouTube</span></div></a>
+        </div>
+      </div>
+    </div><!-- /creator -->
+
+    <!-- BRAND -->
+    <div class="tab-panel" id="t-brand">
+      <div class="ch-sec2">
+        <div class="ch-hdr2">
+          <span class="ch-dot2" style="background:var(--brand);"></span>
+          <span class="ch-nm">Bajaj Electricals</span>
+          <span class="ch-badge2" style="background:color-mix(in srgb,var(--brand) 15%,var(--paper));color:var(--brand);">Brand</span>
+        </div>
+        <div class="g2" style="max-width:680px;">
+          <a href="https://www.instagram.com/reel/DKlu3aFyeP0/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:320px;aspect-ratio:9/16;background:linear-gradient(135deg,#A05040,#EADBD1);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Campaign Reel</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+          <a href="https://www.instagram.com/reel/DKzTkhrIcbM/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="min-height:320px;aspect-ratio:9/16;background:linear-gradient(135deg,#6B2F1F,#A05040);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Campaign Reel</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+        </div>
+      </div>
+    </div><!-- /brand -->
+
+    <!-- VFX -->
+    <div class="tab-panel" id="t-vfx">
+      <div class="ch-hdr2">
+        <span class="ch-dot2" style="background:var(--vfx);"></span>
+        <span class="ch-nm">VFX &amp; 3D Work</span>
+        <span class="ch-badge2" style="background:color-mix(in srgb,var(--vfx) 15%,var(--paper));color:var(--vfx);">Blender · In-house</span>
+      </div>
+      <div class="g3 mt20">
+        <a href="https://www.instagram.com/reel/DCPF2mcouxG/" target="_blank" rel="noopener" class="mc"><div class="ig-grad-card" style="background:linear-gradient(135deg,#5A7870,#DDE0DB);"><div class="pbt ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div><div class="mc-meta"><span class="mc-lbl">Concept Vape Ad</span><span class="mc-bdg bdg-ig">Instagram</span></div></a>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;border-radius:var(--r-lg) var(--r-lg) 0 0;"><source src="assets/videos/still-rollin.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Still Rollin — Concept</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">3D</span></div></div>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;border-radius:var(--r-lg) var(--r-lg) 0 0;"><source src="assets/videos/sol-handbag.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">SOL Handbag — Product 3D</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">3D</span></div></div>
+      </div>
+      <div class="g3 mt20">
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/car-in-desert.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Car In Desert</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Blender</span></div></div>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/robot-bollywood.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Robot Bollywood</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Blender</span></div></div>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/fur-man-dancing.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Fur Man Dancing</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Blender</span></div></div>
+      </div>
+      <div class="g3 mt20">
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/flip-fluid.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Flip Fluid Simulation</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Sim</span></div></div>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/pokeball-cloth.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Pokeball Cloth Sim</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Sim</span></div></div>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/liquid-simulation.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Liquid Simulation</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Sim</span></div></div>
+      </div>
+      <div class="g2 mt20">
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/drone-miniature.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Drone Shot Miniature</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Blender</span></div></div>
+        <div class="mc"><video controls muted playsinline loading="lazy" style="width:100%;display:block;"><source src="assets/videos/particle-simulation.mp4" type="video/mp4"></video><div class="mc-meta"><span class="mc-lbl">Particle Simulation</span><span class="mc-bdg" style="background:#E8F0EC;color:var(--vfx);">Sim</span></div></div>
+      </div>
+      <!-- Client stills -->
+      <div style="margin-top:48px;">
+        <div class="ch-hdr2"><span class="ch-dot2" style="background:var(--brand);"></span><span class="ch-nm">Official Client Work</span><span class="ch-badge2" style="background:color-mix(in srgb,var(--brand) 15%,var(--paper));color:var(--brand);">Netflix · Kapil Sharma</span></div>
+        <div class="g4 mt20">
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/netflix/v1.png" alt="Netflix V1" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">Netflix Set — V1</p></div>
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/netflix/v2.png" alt="Netflix V2" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">Netflix Set — V2</p></div>
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/netflix/v3.png" alt="Netflix V3" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">Netflix Set — V3</p></div>
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/kapil/draft2-final.png" alt="Kapil Sharma Photobooth" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">Kapil Sharma Photobooth</p></div>
+        </div>
+        <div class="g4 mt14">
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;" src="assets/images/bmw/front.png" alt="BMW Front" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">BMW Concept — Front</p></div>
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;" src="assets/images/bmw/side-1.png" alt="BMW Side" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">BMW Concept — Side</p></div>
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;" src="assets/images/concepts/still-rollin-poster.png" alt="Still Rollin" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">Still Rollin Poster</p></div>
+          <div><img class="mc lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;" src="assets/images/concepts/one-love-song.png" alt="One Love Song" loading="lazy"><p style="font-size:11px;color:var(--gray);margin-top:6px;">One Love Song Poster</p></div>
+        </div>
+      </div>
+    </div><!-- /vfx -->
+
+    <!-- WEDDING -->
+    <div class="tab-panel" id="t-wedding">
+      <div class="ch-hdr2">
+        <span class="ch-dot2" style="background:var(--wedding);"></span>
+        <span class="ch-nm">Wedding Films</span>
+        <span class="ch-badge2" style="background:color-mix(in srgb,var(--wedding) 15%,var(--paper));color:var(--wedding);">Cinematic Coverage</span>
+      </div>
+      <img class="lb-t" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);margin-bottom:14px;border:1px solid rgba(37,37,35,.09);cursor:zoom-in;" src="assets/images/weddings/dsc09811.jpg" alt="Wedding hero" loading="lazy">
+      <div class="g4">
+        <img class="lb-t" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/weddings/dsc00507.jpg" alt="" loading="lazy">
+        <img class="lb-t" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/weddings/dsc00528.jpg" alt="" loading="lazy">
+        <img class="lb-t" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/weddings/dsc09907.jpg" alt="" loading="lazy">
+        <img class="lb-t" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);border:1px solid rgba(37,37,35,.09);cursor:zoom-in;transition:transform .5s var(--ease);" src="assets/images/weddings/dsc09811.jpg" alt="" loading="lazy">
+      </div>
+    </div><!-- /wedding -->
+
+  </div><!-- /wrap--wide -->
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="process-inner">
+      <div class="process-left">
+        <div class="eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-txt">How we work</span></div>
+        <h2 class="sec-title reveal d1">Our creative <em>process</em></h2>
+        <div class="psteps reveal d2">
+          <div class="pstep2">
+            <div class="pstep-num">01</div>
+            <div class="pstep-content">
+              <div class="pstep-name2">Discovery</div>
+              <div class="pstep-desc2">We start with a deep-dive into your brand, goals and audience. Understanding the why before touching the timeline.</div>
+            </div>
+          </div>
+          <div class="pstep2">
+            <div class="pstep-num">02</div>
+            <div class="pstep-content">
+              <div class="pstep-name2">Concept</div>
+              <div class="pstep-desc2">Mood boards, style references and a creative direction deck. We align on the vision before a single frame is cut.</div>
+            </div>
+          </div>
+          <div class="pstep2">
+            <div class="pstep-num">03</div>
+            <div class="pstep-content">
+              <div class="pstep-name2">Production</div>
+              <div class="pstep-desc2">Edit, colour, sound design and motion — all done in-house. Progress previews and two rounds of revisions, included.</div>
+            </div>
+          </div>
+          <div class="pstep2">
+            <div class="pstep-num">04</div>
+            <div class="pstep-content">
+              <div class="pstep-name2">Delivery</div>
+              <div class="pstep-desc2">Final files optimised for every platform, plus a debrief to set up your next project before this one even launches.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="process-right reveal d3">
+        <div class="proc-ring-outer" style="position:relative;top:auto;left:auto;transform:none;animation:spinRing 40s linear infinite;">
+          <div class="proc-ring-dot"></div>
+          <div class="proc-ring-inner" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);animation:spinRing 28s linear infinite reverse;"></div>
+        </div>
+        <div class="proc-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+          <div class="proc-center-num">4</div>
+          <div class="proc-center-lbl">Steps to Delivery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-inner">
+      <div class="about-visual reveal">
+        <div class="about-img-stack">
+          <img class="about-img-a" src="option2-pixelbloom_logo.png" alt="PixelBloom" style="filter:grayscale(20%);">
+          <img class="about-img-b" src="transparent-pixelbloom.png" alt="PixelBloom Logo">
+          <div class="about-stat-pill">
+            <div class="asp-n">80+</div>
+            <div class="asp-l">Projects</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-txt">Who we are</span></div>
+        <h2 class="sec-title reveal d1" style="margin-bottom:24px;">A studio built on<br>craft and <em>clarity</em></h2>
+        <p class="about-body reveal d2">PixelBloom started as one editor's obsession with the perfect cut. Today it's a tight-knit creative studio serving creators, brands and couples who care deeply about how their story looks on screen.</p>
+        <p class="about-body reveal d2">We believe great video isn't just technically sharp — it's emotionally resonant. Every project we take on gets our full creative energy, from concept to final export.</p>
+        <div class="about-rule reveal d3"></div>
+        <div class="about-vals reveal d3">
+          <div class="av"><div class="av-n">Story-first</div><div class="av-d">Every frame earns its place in the narrative.</div></div>
+          <div class="av"><div class="av-n">Pixel-perfect</div><div class="av-d">Technical excellence is non-negotiable.</div></div>
+          <div class="av"><div class="av-n">Fast turnaround</div><div class="av-d">Deadlines are respected, always.</div></div>
+          <div class="av"><div class="av-n">Clear comms</div><div class="av-d">No ghosting, no vague timelines.</div></div>
+        </div>
+        <div class="reveal d4">
+          <div class="clients-lbl">Worked with</div>
+          <div class="clients-row">
+            <span class="cn">Bajaj Electricals</span><span class="cn">Xyaa</span><span class="cn">Techshot</span>
+            <span class="cn">Rahul Dua</span><span class="cn">Comic Con</span><span class="cn">Sufiyan Alam</span>
+            <span class="cn">Netflix (Set Design)</span><span class="cn">Kapil Sharma Show</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testi">
+  <div class="wrap">
+    <div class="eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-txt">What clients say</span></div>
+    <h2 class="sec-title reveal d1">Heard it straight <em>from them</em></h2>
+  </div>
+  <div class="ttrack-wrap">
+    <div class="ttrack">
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"PixelBloom completely transformed our brand content. Every reel has outperformed everything we made in-house."</div><div class="tcard2-author"><div class="tcard2-av">BJ</div><div><div class="tcard2-name">Bajaj Electricals</div><div class="tcard2-role">Brand Partner</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"Working with them for my YouTube channel has been incredible. They understand the vibe instantly and the edits always feel fresh."</div><div class="tcard2-author"><div class="tcard2-av">XY</div><div><div class="tcard2-name">Xyaa</div><div class="tcard2-role">YouTube Creator</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"Our wedding film made me cry the first time I watched it. They captured emotions I didn't even know were on camera. Truly cinematic."</div><div class="tcard2-author"><div class="tcard2-av">P&amp;S</div><div><div class="tcard2-name">Pooja &amp; Sanket</div><div class="tcard2-role">Wedding Film</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"Fast, communicative, consistently top-tier quality. They've become our go-to editor for all Techshot content."</div><div class="tcard2-author"><div class="tcard2-av">TS</div><div><div class="tcard2-name">Techshot</div><div class="tcard2-role">Tech Creator</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"The Comic Con recap reel went massively viral. They have a real eye for what performs on social media."</div><div class="tcard2-author"><div class="tcard2-av">CC</div><div><div class="tcard2-name">Comic Con India</div><div class="tcard2-role">Event Brand</div></div></div></div>
+      <!-- duplicates -->
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"PixelBloom completely transformed our brand content. Every reel has outperformed everything we made in-house."</div><div class="tcard2-author"><div class="tcard2-av">BJ</div><div><div class="tcard2-name">Bajaj Electricals</div><div class="tcard2-role">Brand Partner</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"Working with them for my YouTube channel has been incredible. They understand the vibe instantly and the edits always feel fresh."</div><div class="tcard2-author"><div class="tcard2-av">XY</div><div><div class="tcard2-name">Xyaa</div><div class="tcard2-role">YouTube Creator</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"Our wedding film made me cry the first time I watched it. They captured emotions I didn't even know were on camera. Truly cinematic."</div><div class="tcard2-author"><div class="tcard2-av">P&amp;S</div><div><div class="tcard2-name">Pooja &amp; Sanket</div><div class="tcard2-role">Wedding Film</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"Fast, communicative, consistently top-tier quality. They've become our go-to editor for all Techshot content."</div><div class="tcard2-author"><div class="tcard2-av">TS</div><div><div class="tcard2-name">Techshot</div><div class="tcard2-role">Tech Creator</div></div></div></div>
+      <div class="tcard2"><div class="tcard2-stars">★★★★★</div><div class="tcard2-q">"The Comic Con recap reel went massively viral. They have a real eye for what performs on social media."</div><div class="tcard2-author"><div class="tcard2-av">CC</div><div><div class="tcard2-name">Comic Con India</div><div class="tcard2-role">Event Brand</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div>
+        <div class="eyebrow reveal"><div class="eyebrow-line"></div><span class="eyebrow-txt">Get in touch</span></div>
+        <h2 class="sec-title reveal d1" style="margin-bottom:20px;">Let's make<br>something <em>great.</em></h2>
+        <p class="sec-sub reveal d2" style="margin-bottom:0;">Whether you have a brief ready or just a rough idea — we're here for it.</p>
+        <div class="contact-chs reveal d3">
+          <div class="cch"><div class="cch-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="cch-lbl">Email</div><div class="cch-val">hello@pixelbloom.in</div></div></div>
+          <div class="cch"><div class="cch-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><div><div class="cch-lbl">Instagram</div><div class="cch-val">@pixelbloom.studio</div></div></div>
+          <div class="cch"><div class="cch-icon"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div><div><div class="cch-lbl">YouTube</div><div class="cch-val">PixelBloom Studio</div></div></div>
+        </div>
+      </div>
+      <div class="cform reveal d2">
+        <div class="cform-title">Send us a brief</div>
+        <div class="cform-sub">We'll respond within 24 hours.</div>
+        <form id="cForm" novalidate>
+          <div class="crow">
+            <div class="fg"><label for="fn2">First name</label><input type="text" id="fn2" placeholder="Varad" required></div>
+            <div class="fg"><label for="ln2">Last name</label><input type="text" id="ln2" placeholder="Sharma"></div>
+          </div>
+          <div class="fg"><label for="em2">Email</label><input type="email" id="em2" placeholder="you@example.com" required></div>
+          <div class="fg">
+            <label for="sv2">Service</label>
+            <select id="sv2">
+              <option value="">Select a service…</option>
+              <option>Wedding Film</option><option>Creator Space</option>
+              <option>Brand &amp; Commercial</option><option>VFX &amp; 3D</option>
+              <option>Photography</option><option>Video Editing</option>
+            </select>
+          </div>
+          <div class="fg"><label for="msg2">Project brief</label><textarea id="msg2" placeholder="Quick overview — what are you making, when do you need it, and what's the vibe?" required></textarea></div>
+          <button type="submit" class="cform-btn">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="fbrand-logo"><img src="option2-pixelbloom_logo.png" alt="PixelBloom"></div>
+        <p class="fbrand-desc">A full-service creative studio building visual stories for creators, brands, and people in love.</p>
+        <div class="fbrand-tag">Elevating with Digital Buzz</div>
+      </div>
+      <div>
+        <div class="fcol-title">Services</div>
+        <ul class="flinks">
+          <li><a href="#services">Wedding Films</a></li>
+          <li><a href="#services">Creator Space</a></li>
+          <li><a href="#services">Brand &amp; Commercial</a></li>
+          <li><a href="#services">VFX &amp; 3D</a></li>
+          <li><a href="#services">Photography</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fcol-title">Studio</div>
+        <ul class="flinks">
+          <li><a href="#about">About us</a></li>
+          <li><a href="#work">Our work</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#testi">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fcol-title">Connect</div>
+        <div class="fsocs">
+          <div class="fsoc"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div class="fsoc"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
+          <div class="fsoc"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bot">
+      <div class="fcopy">© 2026 <span>PixelBloom</span>. All rights reserved.</div>
+      <div class="flegal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════ LOADER ══════════ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('out');
+    // Trigger hero image reveal
+    setTimeout(() => {
+      document.getElementById('heroImgMain').classList.add('revealed');
+      // Show floating chips
+      document.getElementById('hc1').style.cssText += 'opacity:1;animation:chipFloat 5s ease-in-out .5s infinite';
+      document.getElementById('hc2').style.cssText += 'opacity:1;animation:chipFloat 5s ease-in-out 2s infinite';
+    }, 300);
+  }, 2200);
+});
+
+/* ══════════ NAV STUCK ══════════ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 32), { passive: true });
+
+/* ══════════ WORD-SPLIT HERO HEADLINE ══════════ */
+(function animWords() {
+  const delays = [0.9, 1.05, 1.2, 1.35, 1.5];
+  document.querySelectorAll('.word-inner').forEach((el, i) => {
+    const d = delays[Math.min(i, delays.length - 1)];
+    el.style.animation = `wordIn .9s cubic-bezier(.16,1,.3,1) ${d}s forwards`;
+  });
+})();
+
+/* ══════════ SCROLL REVEAL ══════════ */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal, .eyebrow').forEach(el => revObs.observe(el));
+
+/* ══════════ STATEMENT LINES ══════════ */
+const stmtObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      stmtObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.stmt-line').forEach(el => stmtObs.observe(el));
+
+/* ══════════ SMOOTH ANCHORS ══════════ */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+/* ══════════ TABS ══════════ */
+document.querySelectorAll('.tbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    const panel = document.getElementById(btn.dataset.tab);
+    if (panel) {
+      panel.classList.add('on');
+      // Animate cards in
+      panel.querySelectorAll('.mc, .ch-sec2').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.style.transition = 'opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1)';
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }, i * 60);
+      });
+    }
+  });
+});
+
+/* ══════════ PROCESS ACCORDION ══════════ */
+document.querySelectorAll('.pstep2').forEach(step => {
+  step.addEventListener('mouseenter', () => {
+    document.querySelectorAll('.pstep2').forEach(s => s.classList.remove('open'));
+    step.classList.add('open');
+  });
+});
+
+/* ══════════ SERVICE STRIP DRAG-SCROLL ══════════ */
+(function initDragScroll() {
+  const strip = document.getElementById('svcStrip');
+  if (!strip) return;
+  let isDragging = false, startX, scrollLeft;
+  strip.addEventListener('mousedown', e => {
+    isDragging = true;
+    startX = e.pageX - strip.offsetLeft;
+    scrollLeft = strip.scrollLeft;
+    strip.style.cursor = 'grabbing';
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; strip.style.cursor = ''; });
+  strip.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - strip.offsetLeft;
+    strip.scrollLeft = scrollLeft - (x - startX);
+  });
+  strip.style.overflowX = 'auto';
+  strip.style.cursor = 'grab';
+  strip.style.scrollbarWidth = 'none';
+})();
+
+/* ══════════ COUNTER ANIMATION ══════════ */
+function runCount(el, target, suf) {
+  let v = 0; const step = Math.ceil(target / 40);
+  const id = setInterval(() => {
+    v = Math.min(v + step, target);
+    el.textContent = v + suf;
+    if (v >= target) clearInterval(id);
+  }, 30);
+}
+const statsEl = document.querySelector('.hero-stats');
+if (statsEl) {
+  new IntersectionObserver(([e], obs) => {
+    if (e.isIntersecting) {
+      runCount(document.getElementById('cnt1'), 80, '+');
+      runCount(document.getElementById('cnt2'), 3, '+');
+      runCount(document.getElementById('cnt3'), 40, '+');
+      obs.disconnect();
+    }
+  }, { threshold: 0.6 }).observe(statsEl);
+}
+
+/* ══════════ CONTACT FORM ══════════ */
+document.getElementById('cForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.cform-btn');
+  const orig = btn.textContent;
+  btn.textContent = 'Message sent ✓';
+  btn.style.background = 'var(--photo)';
+  btn.style.color = 'var(--paper)';
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.style.background = '';
+    btn.style.color = '';
+    this.reset();
+  }, 3000);
+});
+
+/* ══════════ LIGHTBOX ══════════ */
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
+document.querySelectorAll('.lb-t').forEach(img => {
+  img.addEventListener('click', () => {
+    lbImg.src = img.src;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+});
+function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+document.getElementById('lb-x').addEventListener('click', closeLb);
+lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+/* ══════════ PARALLAX HERO IMAGE ══════════ */
+window.addEventListener('scroll', () => {
+  const img = document.querySelector('.hero-img-main img');
+  if (img) img.style.transform = `scale(1.05) translateY(${window.scrollY * 0.08}px)`;
+}, { passive: true });
+
+/* ══════════ MAGNETIC BUTTONS ══════════ */
+document.querySelectorAll('.btn-ink, .btn-line, .nav-cta').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const x = e.clientX - r.left - r.width / 2;
+    const y = e.clientY - r.top - r.height / 2;
+    btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1)';
+    btn.style.transform = '';
+    setTimeout(() => btn.style.transition = '', 500);
+  });
+});
+
+/* ══════════ CURSOR TRAIL ══════════ */
+(function initTrail() {
+  const dots = [];
+  const N = 8;
+  for (let i = 0; i < N; i++) {
+    const d = document.createElement('div');
+    const size = 6 - i * 0.5;
+    d.style.cssText = `position:fixed;width:${size}px;height:${size}px;border-radius:50%;
+      background:var(--ink);pointer-events:none;z-index:9999;opacity:${0.12 - i*0.012};
+      transform:translate(-50%,-50%);transition:none;mix-blend-mode:multiply;`;
+    document.body.appendChild(d);
+    dots.push({ el: d, x: 0, y: 0 });
+  }
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function loop() {
+    dots.forEach((dot, i) => {
+      const prev = i === 0 ? { x: mx, y: my } : dots[i - 1];
+      dot.x += (prev.x - dot.x) * (0.35 - i * 0.025);
+      dot.y += (prev.y - dot.y) * (0.35 - i * 0.025);
+      dot.el.style.left = dot.x + 'px';
+      dot.el.style.top = dot.y + 'px';
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ══════════ TILT ON SERVICE CARDS ══════════ */
+document.querySelectorAll('.svc-item').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `translateY(-6px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
+    card.style.transition = 'transform .1s';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.transition = 'background var(--t), transform var(--t), box-shadow var(--t)';
+  });
+});
+
+/* ══════════ TEXT SCRAMBLE on eyebrow labels ══════════ */
+function scramble(el) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const original = el.textContent;
+  let frame = 0;
+  const id = setInterval(() => {
+    el.textContent = original.split('').map((c, i) => {
+      if (c === ' ') return ' ';
+      if (frame > i * 1.5) return original[i];
+      return chars[Math.floor(Math.random() * chars.length)];
+    }).join('');
+    frame++;
+    if (frame > original.length * 2) clearInterval(id);
+  }, 35);
+}
+const scrambleObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      scramble(e.target);
+      scrambleObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.eyebrow-txt').forEach(el => scrambleObs.observe(el));
+</script>
+</body>
+</html>
