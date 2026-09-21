@@ -1,0 +1,29 @@
+# ── Large media — never commit these to GitHub ──────────────────
+# MP4 videos (too large for GitHub's 100MB file limit)
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# ZIP archives
+*.zip
+*.rar
+*.7z
+
+# Original 3D Videos folder (large source files)
+3D Videos-20260920T140507Z-1-001/
+
+# Copied video assets folder
+assets/videos/
+
+# Raw wedding photos (already copied to assets/images/weddings/)
+weddings-pics/
+
+# ── OS / Editor junk ────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# ── Helper scripts ───────────────────────────────────────────────
+clean_history.py
