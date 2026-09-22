@@ -1,0 +1,286 @@
+import { useState } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal'
+import { workCategories } from '../data'
+
+/* ── Shared helpers ─────────────────────────────────────────── */
+
+function PlayBtn({ platform }) {
+  return (
+    <div className={`play-btn ${platform}`}>
+      <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, fill: '#fff', marginLeft: 3 }}>
+        <polygon points="5,3 19,12 5,21" />
+      </svg>
+    </div>
+  )
+}
+
+function VideoCard({ item, onLightbox }) {
+  const [err, setErr] = useState(false)
+  const isPortrait = item.portrait
+
+  return (
+    <a href={item.url} target="_blank" rel="noreferrer" className="media-card">
+      {/* thumbnail or gradient fallback */}
+      {item.gradFrom ? (
+        <div style={{ width: '100%', aspectRatio: isPortrait ? '9/16' : '16/9', minHeight: isPortrait ? 320 : undefined, background: `linear-gradient(135deg,${item.gradFrom},${item.gradTo})`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <PlayBtn platform={item.platform} />
+        </div>
+      ) : err || !item.thumb ? (
+        <div style={{ width: '100%', aspectRatio: isPortrait ? '9/16' : '16/9', background: 'var(--paper-warm)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--ink-ghost)' }}>
+          {item.label}
+        </div>
+      ) : (
+        <img src={item.thumb} alt={item.label} className={`media-card-thumb${isPortrait ? ' portrait' : ''}`} onError={() => setErr(true)} />
+      )}
+
+      {/* play overlay (only when not gradient) */}
+      {!item.gradFrom && (
+        <div className={`media-card-play${isPortrait ? ' portrait' : ''}`}>
+          <PlayBtn platform={item.platform} />
+        </div>
+      )}
+
+      <div className="media-card-meta">
+        <span className="media-card-label">{item.label}</span>
+        <span className={`media-card-badge badge-${item.platform}`}>
+          {item.badge ?? (item.platform === 'yt' ? 'YouTube' : 'Instagram')}
+        </span>
+      </div>
+    </a>
+  )
+}
+
+function ImageThumb({ src, cap, onLightbox, className = 'thumb' }) {
+  const [err, setErr] = useState(false)
+  return (
+    <div>
+      {err ? (
+        <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 'var(--r-lg)', background: 'var(--paper-warm)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--ink-ghost)' }}>{cap}</div>
+      ) : (
+        <img src={`/${src}`} alt={cap} className={className} onClick={() => onLightbox(`/${src}`)} onError={() => setErr(true)} />
+      )}
+      {cap && <p className="cap">{cap}</p>}
+    </div>
+  )
+}
+
+function LocalVideo({ src, cap }) {
+  return (
+    <div>
+      <div className="vid-wrap">
+        <video controls muted playsInline loading="lazy">
+          <source src={`/${src}`} type="video/mp4" />
+        </video>
+      </div>
+      {cap && <p className="cap">{cap}</p>}
+    </div>
+  )
+}
+
+function IgCard({ item }) {
+  return (
+    <div>
+      <a href={item.url} target="_blank" rel="noreferrer" className="ig-card" style={{ minHeight: 200 }}>
+        <div className="ig-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+        </div>
+        <div className="ig-card-title">{item.label}</div>
+        <div className="ig-card-sub">{item.sub}</div>
+        <span className="ig-card-btn">Watch ↗</span>
+      </a>
+      {item.cap && <p className="cap">{item.cap}</p>}
+    </div>
+  )
+}
+
+/* ── Channel header ─────────────────────────────────────────── */
+
+function ChHdr({ ch }) {
+  return (
+    <div className="ch-hdr">
+      <span className="ch-dot" style={{ background: ch.dotColor }} />
+      <span className="ch-name">{ch.name}</span>
+      {ch.handle && (
+        <a href={ch.url} target="_blank" rel="noreferrer" className="ch-link">{ch.handle}</a>
+      )}
+      {ch.badge && (
+        <span className="ch-badge" style={{ background: ch.badgeBg, color: ch.badgeColor, marginLeft: 'auto' }}>{ch.badge}</span>
+      )}
+    </div>
+  )
+}
+
+/* ── Tab panels ─────────────────────────────────────────────── */
+
+function CreatorTab({ channels, onLightbox }) {
+  return (
+    <>
+      {channels.map((ch, ci) => (
+        <div key={ci} className="ch-section">
+          <ChHdr ch={ch} />
+          {ch.layout === 'creator' ? (
+            // Xyaa: main big card + 2-grid + bottom card
+            <div className="creator-layout">
+              <div>
+                <VideoCard item={ch.mainItem} onLightbox={onLightbox} />
+                <div className="g2 mt">
+                  {ch.gridItems.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
+                </div>
+                <div className="mt">
+                  <VideoCard item={ch.bottomItem} onLightbox={onLightbox} />
+                </div>
+              </div>
+            </div>
+          ) : ch.layout === 'simple' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {ch.items.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
+            </div>
+          ) : (
+            // grid3
+            <div className="g3">
+              {ch.items.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
+            </div>
+          )}
+        </div>
+      ))}
+    </>
+  )
+}
+
+function BrandTab({ channels, onLightbox }) {
+  return (
+    <>
+      {channels.map((ch, ci) => (
+        <div key={ci} className="ch-section">
+          <ChHdr ch={ch} />
+          <div className="g2">
+            {ch.items.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
+function VfxTab({ sections, onLightbox }) {
+  return (
+    <>
+      {sections.map((sec, si) => (
+        <div key={si} style={{ marginTop: si > 0 ? 48 : 0 }}>
+          <div className="ch-hdr">
+            <span className="ch-dot" style={{ background: sec.dotColor }} />
+            <span className="ch-name">{sec.name}</span>
+            {sec.badge && (
+              <span className="ch-badge" style={{ background: sec.badgeBg, color: sec.badgeColor, marginLeft: 'auto' }}>{sec.badge}</span>
+            )}
+          </div>
+
+          {/* rows of 3 */}
+          {sec.rows && sec.rows.map((row, ri) => (
+            <div key={ri} className="g3 mt2">
+              {row.map((item, ii) => (
+                item.type === 'ig-card' ? <IgCard key={ii} item={item} /> :
+                item.type === 'local-video' ? <LocalVideo key={ii} src={item.src} cap={item.cap} /> : null
+              ))}
+            </div>
+          ))}
+
+          {/* bottom row of 2 */}
+          {sec.bottomRow && (
+            <div className="g2 mt2">
+              {sec.bottomRow.map((item, ii) => (
+                item.type === 'local-video' ? <LocalVideo key={ii} src={item.src} cap={item.cap} /> : null
+              ))}
+            </div>
+          )}
+
+          {/* grid4 */}
+          {sec.grid4 && (
+            <div className="g4">
+              {sec.grid4.map((img, ii) => <ImageThumb key={ii} src={img.src} cap={img.cap} onLightbox={onLightbox} />)}
+            </div>
+          )}
+
+          {/* grid3 */}
+          {sec.grid3 && (
+            <div className="g3 mt2">
+              {sec.grid3.map((img, ii) => <ImageThumb key={ii} src={img.src} cap={img.cap} onLightbox={onLightbox} />)}
+            </div>
+          )}
+        </div>
+      ))}
+    </>
+  )
+}
+
+function WeddingTab({ cat, onLightbox }) {
+  const [heroErr, setHeroErr] = useState(false)
+  return (
+    <>
+      <div className="ch-hdr">
+        <span className="ch-dot" style={{ background: 'var(--wedding)' }} />
+        <span className="ch-name">Wedding Films</span>
+        <span className="ch-badge" style={{ background: 'var(--wedding-bg)', color: 'var(--wedding)', marginLeft: 'auto' }}>Cinematic Coverage</span>
+      </div>
+      {heroErr ? (
+        <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 'var(--r-lg)', background: 'var(--paper-warm)', border: '1px solid var(--border)', marginBottom: 12 }} />
+      ) : (
+        <img src={`/${cat.heroImg}`} alt="Wedding hero shot" className="wedding-hero-img" onClick={() => onLightbox(`/${cat.heroImg}`)} onError={() => setHeroErr(true)} />
+      )}
+      <div className="g4 mt">
+        {cat.stills.map((s, i) => (
+          <ImageThumb key={i} src={s.src} cap={null} onLightbox={onLightbox} className="wedding-still" />
+        ))}
+      </div>
+      <p className="cap" style={{ marginTop: 10 }}>Click any photo to view full size.</p>
+    </>
+  )
+}
+
+/* ── Main Work section ──────────────────────────────────────── */
+
+export default function Work({ onLightbox }) {
+  const [active, setActive] = useState('creator')
+  const ref = useScrollReveal()
+  const current = workCategories.find(c => c.id === active)
+
+  return (
+    <section id="work" style={{ background: 'var(--paper-warm)', padding: '120px 0' }} ref={ref}>
+      <div className="wrap--wide">
+        {/* header */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40, gap: 24 }}>
+          <div>
+            <p className="label sr"><span className="rule" />Selected work</p>
+            <h2 className="sr d1" style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(34px,3.8vw,52px)', fontWeight: 300, lineHeight: 1.1 }}>
+              Projects we're <em style={{ fontStyle: 'italic', color: 'var(--wedding)' }}>proud of</em>
+            </h2>
+          </div>
+        </div>
+
+        {/* tab nav */}
+        <div className="sr d2" style={{ display: 'flex', gap: 4, flexWrap: 'wrap', borderBottom: '1px solid var(--border)', marginBottom: 48 }}>
+          {workCategories.map(cat => (
+            <button key={cat.id} onClick={() => setActive(cat.id)} style={{
+              fontSize: 12, fontWeight: active === cat.id ? 500 : 400, letterSpacing: '.04em',
+              padding: '9px 18px 10px', borderRadius: 'var(--r-pill) var(--r-pill) 0 0',
+              border: active === cat.id ? '1px solid var(--border)' : '1px solid transparent',
+              borderBottom: 'none', color: active === cat.id ? 'var(--ink)' : 'var(--ink-mid)',
+              background: active === cat.id ? 'var(--paper-warm)' : 'transparent',
+              position: 'relative', bottom: -1, cursor: 'pointer', transition: 'all 0.2s ease',
+            }}>
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* tab content */}
+        <div key={active}>
+          {active === 'creator' && <CreatorTab channels={current.channels} onLightbox={onLightbox} />}
+          {active === 'brand'   && <BrandTab channels={current.channels} onLightbox={onLightbox} />}
+          {active === 'vfx'     && <VfxTab sections={current.sections} onLightbox={onLightbox} />}
+          {active === 'wedding' && <WeddingTab cat={current} onLightbox={onLightbox} />}
+        </div>
+      </div>
+    </section>
+  )
+}

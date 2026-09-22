@@ -19,6 +19,11 @@ assets/videos/
 # Raw wedding photos (already copied to assets/images/weddings/)
 weddings-pics/
 
+# ── Node / React build ──────────────────────────────────────────
+node_modules/
+pixelbloom-react/node_modules/
+pixelbloom-react/dist/
+
 # ── OS / Editor junk ────────────────────────────────────────────
 .DS_Store
 Thumbs.db
