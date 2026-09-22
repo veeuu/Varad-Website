@@ -21,8 +21,14 @@ function useCounter(ref, target, suffix) {
   }, [ref, target, suffix])
 }
 
-export default function Hero() {
-  const { heroEyebrow, heroSub, stats, chips } = siteSettings
+export default function Hero({ cmsSettings }) {
+  const local = siteSettings
+  const s = cmsSettings || local
+
+  const heroEyebrow = s.heroEyebrow ?? local.heroEyebrow
+  const heroSub = s.heroSub ?? local.heroSub
+  const stats = s.stats ?? local.stats
+  const chips = s.chips ?? local.chips
 
   const cnt1 = useRef(null)
   const cnt2 = useRef(null)
@@ -48,9 +54,9 @@ export default function Hero() {
         </div>
 
         <h1 className="hero-h1">
-          We craft<br />
-          <em>stories</em> that<br />
-          <strong>bloom.</strong>
+          {s.heroHeadlineLine1 ?? 'We craft'}<br />
+          <em>{s.heroHeadlineEm ?? 'stories'}</em> that<br />
+          <strong>{s.heroHeadlineLine2 ?? 'bloom.'}</strong>
         </h1>
 
         <p className="hero-sub">{heroSub}</p>

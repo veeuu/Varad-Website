@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { testimonials } from '../data'
 
-export default function Testimonials() {
+export default function Testimonials({ cmsTestimonials }) {
   const ref = useScrollReveal()
-  const doubled = [...testimonials, ...testimonials]
+  const list = cmsTestimonials?.length ? cmsTestimonials : testimonials
+  const doubled = [...list, ...list]
 
   return (
     <section id="testimonials" className="section" ref={ref}>

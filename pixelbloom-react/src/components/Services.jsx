@@ -38,8 +38,18 @@ function ServiceCard({ s, delay }) {
   )
 }
 
-export default function Services() {
+export default function Services({ cmsServices }) {
   const ref = useScrollReveal()
+
+  const list = cmsServices?.length
+    ? cmsServices.map(s => ({
+        num: s.num,
+        name: s.name,
+        desc: s.description,
+        tags: s.tags || [],
+        accent: s.accentColor || 'var(--wedding)',
+      }))
+    : services
 
   return (
     <section id="services" className="section" ref={ref}>
@@ -52,7 +62,7 @@ export default function Services() {
           <p className="section-body sr d2">We don't just edit videos — we build visual identities, tell compelling stories, and craft content that actually moves people. Every project gets our full creative attention.</p>
         </div>
         <div className="sr d2" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', border: '1px solid var(--border)', borderRadius: 'var(--r-lg)', overflow: 'hidden', gap: 1, background: 'var(--border)' }}>
-          {services.map((s, i) => <ServiceCard key={s.num} s={s} delay={i} />)}
+          {list.map((s, i) => <ServiceCard key={s.num} s={s} delay={i} />)}
         </div>
       </div>
     </section>

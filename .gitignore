@@ -22,7 +22,13 @@ weddings-pics/
 # ── Node / React build ──────────────────────────────────────────
 node_modules/
 pixelbloom-react/node_modules/
+pixelbloom-studio/node_modules/
 pixelbloom-react/dist/
+pixelbloom-studio/dist/
+
+# ── Environment secrets ──────────────────────────────────────────
+pixelbloom-react/.env
+pixelbloom-studio/.env
 
 # ── OS / Editor junk ────────────────────────────────────────────
 .DS_Store

@@ -1,704 +1,2507 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PixelBloom  Elevating with Digital Buzz</title>
+  <title>PixelBloom Elevating with Digital Buzz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap"
+    rel="stylesheet" />
 
   <style>
-  :root {
-    --paper:       #F1EFE9;
-    --paper-warm:  #EDE9E1;
-    --ink:         #232221;
-    --ink-mid:     #5C5955;
-    --ink-light:   #9C9890;
-    --ink-ghost:   #C8C4BC;
-    --border:      rgba(35,34,33,.10);
-    --border-med:  rgba(35,34,33,.16);
-    --wedding:     #D9A9A0;  --wedding-bg: #EDE5DE;
-    --creator:     #D9A15A;  --creator-bg: #EDE3D4;
-    --brand:       #C1694A;  --brand-bg:   #EADBD1;
-    --vfx:         #6E8B89;  --vfx-bg:     #DDE0DB;
-    --photo:       #9BA687;  --photo-bg:   #E4E4DA;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans:  'DM Sans', system-ui, sans-serif;
-    --r: 8px; --r-lg: 16px; --r-pill: 999px;
-    --ease: cubic-bezier(.4,0,.2,1);
-    --t: 0.32s var(--ease);
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  a{color:inherit;text-decoration:none}
-  img{display:block;max-width:100%;height:auto}
-  button{font-family:inherit;cursor:pointer;border:none;background:none}
-  ::selection{background:var(--wedding);color:var(--ink)}
-  ::-webkit-scrollbar{width:3px}
-  ::-webkit-scrollbar-track{background:var(--paper)}
-  ::-webkit-scrollbar-thumb{background:var(--ink-ghost);border-radius:3px}
+    :root {
+      --paper: #F1EFE9;
+      --paper-warm: #EDE9E1;
+      --ink: #232221;
+      --ink-mid: #5C5955;
+      --ink-light: #9C9890;
+      --ink-ghost: #C8C4BC;
+      --border: rgba(35, 34, 33, .10);
+      --border-med: rgba(35, 34, 33, .16);
+      --wedding: #D9A9A0;
+      --wedding-bg: #EDE5DE;
+      --creator: #D9A15A;
+      --creator-bg: #EDE3D4;
+      --brand: #C1694A;
+      --brand-bg: #EADBD1;
+      --vfx: #6E8B89;
+      --vfx-bg: #DDE0DB;
+      --photo: #9BA687;
+      --photo-bg: #E4E4DA;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --r: 8px;
+      --r-lg: 16px;
+      --r-pill: 999px;
+      --ease: cubic-bezier(.4, 0, .2, 1);
+      --t: 0.32s var(--ease);
+    }
 
-  /* ── LAYOUT ─────────────────────────────────────────────── */
-  .wrap{max-width:1160px;margin:0 auto;padding:0 48px}
-  .wrap--wide{max-width:1360px;margin:0 auto;padding:0 48px}
-  .label{font-size:10.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-light)}
-  .rule{display:inline-block;width:28px;height:1px;background:currentColor;vertical-align:middle;margin-right:10px}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-  /* ── SCROLL REVEAL ──────────────────────────────────────── */
-  .sr{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-  .sr.d1{transition-delay:.08s}.sr.d2{transition-delay:.16s}.sr.d3{transition-delay:.24s}
-  .sr.d4{transition-delay:.32s}.sr.d5{transition-delay:.40s}
-  .sr.on{opacity:1;transform:none}
+    html {
+      scroll-behavior: smooth
+    }
 
-  /* ── RESPONSIVE VIDEO WRAPPER ───────────────────────────── */
-  .vid-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
-            border-radius:var(--r-lg);background:#1a1a1a}
-  .vid-wrap iframe,.vid-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden
+    }
 
-  /* ── PORTRAIT (REEL) WRAPPER ────────────────────────────── */
-  .reel-wrap{position:relative;padding-bottom:177.78%;height:0;overflow:hidden;
-             border-radius:var(--r-lg);background:#1a1a1a}
-  .reel-wrap iframe,.reel-wrap video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+    a {
+      color: inherit;
+      text-decoration: none
+    }
 
-  /* ── MEDIA LINK CARD (YouTube + Instagram, local-safe) ─── */
-  .media-card{
-    display:block;
-    border-radius:var(--r-lg);
-    overflow:hidden;
-    border:1px solid var(--border-med);
-    background:var(--paper-warm);
-    transition:border-color var(--t),transform var(--t),box-shadow var(--t);
-    cursor:pointer;
-    position:relative;
-  }
-  .media-card:hover{border-color:rgba(35,34,33,.28);transform:translateY(-3px);box-shadow:0 14px 40px rgba(35,34,33,.13)}
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto
+    }
 
-  /* thumbnail image */
-  .media-card-thumb{
-    width:100%;aspect-ratio:16/9;object-fit:cover;display:block;
-    background:var(--paper-warm);
-  }
-  .media-card-thumb.portrait{aspect-ratio:9/16}
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none
+    }
 
-  /* play button overlay */
-  .media-card-play{
-    position:absolute;
-    top:0;left:0;right:0;
-    aspect-ratio:16/9;
-    display:flex;align-items:center;justify-content:center;
-    background:rgba(35,34,33,.18);
-    transition:background var(--t);
-  }
-  .media-card-play.portrait{aspect-ratio:9/16}
-  .media-card:hover .media-card-play{background:rgba(35,34,33,.35)}
-  .play-btn{
-    width:52px;height:52px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    transition:transform var(--t),opacity var(--t);
-  }
-  .play-btn.yt{background:#FF0000;}
-  .play-btn.ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
-  .play-btn svg{width:20px;height:20px;fill:#fff;margin-left:3px}
-  .media-card:hover .play-btn{transform:scale(1.1)}
+    ::selection {
+      background: var(--wedding);
+      color: var(--ink)
+    }
 
-  /* bottom meta bar */
-  .media-card-meta{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:10px 14px;gap:8px;
-    border-top:1px solid var(--border);
-  }
-  .media-card-label{font-size:12px;font-weight:400;color:var(--ink-mid);line-height:1.3;flex:1;
-                    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .media-card-badge{
-    font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
-    padding:3px 9px;border-radius:var(--r-pill);white-space:nowrap;flex-shrink:0;
-  }
-  .badge-yt{background:#FFE9E9;color:#CC0000}
-  .badge-ig{background:#FFF0F6;color:#bc1888}
+    ::-webkit-scrollbar {
+      width: 3px
+    }
 
-  /* plain ig-card kept for brand section fallback */
-  .ig-card{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-    border-radius:var(--r-lg);border:1px solid var(--border-med);
-    background:var(--paper-warm);padding:28px 20px;text-align:center;
-    transition:border-color var(--t),transform var(--t),box-shadow var(--t);cursor:pointer;
-  }
-  .ig-card:hover{border-color:var(--brand);transform:translateY(-3px);box-shadow:0 12px 32px rgba(35,34,33,.10)}
-  .ig-card-icon{width:44px;height:44px;border-radius:50%;
-    background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
-    display:flex;align-items:center;justify-content:center}
-  .ig-card-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8}
-  .ig-card-title{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}
-  .ig-card-sub{font-size:11px;color:var(--ink-light);letter-spacing:.04em}
-  .ig-card-btn{font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
-               color:var(--brand);padding:6px 14px;border:1px solid var(--brand);border-radius:var(--r-pill);
-               transition:var(--t)}
-  .ig-card:hover .ig-card-btn{background:var(--brand);color:var(--paper)}
+    ::-webkit-scrollbar-track {
+      background: var(--paper)
+    }
 
-  /* ── NAV ─────────────────────────────────────────────────── */
-  #nav{position:fixed;top:0;left:0;right:0;z-index:90;height:68px;
-       display:flex;align-items:center;justify-content:space-between;padding:0 52px;
-       transition:background .4s var(--ease),border-color .4s}
-  #nav.stuck{background:rgba(241,239,233,.92);border-bottom:1px solid var(--border);
-             backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-  .nav-logo{display:flex;align-items:center;gap:10px}
-  .nav-mark{position:relative;width:46px;height:34px;flex-shrink:0}
-  .nav-mark .c1,.nav-mark .c2{position:absolute;width:26px;height:26px;border-radius:50%;top:4px}
-  .nav-mark .c1{left:0;background:radial-gradient(circle at 38% 36%,#787673,#1e1c1b);opacity:.82}
-  .nav-mark .c2{left:18px;background:radial-gradient(circle at 62% 36%,#EFD8D2,#D9A9A0);opacity:.76}
-  .nav-wordmark{font-size:19px;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
-  .nav-links{display:flex;align-items:center;gap:32px;list-style:none}
-  .nav-links a{font-size:13px;font-weight:400;color:var(--ink-mid);position:relative;transition:color var(--t)}
-  .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--ink);transition:width .3s var(--ease)}
-  .nav-links a:hover{color:var(--ink)}
-  .nav-links a:hover::after{width:100%}
-  .nav-btn{font-size:12.5px;font-weight:500;color:var(--paper);background:var(--ink);
-           padding:9px 22px;border-radius:var(--r-pill);transition:var(--t)}
-  .nav-btn:hover{background:var(--ink-mid)}
+    ::-webkit-scrollbar-thumb {
+      background: var(--ink-ghost);
+      border-radius: 3px
+    }
 
-  /* ── HERO ────────────────────────────────────────────────── */
-  #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px;
-        position:relative;overflow:hidden}
-  #hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.018;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size:200px}
-  .hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 64px 80px 52px;position:relative;z-index:2}
-  .hero-eyebrow{display:flex;align-items:center;margin-bottom:36px;opacity:0;animation:fadeUp .7s var(--ease) .25s forwards}
-  .hero-h1{font-family:var(--serif);font-size:clamp(52px,5.8vw,84px);font-weight:300;line-height:1.02;
-           letter-spacing:-.01em;margin-bottom:30px;opacity:0;animation:fadeUp .8s var(--ease) .4s forwards}
-  .hero-h1 em{font-style:italic;font-weight:400;color:var(--wedding)}
-  .hero-h1 strong{font-weight:500;display:block}
-  .hero-sub{font-size:15.5px;font-weight:300;color:var(--ink-mid);line-height:1.76;max-width:430px;
-            margin-bottom:48px;opacity:0;animation:fadeUp .8s var(--ease) .55s forwards}
-  .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s var(--ease) .7s forwards}
-  .btn-solid{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;
-             color:var(--paper);background:var(--ink);padding:13px 26px;border-radius:var(--r-pill);
-             transition:var(--t);border:1px solid var(--ink)}
-  .btn-solid:hover{background:var(--ink-mid);border-color:var(--ink-mid)}
-  .btn-solid svg{transition:transform .25s}
-  .btn-solid:hover svg{transform:translateX(4px)}
-  .btn-outline{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:400;
-               color:var(--ink);padding:13px 26px;border-radius:var(--r-pill);
-               border:1px solid var(--border-med);transition:var(--t)}
-  .btn-outline:hover{border-color:var(--ink)}
-  .hero-stats{display:flex;gap:44px;flex-wrap:wrap;margin-top:64px;padding-top:40px;
-              border-top:1px solid var(--border);opacity:0;animation:fadeUp .8s var(--ease) .88s forwards}
-  .stat-n{font-family:var(--serif);font-size:40px;font-weight:400;line-height:1;margin-bottom:3px}
-  .stat-n sup{font-size:.5em;vertical-align:super}
-  .stat-l{font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-light)}
-  .hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .hero-blob{position:absolute;width:70%;aspect-ratio:1;border-radius:50%;
-             background:radial-gradient(circle,rgba(217,169,160,.18) 0%,transparent 72%);pointer-events:none}
-  .hero-logo-wrap{position:relative;z-index:2;opacity:0;animation:scaleIn 1s var(--ease) .5s forwards}
-  .hero-logo-wrap img{width:clamp(240px,28vw,360px);filter:drop-shadow(0 28px 56px rgba(35,34,33,.12))}
-  .orbit{position:absolute;border-radius:50%;border:1px solid var(--border);pointer-events:none}
-  .orbit-1{width:420px;height:420px;animation:spin 36s linear infinite}
-  .orbit-2{width:560px;height:560px;animation:spin 52s linear infinite reverse;border-color:rgba(217,169,160,.15)}
-  .orbit-dot{position:absolute;top:-3px;left:50%;margin-left:-3px;width:6px;height:6px;
-             border-radius:50%;background:var(--wedding);box-shadow:0 0 8px var(--wedding)}
-  .hero-chip{position:absolute;background:rgba(241,239,233,.92);border:1px solid var(--border-med);
-             border-radius:var(--r);padding:9px 14px;font-size:11.5px;color:var(--ink-mid);
-             white-space:nowrap;animation:floatY 4.5s ease-in-out infinite;display:flex;align-items:center;gap:7px}
-  .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-  .hero-chip-1{top:26%;left:4%;animation-delay:0s}
-  .hero-chip-2{top:44%;right:4%;animation-delay:1.8s}
-  .hero-chip-3{bottom:22%;left:8%;animation-delay:.9s}
-  .scroll-nudge{position:absolute;bottom:36px;left:52px;display:flex;align-items:center;gap:12px;
-                opacity:0;animation:fadeUp .7s var(--ease) 1.2s forwards}
-  .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--ink-ghost),transparent);
-               animation:scrollPulse 2s ease-in-out infinite}
-  .scroll-nudge span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-ghost)}
+    /* ── LAYOUT ─────────────────────────────────────────────── */
+    .wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 48px
+    }
 
-  /* ── MARQUEE ─────────────────────────────────────────────── */
-  .marquee-band{border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-                padding:15px 0;overflow:hidden;background:var(--paper-warm)}
-  .marquee-inner{display:flex;width:max-content;animation:marquee 22s linear infinite}
-  .marquee-inner:hover{animation-play-state:paused}
-  .mitem{display:flex;align-items:center;gap:24px;padding:0 28px;font-size:11px;
-         letter-spacing:.14em;text-transform:uppercase;color:var(--ink-light);white-space:nowrap}
-  .mdot{width:3px;height:3px;border-radius:50%;background:var(--wedding);opacity:.7}
+    .wrap--wide {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 48px
+    }
 
-  /* ── SECTION ─────────────────────────────────────────────── */
-  .section{padding:120px 0}
-  .section-alt{background:var(--paper-warm)}
-  .section-title{font-family:var(--serif);font-size:clamp(36px,4vw,56px);font-weight:300;line-height:1.1;letter-spacing:-.01em}
-  .section-title em{font-style:italic;color:var(--wedding)}
-  .section-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:72px}
-  .section-body{font-size:14.5px;font-weight:300;color:var(--ink-mid);line-height:1.78;max-width:360px;align-self:end}
+    .label {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-light)
+    }
 
-  /* ── SERVICES ─────────────────────────────────────────────── */
-  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);
-                 border-radius:var(--r-lg);overflow:hidden;gap:1px;background:var(--border)}
-  .svc-card{background:var(--paper);padding:44px 38px 40px;position:relative;overflow:hidden;transition:background var(--t)}
-  .svc-card:hover{background:var(--paper-warm)}
-  .svc-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-                    background:var(--accent-color,var(--wedding));transform:scaleY(0);
-                    transform-origin:bottom;transition:transform .35s var(--ease)}
-  .svc-card:hover::before{transform:scaleY(1)}
-  .svc-num{font-family:var(--serif);font-size:11px;letter-spacing:.16em;color:var(--ink-ghost);margin-bottom:28px}
-  .svc-icon{width:44px;height:44px;border-radius:var(--r);border:1px solid var(--border-med);
-            display:flex;align-items:center;justify-content:center;margin-bottom:24px;
-            transition:border-color var(--t),background var(--t)}
-  .svc-card:hover .svc-icon{border-color:var(--accent-color,var(--wedding));
-    background:color-mix(in srgb,var(--accent-color,var(--wedding)) 10%,transparent)}
-  .svc-icon svg{width:20px;height:20px;stroke:var(--ink-mid);fill:none;stroke-width:1.5;transition:stroke var(--t)}
-  .svc-card:hover .svc-icon svg{stroke:var(--accent-color,var(--wedding))}
-  .svc-name{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
-  .svc-desc{font-size:13.5px;font-weight:300;color:var(--ink-mid);line-height:1.72;margin-bottom:26px}
-  .svc-tags{display:flex;flex-wrap:wrap;gap:6px}
-  .svc-tag{font-size:10.5px;letter-spacing:.06em;color:var(--ink-light);padding:3px 10px;
-           border:1px solid var(--border);border-radius:var(--r-pill);transition:border-color var(--t),color var(--t)}
-  .svc-card:hover .svc-tag{border-color:color-mix(in srgb,var(--accent-color,var(--wedding)) 35%,transparent);color:var(--ink-mid)}
+    .rule {
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+      vertical-align: middle;
+      margin-right: 10px
+    }
 
-  /* ── WORK / TABS ─────────────────────────────────────────── */
-  #work{background:var(--paper-warm);padding:120px 0}
-  .work-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px}
-  .work-title{font-family:var(--serif);font-size:clamp(34px,3.8vw,52px);font-weight:300;line-height:1.1}
-  .work-title em{font-style:italic;color:var(--wedding)}
-  .tab-nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:48px}
-  .tab-btn{font-size:12px;font-weight:400;letter-spacing:.04em;padding:9px 18px 10px;
-           border-radius:var(--r-pill) var(--r-pill) 0 0;border:1px solid transparent;border-bottom:none;
-           color:var(--ink-mid);transition:var(--t);background:transparent;position:relative;bottom:-1px}
-  .tab-btn:hover{color:var(--ink)}
-  .tab-btn.on{background:var(--paper-warm);border-color:var(--border);color:var(--ink);font-weight:500}
-  .tab-panel{display:none}
-  .tab-panel.on{display:block}
+    /* ── SCROLL REVEAL ──────────────────────────────────────── */
+    .sr {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease)
+    }
 
-  /* channel header */
-  .ch-section{margin-bottom:56px}
-  .ch-section:last-child{margin-bottom:0}
-  .ch-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-  .ch-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-  .ch-name{font-size:18px;font-weight:500;color:var(--ink)}
-  .ch-link{font-size:12px;color:var(--ink-light);transition:color var(--t)}
-  .ch-link:hover{color:var(--creator)}
-  .ch-badge{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
-            padding:3px 10px;border-radius:var(--r-pill);margin-left:auto}
+    .sr.d1 {
+      transition-delay: .08s
+    }
 
-  /* grids */
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-  .mt{margin-top:14px}
-  .mt2{margin-top:20px}
+    .sr.d2 {
+      transition-delay: .16s
+    }
 
-  /* creator layout  main + side reels */
-  .creator-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start}
-  .reel-col{display:flex;flex-direction:column;gap:14px}
+    .sr.d3 {
+      transition-delay: .24s
+    }
 
-  /* image thumbnails */
-  .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);
-         border:1px solid var(--border);transition:transform var(--t),box-shadow var(--t);cursor:zoom-in}
-  .thumb:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(35,34,33,.12)}
-  .thumb.portrait{aspect-ratio:9/16}
+    .sr.d4 {
+      transition-delay: .32s
+    }
 
-  /* caption */
-  .cap{font-size:11.5px;color:var(--ink-light);margin-top:7px;font-weight:300}
+    .sr.d5 {
+      transition-delay: .40s
+    }
 
-  /* wedding */
-  .wedding-hero-img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);
-                    border:1px solid var(--border);margin-bottom:12px;cursor:zoom-in}
-  .wedding-still{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r);
-                 border:1px solid var(--border);transition:transform var(--t);cursor:zoom-in}
-  .wedding-still:hover{transform:scale(1.02)}
+    .sr.on {
+      opacity: 1;
+      transform: none
+    }
 
-  /* ── LIGHTBOX ────────────────────────────────────────────── */
-  #lb{position:fixed;inset:0;z-index:200;background:rgba(35,34,33,.93);
-      display:none;align-items:center;justify-content:center;padding:24px;
-      backdrop-filter:blur(6px)}
-  #lb.open{display:flex}
-  #lb img{max-width:90vw;max-height:88vh;border-radius:var(--r-lg);object-fit:contain}
-  #lb-x{position:absolute;top:20px;right:24px;font-size:28px;color:var(--paper);
-         cursor:pointer;line-height:1;opacity:.7;transition:opacity .2s}
-  #lb-x:hover{opacity:1}
+    /* ── RESPONSIVE VIDEO WRAPPER ───────────────────────────── */
+    .vid-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--r-lg);
+      background: #1a1a1a
+    }
 
-  /* ── PROCESS ─────────────────────────────────────────────── */
-  #process{padding:120px 0}
-  .process-hdr{text-align:center;margin-bottom:80px}
-  .process-title{font-family:var(--serif);font-size:clamp(34px,4vw,52px);font-weight:300;line-height:1.1;margin-bottom:16px}
-  .process-title em{font-style:italic;color:var(--creator)}
-  .process-sub{font-size:14.5px;font-weight:300;color:var(--ink-mid);max-width:440px;margin:0 auto;line-height:1.75}
-  .process-row{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
-  .process-row::before{content:'';position:absolute;top:30px;left:calc(12.5% + 24px);right:calc(12.5% + 24px);
-                       height:1px;background:linear-gradient(to right,var(--creator),var(--border-med),var(--creator))}
-  .pstep{padding:0 28px 36px;text-align:center}
-  .pstep-circle{width:60px;height:60px;border-radius:50%;border:1px solid var(--border-med);background:var(--paper);
-                display:flex;align-items:center;justify-content:center;margin:0 auto 28px;
-                position:relative;z-index:2;transition:border-color var(--t),background var(--t)}
-  .pstep:hover .pstep-circle{border-color:var(--creator);background:color-mix(in srgb,var(--creator) 10%,var(--paper))}
-  .pstep-n{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--creator)}
-  .pstep-name{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:10px}
-  .pstep-desc{font-size:13.5px;font-weight:300;color:var(--ink-mid);line-height:1.72}
+    .vid-wrap iframe,
+    .vid-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover
+    }
 
-  /* ── ABOUT ───────────────────────────────────────────────── */
-  #about{background:var(--paper-warm);padding:120px 0;overflow:hidden}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
-  .about-circles{width:100%;aspect-ratio:1;max-width:420px;position:relative;margin:0 auto}
-  .ac1,.ac2{position:absolute;width:65%;aspect-ratio:1;border-radius:50%;top:18%}
-  .ac1{left:2%;background:radial-gradient(circle at 36% 34%,#787673,#1e1c1b);opacity:.82}
-  .ac2{left:32%;background:radial-gradient(circle at 64% 34%,#EFD8D2,#D9A9A0);opacity:.70}
-  .about-float{position:absolute;background:rgba(241,239,233,.93);border:1px solid var(--border-med);
-               border-radius:var(--r);padding:14px 18px;animation:floatY 5s ease-in-out infinite}
-  .af1{bottom:10%;left:-4%;animation-delay:0s}
-  .af2{top:6%;right:-4%;animation-delay:2.2s}
-  .af-n{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--wedding);line-height:1}
-  .af-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-light);margin-top:3px}
-  .about-body{font-size:15px;font-weight:300;color:var(--ink-mid);line-height:1.8;margin-bottom:16px}
-  .about-rule{width:36px;height:1px;background:var(--wedding);margin:32px 0}
-  .about-vals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
-  .aval{padding:14px 18px;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);transition:border-color var(--t)}
-  .aval:hover{border-color:var(--wedding)}
-  .aval-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
-  .aval-desc{font-size:12px;font-weight:300;color:var(--ink-light);line-height:1.55}
-  .clients-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:14px}
-  .clients-list{display:flex;flex-wrap:wrap;gap:6px 24px}
-  .client-name{font-size:13.5px;font-weight:400;color:var(--ink-light);transition:color var(--t)}
-  .client-name:hover{color:var(--ink)}
+    /* ── PORTRAIT (REEL) WRAPPER ────────────────────────────── */
+    .reel-wrap {
+      position: relative;
+      padding-bottom: 177.78%;
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--r-lg);
+      background: #1a1a1a
+    }
 
-  /* ── TESTIMONIALS ────────────────────────────────────────── */
-  #testimonials{padding:120px 0;overflow:hidden}
-  .testi-hdr{text-align:center;margin-bottom:56px}
-  .testi-title{font-family:var(--serif);font-size:clamp(32px,3.6vw,50px);font-weight:300;line-height:1.1;margin-bottom:8px}
-  .testi-title em{font-style:italic;color:var(--wedding)}
-  .testi-track-wrap{overflow:hidden}
-  .testi-track{display:flex;gap:20px;width:max-content;animation:marquee 34s linear infinite}
-  .testi-track:hover{animation-play-state:paused}
-  .tcard{width:360px;flex-shrink:0;background:var(--paper-warm);border:1px solid var(--border);
-         border-radius:var(--r-lg);padding:32px 30px;transition:border-color var(--t)}
-  .tcard:hover{border-color:var(--border-med)}
-  .tcard-stars{color:var(--creator);font-size:13px;letter-spacing:2px;margin-bottom:18px}
-  .tcard-quote{font-family:var(--serif);font-size:16px;font-weight:300;font-style:italic;
-               color:var(--ink);line-height:1.72;margin-bottom:24px}
-  .tcard-author{display:flex;align-items:center;gap:12px}
-  .tcard-avatar{width:38px;height:38px;border-radius:50%;background:var(--border);border:1px solid var(--border-med);
-                display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;
-                color:var(--ink-mid);flex-shrink:0}
-  .tcard-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
-  .tcard-role{font-size:11.5px;font-weight:300;color:var(--ink-light)}
+    .reel-wrap iframe,
+    .reel-wrap video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      object-fit: cover
+    }
 
-  /* ── CTA BAND ────────────────────────────────────────────── */
-  .cta-band{padding:100px 0;background:var(--ink);text-align:center;position:relative;overflow:hidden}
-  .cta-band::before{content:'';position:absolute;inset:0;
-    background:radial-gradient(ellipse at 50% 50%,rgba(217,169,160,.14) 0%,transparent 68%);pointer-events:none}
-  .cta-inner{position:relative;z-index:2}
-  .cta-band-label{color:var(--wedding);margin-bottom:20px}
-  .cta-band-label .rule{background:var(--wedding)}
-  .cta-title{font-family:var(--serif);font-size:clamp(40px,5vw,68px);font-weight:300;color:var(--paper);line-height:1.08;margin-bottom:22px}
-  .cta-title em{font-style:italic;color:var(--wedding)}
-  .cta-sub{font-size:15px;font-weight:300;color:rgba(241,239,233,.6);max-width:440px;margin:0 auto 44px;line-height:1.72}
-  .cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
-  .btn-paper{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;
-             color:var(--ink);background:var(--paper);padding:13px 28px;border-radius:var(--r-pill);
-             border:1px solid var(--paper);transition:var(--t)}
-  .btn-paper:hover{background:var(--paper-warm)}
-  .btn-ghost-light{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:400;
-                   color:var(--paper);padding:13px 28px;border-radius:var(--r-pill);
-                   border:1px solid rgba(241,239,233,.25);transition:var(--t)}
-  .btn-ghost-light:hover{border-color:rgba(241,239,233,.55)}
+    /* ── MEDIA LINK CARD (YouTube + Instagram, local-safe) ─── */
+    .media-card {
+      display: block;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-med);
+      background: var(--paper-warm);
+      transition: border-color var(--t), transform var(--t), box-shadow var(--t);
+      cursor: pointer;
+      position: relative;
+    }
 
-  /* ── CONTACT ─────────────────────────────────────────────── */
-  #contact{padding:120px 0;background:var(--paper-warm)}
-  .contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:100px;align-items:start}
-  .channel-list{display:flex;flex-direction:column;gap:12px}
-  .channel{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--paper);
-           border:1px solid var(--border);border-radius:var(--r);transition:border-color var(--t),transform var(--t)}
-  .channel:hover{border-color:var(--brand);transform:translateX(4px)}
-  .ch-icon-c{width:36px;height:36px;flex-shrink:0;border-radius:var(--r);border:1px solid var(--border-med);
-             display:flex;align-items:center;justify-content:center;
-             background:color-mix(in srgb,var(--brand) 8%,var(--paper));transition:background var(--t)}
-  .channel:hover .ch-icon-c{background:color-mix(in srgb,var(--brand) 14%,var(--paper))}
-  .ch-icon-c svg{width:16px;height:16px;stroke:var(--brand);fill:none;stroke-width:1.5}
-  .ch-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:2px}
-  .ch-val{font-size:13.5px;font-weight:400;color:var(--ink)}
-  .contact-form{background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:44px}
-  .form-title{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:4px}
-  .form-sub{font-size:13px;font-weight:300;color:var(--ink-light);margin-bottom:32px}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .fgroup{margin-bottom:18px}
-  .fgroup label{display:block;font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
-                color:var(--ink-light);margin-bottom:7px}
-  .fgroup input,.fgroup select,.fgroup textarea{width:100%;background:var(--paper-warm);
-    border:1px solid var(--border-med);border-radius:var(--r);padding:12px 15px;
-    font-family:var(--sans);font-size:14px;font-weight:300;color:var(--ink);outline:none;
-    transition:border-color var(--t),box-shadow var(--t);-webkit-appearance:none}
-  .fgroup select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%239C9890' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 14px center;cursor:pointer}
-  .fgroup input::placeholder,.fgroup textarea::placeholder{color:var(--ink-ghost)}
-  .fgroup input:focus,.fgroup select:focus,.fgroup textarea:focus{border-color:var(--brand);
-    box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 12%,transparent)}
-  .fgroup textarea{height:112px;resize:none}
-  .fgroup select option{background:var(--paper)}
-  .form-btn{width:100%;margin-top:6px;padding:14px;background:var(--ink);border:none;
-            border-radius:var(--r-pill);font-family:var(--sans);font-size:13.5px;font-weight:500;
-            color:var(--paper);cursor:pointer;transition:var(--t)}
-  .form-btn:hover{background:var(--ink-mid)}
+    .media-card:hover {
+      border-color: rgba(35, 34, 33, .28);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(35, 34, 33, .13)
+    }
 
-  /* ── FOOTER ─────────────────────────────────────────────── */
-  footer{background:var(--ink);padding:72px 0 40px}
-  .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:56px;
-              padding-bottom:56px;border-bottom:1px solid rgba(241,239,233,.10);margin-bottom:36px}
-  .footer-brand .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  .footer-mark{position:relative;width:34px;height:26px;flex-shrink:0}
-  .footer-mark .c1,.footer-mark .c2{position:absolute;width:20px;height:20px;border-radius:50%;top:3px}
-  .footer-mark .c1{left:0;background:radial-gradient(circle at 38% 36%,#787673,#1e1c1b);opacity:.65}
-  .footer-mark .c2{left:13px;background:radial-gradient(circle at 62% 36%,#EFD8D2,#D9A9A0);opacity:.55}
-  .footer-wordmark{font-size:15px;font-weight:500;color:rgba(241,239,233,.75)}
-  .footer-desc{font-size:13px;font-weight:300;color:rgba(241,239,233,.40);line-height:1.72;max-width:240px;margin-bottom:24px}
-  .footer-tagline{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,239,233,.25)}
-  .footer-col-title{font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
-                    color:rgba(241,239,233,.35);margin-bottom:18px}
-  .footer-links{list-style:none;display:flex;flex-direction:column;gap:11px}
-  .footer-links a{font-size:13px;font-weight:300;color:rgba(241,239,233,.45);transition:color var(--t)}
-  .footer-links a:hover{color:rgba(241,239,233,.8)}
-  .footer-socials{display:flex;gap:8px}
-  .soc{width:34px;height:34px;border-radius:var(--r);border:1px solid rgba(241,239,233,.12);
-       display:flex;align-items:center;justify-content:center;transition:border-color var(--t),background var(--t);cursor:pointer}
-  .soc:hover{border-color:rgba(241,239,233,.28);background:rgba(241,239,233,.05)}
-  .soc svg{width:14px;height:14px;stroke:rgba(241,239,233,.4);fill:none;stroke-width:1.5;transition:stroke var(--t)}
-  .soc:hover svg{stroke:rgba(241,239,233,.75)}
-  .footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-  .footer-copy{font-size:11.5px;font-weight:300;color:rgba(241,239,233,.28)}
-  .footer-copy span{color:rgba(217,169,160,.55)}
-  .footer-legal{display:flex;gap:20px}
-  .footer-legal a{font-size:11.5px;font-weight:300;color:rgba(241,239,233,.28);transition:color var(--t)}
-  .footer-legal a:hover{color:rgba(241,239,233,.5)}
+    /* thumbnail image */
+    .media-card-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--paper-warm);
+    }
 
-  /* ── KEYFRAMES ───────────────────────────────────────────── */
-  @keyframes fadeUp  {from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-  @keyframes scaleIn {from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
-  @keyframes floatY  {0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-  @keyframes spin    {to{transform:translate(-50%,-50%) rotate(360deg)}}
-  @keyframes marquee {from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @keyframes scrollPulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .media-card-thumb.portrait {
+      aspect-ratio: 9/16
+    }
 
-  /* ── RESPONSIVE ──────────────────────────────────────────── */
-  @media(max-width:1080px){
-    .wrap,.wrap--wide{padding:0 32px}
-    #nav{padding:0 32px}
-    #hero{grid-template-columns:1fr}
-    .hero-left{padding:72px 32px 48px}
-    .hero-right{min-height:52vh}
-    .hero-chip{display:none}
-    .orbit-1{width:300px;height:300px}
-    .orbit-2{width:400px;height:400px}
-    .hero-logo-wrap img{width:220px}
-    .services-grid{grid-template-columns:1fr 1fr}
-    .section-header{grid-template-columns:1fr;gap:20px}
-    .section-body{max-width:100%}
-    .about-grid{grid-template-columns:1fr;gap:56px}
-    .contact-grid{grid-template-columns:1fr;gap:56px}
-    .footer-top{grid-template-columns:1fr 1fr;gap:36px}
-    .process-row{grid-template-columns:1fr 1fr}
-    .process-row::before{display:none}
-    .creator-layout{grid-template-columns:1fr}
-  }
-  @media(max-width:768px){
-    .wrap,.wrap--wide{padding:0 20px}
-    #nav{padding:0 20px}
-    .nav-links,.nav-btn{display:none}
-    .services-grid{grid-template-columns:1fr}
-    .about-vals{grid-template-columns:1fr}
-    .footer-top{grid-template-columns:1fr}
-    .form-row{grid-template-columns:1fr}
-    .process-row{grid-template-columns:1fr}
-    .work-header{flex-direction:column;align-items:flex-start}
-    .hero-stats{flex-wrap:wrap;gap:24px}
-    .g2,.g3,.g4{grid-template-columns:1fr 1fr}
-  }
+    /* play button overlay */
+    .media-card-play {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(35, 34, 33, .18);
+      transition: background var(--t);
+    }
+
+    .media-card-play.portrait {
+      aspect-ratio: 9/16
+    }
+
+    .media-card:hover .media-card-play {
+      background: rgba(35, 34, 33, .35)
+    }
+
+    .play-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--t), opacity var(--t);
+    }
+
+    .play-btn.yt {
+      background: #FF0000;
+    }
+
+    .play-btn.ig {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .play-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+      margin-left: 3px
+    }
+
+    .media-card:hover .play-btn {
+      transform: scale(1.1)
+    }
+
+    /* bottom meta bar */
+    .media-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      gap: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .media-card-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.3;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .media-card-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: var(--r-pill);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-yt {
+      background: #FFE9E9;
+      color: #CC0000
+    }
+
+    .badge-ig {
+      background: #FFF0F6;
+      color: #bc1888
+    }
+
+    /* plain ig-card kept for brand section fallback */
+    .ig-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border-med);
+      background: var(--paper-warm);
+      padding: 28px 20px;
+      text-align: center;
+      transition: border-color var(--t), transform var(--t), box-shadow var(--t);
+      cursor: pointer;
+    }
+
+    .ig-card:hover {
+      border-color: var(--brand);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(35, 34, 33, .10)
+    }
+
+    .ig-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .ig-card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8
+    }
+
+    .ig-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4
+    }
+
+    .ig-card-sub {
+      font-size: 11px;
+      color: var(--ink-light);
+      letter-spacing: .04em
+    }
+
+    .ig-card-btn {
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--brand);
+      padding: 6px 14px;
+      border: 1px solid var(--brand);
+      border-radius: var(--r-pill);
+      transition: var(--t)
+    }
+
+    .ig-card:hover .ig-card-btn {
+      background: var(--brand);
+      color: var(--paper)
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 52px;
+      transition: background .4s var(--ease), border-color .4s
+    }
+
+    #nav.stuck {
+      background: rgba(241, 239, 233, .92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px)
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .nav-mark {
+      position: relative;
+      width: 46px;
+      height: 34px;
+      flex-shrink: 0
+    }
+
+    .nav-mark .c1,
+    .nav-mark .c2 {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      top: 4px
+    }
+
+    .nav-mark .c1 {
+      left: 0;
+      background: radial-gradient(circle at 38% 36%, #787673, #1e1c1b);
+      opacity: .82
+    }
+
+    .nav-mark .c2 {
+      left: 18px;
+      background: radial-gradient(circle at 62% 36%, #EFD8D2, #D9A9A0);
+      opacity: .76
+    }
+
+    .nav-wordmark {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -.02em;
+      color: var(--ink)
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-mid);
+      position: relative;
+      transition: color var(--t)
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: width .3s var(--ease)
+    }
+
+    .nav-links a:hover {
+      color: var(--ink)
+    }
+
+    .nav-links a:hover::after {
+      width: 100%
+    }
+
+    .nav-btn {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--paper);
+      background: var(--ink);
+      padding: 9px 22px;
+      border-radius: var(--r-pill);
+      transition: var(--t)
+    }
+
+    .nav-btn:hover {
+      background: var(--ink-mid)
+    }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 68px;
+      position: relative;
+      overflow: hidden
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .018;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px 80px 52px;
+      position: relative;
+      z-index: 2
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease) .25s forwards
+    }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(52px, 5.8vw, 84px);
+      font-weight: 300;
+      line-height: 1.02;
+      letter-spacing: -.01em;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .4s forwards
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--wedding)
+    }
+
+    .hero-h1 strong {
+      font-weight: 500;
+      display: block
+    }
+
+    .hero-sub {
+      font-size: 15.5px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.76;
+      max-width: 430px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .55s forwards
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .7s forwards
+    }
+
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--paper);
+      background: var(--ink);
+      padding: 13px 26px;
+      border-radius: var(--r-pill);
+      transition: var(--t);
+      border: 1px solid var(--ink)
+    }
+
+    .btn-solid:hover {
+      background: var(--ink-mid);
+      border-color: var(--ink-mid)
+    }
+
+    .btn-solid svg {
+      transition: transform .25s
+    }
+
+    .btn-solid:hover svg {
+      transform: translateX(4px)
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink);
+      padding: 13px 26px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border-med);
+      transition: var(--t)
+    }
+
+    .btn-outline:hover {
+      border-color: var(--ink)
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 44px;
+      flex-wrap: wrap;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp .8s var(--ease) .88s forwards
+    }
+
+    .stat-n {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 3px
+    }
+
+    .stat-n sup {
+      font-size: .5em;
+      vertical-align: super
+    }
+
+    .stat-l {
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-light)
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .hero-blob {
+      position: absolute;
+      width: 70%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 169, 160, .18) 0%, transparent 72%);
+      pointer-events: none
+    }
+
+    .hero-logo-wrap {
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      animation: scaleIn 1s var(--ease) .5s forwards
+    }
+
+    .hero-logo-wrap img {
+      width: clamp(240px, 28vw, 360px);
+      filter: drop-shadow(0 28px 56px rgba(35, 34, 33, .12))
+    }
+
+    .orbit {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      pointer-events: none
+    }
+
+    .orbit-1 {
+      width: 420px;
+      height: 420px;
+      animation: spin 36s linear infinite
+    }
+
+    .orbit-2 {
+      width: 560px;
+      height: 560px;
+      animation: spin 52s linear infinite reverse;
+      border-color: rgba(217, 169, 160, .15)
+    }
+
+    .orbit-dot {
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      margin-left: -3px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--wedding);
+      box-shadow: 0 0 8px var(--wedding)
+    }
+
+    .hero-chip {
+      position: absolute;
+      background: rgba(241, 239, 233, .92);
+      border: 1px solid var(--border-med);
+      border-radius: var(--r);
+      padding: 9px 14px;
+      font-size: 11.5px;
+      color: var(--ink-mid);
+      white-space: nowrap;
+      animation: floatY 4.5s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .hero-chip-1 {
+      top: 26%;
+      left: 4%;
+      animation-delay: 0s
+    }
+
+    .hero-chip-2 {
+      top: 44%;
+      right: 4%;
+      animation-delay: 1.8s
+    }
+
+    .hero-chip-3 {
+      bottom: 22%;
+      left: 8%;
+      animation-delay: .9s
+    }
+
+    .scroll-nudge {
+      position: absolute;
+      bottom: 36px;
+      left: 52px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease) 1.2s forwards
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--ink-ghost), transparent);
+      animation: scrollPulse 2s ease-in-out infinite
+    }
+
+    .scroll-nudge span {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-ghost)
+    }
+
+    /* ── MARQUEE ─────────────────────────────────────────────── */
+    .marquee-band {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 0;
+      overflow: hidden;
+      background: var(--paper-warm)
+    }
+
+    .marquee-inner {
+      display: flex;
+      width: max-content;
+      animation: marquee 22s linear infinite
+    }
+
+    .marquee-inner:hover {
+      animation-play-state: paused
+    }
+
+    .mitem {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 28px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      white-space: nowrap
+    }
+
+    .mdot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--wedding);
+      opacity: .7
+    }
+
+    /* ── SECTION ─────────────────────────────────────────────── */
+    .section {
+      padding: 120px 0
+    }
+
+    .section-alt {
+      background: var(--paper-warm)
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -.01em
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--wedding)
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 72px
+    }
+
+    .section-body {
+      font-size: 14.5px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.78;
+      max-width: 360px;
+      align-self: end
+    }
+
+    /* ── SERVICES ─────────────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      gap: 1px;
+      background: var(--border)
+    }
+
+    .svc-card {
+      background: var(--paper);
+      padding: 44px 38px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--t)
+    }
+
+    .svc-card:hover {
+      background: var(--paper-warm)
+    }
+
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent-color, var(--wedding));
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .35s var(--ease)
+    }
+
+    .svc-card:hover::before {
+      transform: scaleY(1)
+    }
+
+    .svc-num {
+      font-family: var(--serif);
+      font-size: 11px;
+      letter-spacing: .16em;
+      color: var(--ink-ghost);
+      margin-bottom: 28px
+    }
+
+    .svc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r);
+      border: 1px solid var(--border-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: border-color var(--t), background var(--t)
+    }
+
+    .svc-card:hover .svc-icon {
+      border-color: var(--accent-color, var(--wedding));
+      background: color-mix(in srgb, var(--accent-color, var(--wedding)) 10%, transparent)
+    }
+
+    .svc-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--ink-mid);
+      fill: none;
+      stroke-width: 1.5;
+      transition: stroke var(--t)
+    }
+
+    .svc-card:hover .svc-icon svg {
+      stroke: var(--accent-color, var(--wedding))
+    }
+
+    .svc-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 10px;
+      letter-spacing: -.01em
+    }
+
+    .svc-desc {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.72;
+      margin-bottom: 26px
+    }
+
+    .svc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px
+    }
+
+    .svc-tag {
+      font-size: 10.5px;
+      letter-spacing: .06em;
+      color: var(--ink-light);
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      transition: border-color var(--t), color var(--t)
+    }
+
+    .svc-card:hover .svc-tag {
+      border-color: color-mix(in srgb, var(--accent-color, var(--wedding)) 35%, transparent);
+      color: var(--ink-mid)
+    }
+
+    /* ── WORK / TABS ─────────────────────────────────────────── */
+    #work {
+      background: var(--paper-warm);
+      padding: 120px 0
+    }
+
+    .work-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      gap: 24px
+    }
+
+    .work-title {
+      font-family: var(--serif);
+      font-size: clamp(34px, 3.8vw, 52px);
+      font-weight: 300;
+      line-height: 1.1
+    }
+
+    .work-title em {
+      font-style: italic;
+      color: var(--wedding)
+    }
+
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px
+    }
+
+    .tab-btn {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .04em;
+      padding: 9px 18px 10px;
+      border-radius: var(--r-pill) var(--r-pill) 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      color: var(--ink-mid);
+      transition: var(--t);
+      background: transparent;
+      position: relative;
+      bottom: -1px
+    }
+
+    .tab-btn:hover {
+      color: var(--ink)
+    }
+
+    .tab-btn.on {
+      background: var(--paper-warm);
+      border-color: var(--border);
+      color: var(--ink);
+      font-weight: 500
+    }
+
+    .tab-panel {
+      display: none
+    }
+
+    .tab-panel.on {
+      display: block
+    }
+
+    /* channel header */
+    .ch-section {
+      margin-bottom: 56px
+    }
+
+    .ch-section:last-child {
+      margin-bottom: 0
+    }
+
+    .ch-hdr {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .ch-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .ch-name {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink)
+    }
+
+    .ch-link {
+      font-size: 12px;
+      color: var(--ink-light);
+      transition: color var(--t)
+    }
+
+    .ch-link:hover {
+      color: var(--creator)
+    }
+
+    .ch-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+      margin-left: auto
+    }
+
+    /* grids */
+    .g2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px
+    }
+
+    .g4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    .mt {
+      margin-top: 14px
+    }
+
+    .mt2 {
+      margin-top: 20px
+    }
+
+    /* creator layout  main + side reels */
+    .creator-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 24px;
+      align-items: start
+    }
+
+    .reel-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    /* image thumbnails */
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      transition: transform var(--t), box-shadow var(--t);
+      cursor: zoom-in
+    }
+
+    .thumb:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(35, 34, 33, .12)
+    }
+
+    .thumb.portrait {
+      aspect-ratio: 9/16
+    }
+
+    /* caption */
+    .cap {
+      font-size: 11.5px;
+      color: var(--ink-light);
+      margin-top: 7px;
+      font-weight: 300
+    }
+
+    /* wedding */
+    .wedding-hero-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      cursor: zoom-in
+    }
+
+    .wedding-still {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      transition: transform var(--t);
+      cursor: zoom-in
+    }
+
+    .wedding-still:hover {
+      transform: scale(1.02)
+    }
+
+    /* ── LIGHTBOX ────────────────────────────────────────────── */
+    #lb {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(35, 34, 33, .93);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(6px)
+    }
+
+    #lb.open {
+      display: flex
+    }
+
+    #lb img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: var(--r-lg);
+      object-fit: contain
+    }
+
+    #lb-x {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 28px;
+      color: var(--paper);
+      cursor: pointer;
+      line-height: 1;
+      opacity: .7;
+      transition: opacity .2s
+    }
+
+    #lb-x:hover {
+      opacity: 1
+    }
+
+    /* ── PROCESS ─────────────────────────────────────────────── */
+    #process {
+      padding: 120px 0
+    }
+
+    .process-hdr {
+      text-align: center;
+      margin-bottom: 80px
+    }
+
+    .process-title {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 16px
+    }
+
+    .process-title em {
+      font-style: italic;
+      color: var(--creator)
+    }
+
+    .process-sub {
+      font-size: 14.5px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.75
+    }
+
+    .process-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative
+    }
+
+    .process-row::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: calc(12.5% + 24px);
+      right: calc(12.5% + 24px);
+      height: 1px;
+      background: linear-gradient(to right, var(--creator), var(--border-med), var(--creator))
+    }
+
+    .pstep {
+      padding: 0 28px 36px;
+      text-align: center
+    }
+
+    .pstep-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 1px solid var(--border-med);
+      background: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      position: relative;
+      z-index: 2;
+      transition: border-color var(--t), background var(--t)
+    }
+
+    .pstep:hover .pstep-circle {
+      border-color: var(--creator);
+      background: color-mix(in srgb, var(--creator) 10%, var(--paper))
+    }
+
+    .pstep-n {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--creator)
+    }
+
+    .pstep-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 10px
+    }
+
+    .pstep-desc {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.72
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────────── */
+    #about {
+      background: var(--paper-warm);
+      padding: 120px 0;
+      overflow: hidden
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center
+    }
+
+    .about-circles {
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 420px;
+      position: relative;
+      margin: 0 auto
+    }
+
+    .ac1,
+    .ac2 {
+      position: absolute;
+      width: 65%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      top: 18%
+    }
+
+    .ac1 {
+      left: 2%;
+      background: radial-gradient(circle at 36% 34%, #787673, #1e1c1b);
+      opacity: .82
+    }
+
+    .ac2 {
+      left: 32%;
+      background: radial-gradient(circle at 64% 34%, #EFD8D2, #D9A9A0);
+      opacity: .70
+    }
+
+    .about-float {
+      position: absolute;
+      background: rgba(241, 239, 233, .93);
+      border: 1px solid var(--border-med);
+      border-radius: var(--r);
+      padding: 14px 18px;
+      animation: floatY 5s ease-in-out infinite
+    }
+
+    .af1 {
+      bottom: 10%;
+      left: -4%;
+      animation-delay: 0s
+    }
+
+    .af2 {
+      top: 6%;
+      right: -4%;
+      animation-delay: 2.2s
+    }
+
+    .af-n {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--wedding);
+      line-height: 1
+    }
+
+    .af-l {
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-top: 3px
+    }
+
+    .about-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.8;
+      margin-bottom: 16px
+    }
+
+    .about-rule {
+      width: 36px;
+      height: 1px;
+      background: var(--wedding);
+      margin: 32px 0
+    }
+
+    .about-vals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 40px
+    }
+
+    .aval {
+      padding: 14px 18px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color var(--t)
+    }
+
+    .aval:hover {
+      border-color: var(--wedding)
+    }
+
+    .aval-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 3px
+    }
+
+    .aval-desc {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink-light);
+      line-height: 1.55
+    }
+
+    .clients-label {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      margin-bottom: 14px
+    }
+
+    .clients-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 24px
+    }
+
+    .client-name {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--ink-light);
+      transition: color var(--t)
+    }
+
+    .client-name:hover {
+      color: var(--ink)
+    }
+
+    /* ── TESTIMONIALS ────────────────────────────────────────── */
+    #testimonials {
+      padding: 120px 0;
+      overflow: hidden
+    }
+
+    .testi-hdr {
+      text-align: center;
+      margin-bottom: 56px
+    }
+
+    .testi-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.6vw, 50px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 8px
+    }
+
+    .testi-title em {
+      font-style: italic;
+      color: var(--wedding)
+    }
+
+    .testi-track-wrap {
+      overflow: hidden
+    }
+
+    .testi-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: marquee 34s linear infinite
+    }
+
+    .testi-track:hover {
+      animation-play-state: paused
+    }
+
+    .tcard {
+      width: 360px;
+      flex-shrink: 0;
+      background: var(--paper-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px 30px;
+      transition: border-color var(--t)
+    }
+
+    .tcard:hover {
+      border-color: var(--border-med)
+    }
+
+    .tcard-stars {
+      color: var(--creator);
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-bottom: 18px
+    }
+
+    .tcard-quote {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.72;
+      margin-bottom: 24px
+    }
+
+    .tcard-author {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .tcard-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 1px solid var(--border-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      flex-shrink: 0
+    }
+
+    .tcard-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 2px
+    }
+
+    .tcard-role {
+      font-size: 11.5px;
+      font-weight: 300;
+      color: var(--ink-light)
+    }
+
+    /* ── CTA BAND ────────────────────────────────────────────── */
+    .cta-band {
+      padding: 100px 0;
+      background: var(--ink);
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(217, 169, 160, .14) 0%, transparent 68%);
+      pointer-events: none
+    }
+
+    .cta-inner {
+      position: relative;
+      z-index: 2
+    }
+
+    .cta-band-label {
+      color: var(--wedding);
+      margin-bottom: 20px
+    }
+
+    .cta-band-label .rule {
+      background: var(--wedding)
+    }
+
+    .cta-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 300;
+      color: var(--paper);
+      line-height: 1.08;
+      margin-bottom: 22px
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: var(--wedding)
+    }
+
+    .cta-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(241, 239, 233, .6);
+      max-width: 440px;
+      margin: 0 auto 44px;
+      line-height: 1.72
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap
+    }
+
+    .btn-paper {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--paper);
+      padding: 13px 28px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--paper);
+      transition: var(--t)
+    }
+
+    .btn-paper:hover {
+      background: var(--paper-warm)
+    }
+
+    .btn-ghost-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--paper);
+      padding: 13px 28px;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(241, 239, 233, .25);
+      transition: var(--t)
+    }
+
+    .btn-ghost-light:hover {
+      border-color: rgba(241, 239, 233, .55)
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────────── */
+    #contact {
+      padding: 120px 0;
+      background: var(--paper-warm)
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 100px;
+      align-items: start
+    }
+
+    .channel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .channel {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color var(--t), transform var(--t)
+    }
+
+    .channel:hover {
+      border-color: var(--brand);
+      transform: translateX(4px)
+    }
+
+    .ch-icon-c {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      border-radius: var(--r);
+      border: 1px solid var(--border-med);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: color-mix(in srgb, var(--brand) 8%, var(--paper));
+      transition: background var(--t)
+    }
+
+    .channel:hover .ch-icon-c {
+      background: color-mix(in srgb, var(--brand) 14%, var(--paper))
+    }
+
+    .ch-icon-c svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--brand);
+      fill: none;
+      stroke-width: 1.5
+    }
+
+    .ch-lbl {
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 2px
+    }
+
+    .ch-val {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: var(--ink)
+    }
+
+    .contact-form {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 44px
+    }
+
+    .form-title {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px
+    }
+
+    .form-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-light);
+      margin-bottom: 32px
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .fgroup {
+      margin-bottom: 18px
+    }
+
+    .fgroup label {
+      display: block;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 7px
+    }
+
+    .fgroup input,
+    .fgroup select,
+    .fgroup textarea {
+      width: 100%;
+      background: var(--paper-warm);
+      border: 1px solid var(--border-med);
+      border-radius: var(--r);
+      padding: 12px 15px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color var(--t), box-shadow var(--t);
+      -webkit-appearance: none
+    }
+
+    .fgroup select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%239C9890' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      cursor: pointer
+    }
+
+    .fgroup input::placeholder,
+    .fgroup textarea::placeholder {
+      color: var(--ink-ghost)
+    }
+
+    .fgroup input:focus,
+    .fgroup select:focus,
+    .fgroup textarea:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 12%, transparent)
+    }
+
+    .fgroup textarea {
+      height: 112px;
+      resize: none
+    }
+
+    .fgroup select option {
+      background: var(--paper)
+    }
+
+    .form-btn {
+      width: 100%;
+      margin-top: 6px;
+      padding: 14px;
+      background: var(--ink);
+      border: none;
+      border-radius: var(--r-pill);
+      font-family: var(--sans);
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--paper);
+      cursor: pointer;
+      transition: var(--t)
+    }
+
+    .form-btn:hover {
+      background: var(--ink-mid)
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      padding: 72px 0 40px
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(241, 239, 233, .10);
+      margin-bottom: 36px
+    }
+
+    .footer-brand .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .footer-mark {
+      position: relative;
+      width: 34px;
+      height: 26px;
+      flex-shrink: 0
+    }
+
+    .footer-mark .c1,
+    .footer-mark .c2 {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      top: 3px
+    }
+
+    .footer-mark .c1 {
+      left: 0;
+      background: radial-gradient(circle at 38% 36%, #787673, #1e1c1b);
+      opacity: .65
+    }
+
+    .footer-mark .c2 {
+      left: 13px;
+      background: radial-gradient(circle at 62% 36%, #EFD8D2, #D9A9A0);
+      opacity: .55
+    }
+
+    .footer-wordmark {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(241, 239, 233, .75)
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(241, 239, 233, .40);
+      line-height: 1.72;
+      max-width: 240px;
+      margin-bottom: 24px
+    }
+
+    .footer-tagline {
+      font-size: 9.5px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(241, 239, 233, .25)
+    }
+
+    .footer-col-title {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(241, 239, 233, .35);
+      margin-bottom: 18px
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(241, 239, 233, .45);
+      transition: color var(--t)
+    }
+
+    .footer-links a:hover {
+      color: rgba(241, 239, 233, .8)
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 8px
+    }
+
+    .soc {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r);
+      border: 1px solid rgba(241, 239, 233, .12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color var(--t), background var(--t);
+      cursor: pointer
+    }
+
+    .soc:hover {
+      border-color: rgba(241, 239, 233, .28);
+      background: rgba(241, 239, 233, .05)
+    }
+
+    .soc svg {
+      width: 14px;
+      height: 14px;
+      stroke: rgba(241, 239, 233, .4);
+      fill: none;
+      stroke-width: 1.5;
+      transition: stroke var(--t)
+    }
+
+    .soc:hover svg {
+      stroke: rgba(241, 239, 233, .75)
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .footer-copy {
+      font-size: 11.5px;
+      font-weight: 300;
+      color: rgba(241, 239, 233, .28)
+    }
+
+    .footer-copy span {
+      color: rgba(217, 169, 160, .55)
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 20px
+    }
+
+    .footer-legal a {
+      font-size: 11.5px;
+      font-weight: 300;
+      color: rgba(241, 239, 233, .28);
+      transition: color var(--t)
+    }
+
+    .footer-legal a:hover {
+      color: rgba(241, 239, 233, .5)
+    }
+
+    /* ── KEYFRAMES ───────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(.9)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    @keyframes floatY {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-11px)
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: translate(-50%, -50%) rotate(360deg)
+      }
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .35
+      }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media(max-width:1080px) {
+
+      .wrap,
+      .wrap--wide {
+        padding: 0 32px
+      }
+
+      #nav {
+        padding: 0 32px
+      }
+
+      #hero {
+        grid-template-columns: 1fr
+      }
+
+      .hero-left {
+        padding: 72px 32px 48px
+      }
+
+      .hero-right {
+        min-height: 52vh
+      }
+
+      .hero-chip {
+        display: none
+      }
+
+      .orbit-1 {
+        width: 300px;
+        height: 300px
+      }
+
+      .orbit-2 {
+        width: 400px;
+        height: 400px
+      }
+
+      .hero-logo-wrap img {
+        width: 220px
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .section-header {
+        grid-template-columns: 1fr;
+        gap: 20px
+      }
+
+      .section-body {
+        max-width: 100%
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 56px
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 56px
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px
+      }
+
+      .process-row {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .process-row::before {
+        display: none
+      }
+
+      .creator-layout {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:768px) {
+
+      .wrap,
+      .wrap--wide {
+        padding: 0 20px
+      }
+
+      #nav {
+        padding: 0 20px
+      }
+
+      .nav-links,
+      .nav-btn {
+        display: none
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr
+      }
+
+      .about-vals {
+        grid-template-columns: 1fr
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr
+      }
+
+      .form-row {
+        grid-template-columns: 1fr
+      }
+
+      .process-row {
+        grid-template-columns: 1fr
+      }
+
+      .work-header {
+        flex-direction: column;
+        align-items: flex-start
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 24px
+      }
+
+      .g2,
+      .g3,
+      .g4 {
+        grid-template-columns: 1fr 1fr
+      }
+    }
   </style>
 </head>
+
 <body>
 
-<!-- LIGHTBOX -->
-<div id="lb" role="dialog" aria-modal="true">
-  <span id="lb-x" aria-label="Close">&times;</span>
-  <img id="lb-img" src="" alt="" />
-</div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo">
-    <div class="nav-mark"><div class="c1"></div><div class="c2"></div></div>
-    <span class="nav-wordmark">PixelBloom</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="nav-btn">Let's create</a>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <span class="rule" style="background:var(--wedding);"></span>
-      <span class="label">Creative Digital Studio</span>
-    </div>
-    <h1 class="hero-h1">We craft<br><em>stories</em> that<br><strong>bloom.</strong></h1>
-    <p class="hero-sub">PixelBloom is a full-service digital creative studio  where strategy meets storytelling, and every frame is built to elevate your brand's buzz.</p>
-    <div class="hero-actions">
-      <a href="#work" class="btn-solid">Explore our work <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
-      <a href="#contact" class="btn-outline">Start a project</a>
-    </div>
-    <div class="hero-stats">
-      <div><div class="stat-n" id="cnt1">80<sup>+</sup></div><div class="stat-l">Projects delivered</div></div>
-      <div><div class="stat-n" id="cnt2">3<sup>+</sup></div><div class="stat-l">Years active</div></div>
-      <div><div class="stat-n" id="cnt3">40<sup>+</sup></div><div class="stat-l">Happy clients</div></div>
-    </div>
+  <!-- LIGHTBOX -->
+  <div id="lb" role="dialog" aria-modal="true">
+    <span id="lb-x" aria-label="Close">&times;</span>
+    <img id="lb-img" src="" alt="" />
   </div>
-  <div class="hero-right">
-    <div class="hero-blob"></div>
-    <div class="orbit orbit-1" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);"><div class="orbit-dot"></div></div>
-    <div class="orbit orbit-2" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-    <div class="hero-logo-wrap"><img src="transparent-pixelbloom.png" alt="PixelBloom" /></div>
-    <div class="hero-chip hero-chip-1"><span class="chip-dot" style="background:var(--wedding);"></span>Wedding Films</div>
-    <div class="hero-chip hero-chip-2"><span class="chip-dot" style="background:var(--vfx);"></span>VFX &amp; 3D</div>
-    <div class="hero-chip hero-chip-3"><span class="chip-dot" style="background:var(--creator);"></span>Creator Space</div>
-  </div>
-  <div class="scroll-nudge"><div class="scroll-line"></div><span>Scroll</span></div>
-</section>
 
-<!-- MARQUEE -->
-<div class="marquee-band" aria-hidden="true">
-  <div class="marquee-inner">
-    <div class="mitem">Video Editing <span class="mdot"></span></div>
-    <div class="mitem">Cinematography <span class="mdot"></span></div>
-    <div class="mitem">3D &amp; Blender <span class="mdot"></span></div>
-    <div class="mitem">Photography <span class="mdot"></span></div>
-    <div class="mitem">Brand Content <span class="mdot"></span></div>
-    <div class="mitem">Wedding Films <span class="mdot"></span></div>
-    <div class="mitem">VFX &amp; Motion <span class="mdot"></span></div>
-    <div class="mitem">Color Grading <span class="mdot"></span></div>
-    <div class="mitem">Social Reels <span class="mdot"></span></div>
-    <div class="mitem">Video Editing <span class="mdot"></span></div>
-    <div class="mitem">Cinematography <span class="mdot"></span></div>
-    <div class="mitem">3D &amp; Blender <span class="mdot"></span></div>
-    <div class="mitem">Photography <span class="mdot"></span></div>
-    <div class="mitem">Brand Content <span class="mdot"></span></div>
-    <div class="mitem">Wedding Films <span class="mdot"></span></div>
-    <div class="mitem">VFX &amp; Motion <span class="mdot"></span></div>
-    <div class="mitem">Color Grading <span class="mdot"></span></div>
-    <div class="mitem">Social Reels <span class="mdot"></span></div>
-  </div>
-</div>
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+      <div class="nav-mark">
+        <div class="c1"></div>
+        <div class="c2"></div>
+      </div>
+      <span class="nav-wordmark">PixelBloom</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-btn">Let's create</a>
+  </nav>
 
-<!-- SERVICES -->
-<section id="services" class="section">
-  <div class="wrap">
-    <div class="section-header">
-      <div>
-        <p class="label sr"><span class="rule"></span>What we do</p>
-        <h2 class="section-title sr d1">Built for creators,<br>brands &amp; <em>beyond</em></h2>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="rule" style="background:var(--wedding);"></span>
+        <span class="label">Creative Digital Studio</span>
       </div>
-      <p class="section-body sr d2">We don't just edit videos  we build visual identities, tell compelling stories, and craft content that actually moves people. Every project gets our full creative attention.</p>
-    </div>
-    <div class="services-grid sr d2">
-      <div class="svc-card" style="--accent-color:var(--wedding);">
-        <div class="svc-num">01</div>
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-        <div class="svc-name">Wedding Films</div>
-        <div class="svc-desc">Full-day coverage cut into cinematic trailers and long-form films. We shoot, we edit, we preserve the feeling  forever.</div>
-        <div class="svc-tags"><span class="svc-tag">Trailer</span><span class="svc-tag">Long-form</span><span class="svc-tag">Highlight Reel</span></div>
+      <h1 class="hero-h1">We craft<br><em>stories</em> that<br><strong>bloom.</strong></h1>
+      <p class="hero-sub">PixelBloom is a full-service digital creative studio where strategy meets storytelling, and
+        every frame is built to elevate your brand's buzz.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-solid">Explore our work <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+            stroke="currentColor" stroke-width="1.8">
+            <path d="M2 7h10M8 3l4 4-4 4" />
+          </svg></a>
+        <a href="#contact" class="btn-outline">Start a project</a>
       </div>
-      <div class="svc-card" style="--accent-color:var(--creator);">
-        <div class="svc-num">02</div>
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="svc-name">Creator Space</div>
-        <div class="svc-desc">Ongoing edit partnerships with YouTube creators. We handle post-production so creators can focus on what they do best.</div>
-        <div class="svc-tags"><span class="svc-tag">Xyaa</span><span class="svc-tag">Techshot</span><span class="svc-tag">Sufiyan Alam</span></div>
-      </div>
-      <div class="svc-card" style="--accent-color:var(--brand);">
-        <div class="svc-num">03</div>
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-        <div class="svc-name">Brand &amp; Commercial</div>
-        <div class="svc-desc">Campaigns, partnership content and commercial edits for brands looking to grow their digital presence with cinematic quality.</div>
-        <div class="svc-tags"><span class="svc-tag">Campaigns</span><span class="svc-tag">Reels</span><span class="svc-tag">Partnerships</span></div>
-      </div>
-      <div class="svc-card" style="--accent-color:var(--vfx);">
-        <div class="svc-num">04</div>
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg></div>
-        <div class="svc-name">VFX &amp; 3D</div>
-        <div class="svc-desc">Blender renders, motion graphics and visual effects that add dimension and magic to your content. Concept to completion, in-house.</div>
-        <div class="svc-tags"><span class="svc-tag">Blender</span><span class="svc-tag">Motion GFX</span><span class="svc-tag">3D Renders</span></div>
-      </div>
-      <div class="svc-card" style="--accent-color:var(--photo);">
-        <div class="svc-num">05</div>
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-        <div class="svc-name">Photography</div>
-        <div class="svc-desc">Event stills, behind-the-scenes documentation, and product photography. Capturing moments that live beyond the reel.</div>
-        <div class="svc-tags"><span class="svc-tag">Events</span><span class="svc-tag">BTS</span><span class="svc-tag">Product</span></div>
-      </div>
-      <div class="svc-card" style="--accent-color:var(--brand);">
-        <div class="svc-num">06</div>
-        <div class="svc-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-        <div class="svc-name">Video Editing</div>
-        <div class="svc-desc">From raw footage to a polished final cut. We edit for YouTube, Instagram, brand films and everything in between.</div>
-        <div class="svc-tags"><span class="svc-tag">YouTube</span><span class="svc-tag">Reels</span><span class="svc-tag">Colour Grade</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WORK -->
-<section id="work">
-  <div class="wrap--wide">
-    <div class="work-header">
-      <div>
-        <p class="label sr"><span class="rule"></span>Selected work</p>
-        <h2 class="work-title sr d1">Projects we're <em>proud of</em></h2>
-      </div>
-    </div>
-
-    <div class="tab-nav sr d2">
-      <button class="tab-btn on" data-tab="creator">Creator Space</button>
-      <button class="tab-btn" data-tab="brand">Brand &amp; Commercial</button>
-      <button class="tab-btn" data-tab="vfx">VFX &amp; 3D</button>
-      <button class="tab-btn" data-tab="wedding">Wedding Films</button>
-    </div>
-
-        <!-- CREATOR TAB -->
-    <div class="tab-panel on" id="tab-creator">
-
-      <!-- XYAA -->
-      <div class="ch-section">
-        <div class="ch-hdr">
-          <span class="ch-dot" style="background:var(--creator);"></span>
-          <span class="ch-name">Xyaa</span>
-          <a href="https://www.youtube.com/@XyaaLive" target="_blank" rel="noopener" class="ch-link">@XyaaLive ↗</a>
-          <span class="ch-badge" style="background:var(--creator-bg);color:var(--creator);">Creator Space</span>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-n" id="cnt1">80<sup>+</sup></div>
+          <div class="stat-l">Projects delivered</div>
         </div>
-        <div class="creator-layout">
-          <div>
-            <a href="https://www.youtube.com/watch?v=Npb0Pc6AItM&t=59s" target="_blank" rel="noopener" class="media-card">
-              <img class="media-card-thumb" src="https://img.youtube.com/vi/Npb0Pc6AItM/hqdefault.jpg" alt="Xyaa cinematic edit" loading="lazy">
-              <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-              <div class="media-card-meta"><span class="media-card-label">Cinematic edit</span><span class="media-card-badge badge-yt">YouTube</span></div>
-            </a>
-            <div class="g2 mt">
-              <a href="https://www.youtube.com/watch?v=lcCwt0msehY&t=35s" target="_blank" rel="noopener" class="media-card">
-                <img class="media-card-thumb" src="https://img.youtube.com/vi/lcCwt0msehY/hqdefault.jpg" alt="Xyaa travel edit" loading="lazy">
-                <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-                <div class="media-card-meta"><span class="media-card-label">Travel edit</span><span class="media-card-badge badge-yt">YouTube</span></div>
+        <div>
+          <div class="stat-n" id="cnt2">3<sup>+</sup></div>
+          <div class="stat-l">Years active</div>
+        </div>
+        <div>
+          <div class="stat-n" id="cnt3">40<sup>+</sup></div>
+          <div class="stat-l">Happy clients</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-blob"></div>
+      <div class="orbit orbit-1" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">
+        <div class="orbit-dot"></div>
+      </div>
+      <div class="orbit orbit-2" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div class="hero-logo-wrap"><img src="transparent-pixelbloom.png" alt="PixelBloom" /></div>
+      <div class="hero-chip hero-chip-1"><span class="chip-dot" style="background:var(--wedding);"></span>Wedding Films
+      </div>
+      <div class="hero-chip hero-chip-2"><span class="chip-dot" style="background:var(--vfx);"></span>VFX &amp; 3D</div>
+      <div class="hero-chip hero-chip-3"><span class="chip-dot" style="background:var(--creator);"></span>Creator Space
+      </div>
+    </div>
+    <div class="scroll-nudge">
+      <div class="scroll-line"></div><span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-inner">
+      <div class="mitem">Video Editing <span class="mdot"></span></div>
+      <div class="mitem">Cinematography <span class="mdot"></span></div>
+      <div class="mitem">3D &amp; Blender <span class="mdot"></span></div>
+      <div class="mitem">Photography <span class="mdot"></span></div>
+      <div class="mitem">Brand Content <span class="mdot"></span></div>
+      <div class="mitem">Wedding Films <span class="mdot"></span></div>
+      <div class="mitem">VFX &amp; Motion <span class="mdot"></span></div>
+      <div class="mitem">Color Grading <span class="mdot"></span></div>
+      <div class="mitem">Social Reels <span class="mdot"></span></div>
+      <div class="mitem">Video Editing <span class="mdot"></span></div>
+      <div class="mitem">Cinematography <span class="mdot"></span></div>
+      <div class="mitem">3D &amp; Blender <span class="mdot"></span></div>
+      <div class="mitem">Photography <span class="mdot"></span></div>
+      <div class="mitem">Brand Content <span class="mdot"></span></div>
+      <div class="mitem">Wedding Films <span class="mdot"></span></div>
+      <div class="mitem">VFX &amp; Motion <span class="mdot"></span></div>
+      <div class="mitem">Color Grading <span class="mdot"></span></div>
+      <div class="mitem">Social Reels <span class="mdot"></span></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services" class="section">
+    <div class="wrap">
+      <div class="section-header">
+        <div>
+          <p class="label sr"><span class="rule"></span>What we do</p>
+          <h2 class="section-title sr d1">Built for creators,<br>brands &amp; <em>beyond</em></h2>
+        </div>
+        <p class="section-body sr d2">We don't just edit videos we build visual identities, tell compelling stories, and
+          craft content that actually moves people. Every project gets our full creative attention.</p>
+      </div>
+      <div class="services-grid sr d2">
+        <div class="svc-card" style="--accent-color:var(--wedding);">
+          <div class="svc-num">01</div>
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg></div>
+          <div class="svc-name">Wedding Films</div>
+          <div class="svc-desc">Full-day coverage cut into cinematic trailers and long-form films. We shoot, we edit, we
+            preserve the feeling forever.</div>
+          <div class="svc-tags"><span class="svc-tag">Trailer</span><span class="svc-tag">Long-form</span><span
+              class="svc-tag">Highlight Reel</span></div>
+        </div>
+        <div class="svc-card" style="--accent-color:var(--creator);">
+          <div class="svc-num">02</div>
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg></div>
+          <div class="svc-name">Creator Space</div>
+          <div class="svc-desc">Ongoing edit partnerships with YouTube creators. We handle post-production so creators
+            can focus on what they do best.</div>
+          <div class="svc-tags"><span class="svc-tag">Xyaa</span><span class="svc-tag">Techshot</span><span
+              class="svc-tag">Sufiyan Alam</span></div>
+        </div>
+        <div class="svc-card" style="--accent-color:var(--brand);">
+          <div class="svc-num">03</div>
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+            </svg></div>
+          <div class="svc-name">Brand &amp; Commercial</div>
+          <div class="svc-desc">Campaigns, partnership content and commercial edits for brands looking to grow their
+            digital presence with cinematic quality.</div>
+          <div class="svc-tags"><span class="svc-tag">Campaigns</span><span class="svc-tag">Reels</span><span
+              class="svc-tag">Partnerships</span></div>
+        </div>
+        <div class="svc-card" style="--accent-color:var(--vfx);">
+          <div class="svc-num">04</div>
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+              <line x1="12" y1="22" x2="12" y2="15.5" />
+              <polyline points="22 8.5 12 15.5 2 8.5" />
+            </svg></div>
+          <div class="svc-name">VFX &amp; 3D</div>
+          <div class="svc-desc">Blender renders, motion graphics and visual effects that add dimension and magic to your
+            content. Concept to completion, in-house.</div>
+          <div class="svc-tags"><span class="svc-tag">Blender</span><span class="svc-tag">Motion GFX</span><span
+              class="svc-tag">3D Renders</span></div>
+        </div>
+        <div class="svc-card" style="--accent-color:var(--photo);">
+          <div class="svc-num">05</div>
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg></div>
+          <div class="svc-name">Photography</div>
+          <div class="svc-desc">Event stills, behind-the-scenes documentation, and product photography. Capturing
+            moments that live beyond the reel.</div>
+          <div class="svc-tags"><span class="svc-tag">Events</span><span class="svc-tag">BTS</span><span
+              class="svc-tag">Product</span></div>
+        </div>
+        <div class="svc-card" style="--accent-color:var(--brand);">
+          <div class="svc-num">06</div>
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <polygon points="23 7 16 12 23 17 23 7" />
+              <rect x="1" y="5" width="15" height="14" rx="2" />
+            </svg></div>
+          <div class="svc-name">Video Editing</div>
+          <div class="svc-desc">From raw footage to a polished final cut. We edit for YouTube, Instagram, brand films
+            and everything in between.</div>
+          <div class="svc-tags"><span class="svc-tag">YouTube</span><span class="svc-tag">Reels</span><span
+              class="svc-tag">Colour Grade</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap--wide">
+      <div class="work-header">
+        <div>
+          <p class="label sr"><span class="rule"></span>Selected work</p>
+          <h2 class="work-title sr d1">Projects we're <em>proud of</em></h2>
+        </div>
+      </div>
+
+      <div class="tab-nav sr d2">
+        <button class="tab-btn on" data-tab="creator">Creator Space</button>
+        <button class="tab-btn" data-tab="brand">Brand &amp; Commercial</button>
+        <button class="tab-btn" data-tab="vfx">VFX &amp; 3D</button>
+        <button class="tab-btn" data-tab="wedding">Wedding Films</button>
+      </div>
+
+      <!-- CREATOR TAB -->
+      <div class="tab-panel on" id="tab-creator">
+
+        <!-- XYAA -->
+        <div class="ch-section">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--creator);"></span>
+            <span class="ch-name">Xyaa</span>
+            <a href="https://www.youtube.com/@XyaaLive" target="_blank" rel="noopener" class="ch-link">@XyaaLive ↗</a>
+            <span class="ch-badge" style="background:var(--creator-bg);color:var(--creator);">Creator Space</span>
+          </div>
+          <div class="creator-layout">
+            <div>
+              <a href="https://www.youtube.com/watch?v=Npb0Pc6AItM&t=59s" target="_blank" rel="noopener"
+                class="media-card">
+                <img class="media-card-thumb" src="https://img.youtube.com/vi/Npb0Pc6AItM/hqdefault.jpg"
+                  alt="Xyaa cinematic edit" loading="lazy">
+                <div class="media-card-play">
+                  <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg></div>
+                </div>
+                <div class="media-card-meta"><span class="media-card-label">Cinematic edit</span><span
+                    class="media-card-badge badge-yt">YouTube</span></div>
               </a>
-              <a href="https://www.youtube.com/watch?v=j5qu2UALoMw&t=7s" target="_blank" rel="noopener" class="media-card">
-                <img class="media-card-thumb" src="https://img.youtube.com/vi/j5qu2UALoMw/hqdefault.jpg" alt="Xyaa vlog" loading="lazy">
-                <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-                <div class="media-card-meta"><span class="media-card-label">Vlog edit</span><span class="media-card-badge badge-yt">YouTube</span></div>
+              <div class="g2 mt">
+                <a href="https://www.youtube.com/watch?v=lcCwt0msehY&t=35s" target="_blank" rel="noopener"
+                  class="media-card">
+                  <img class="media-card-thumb" src="https://img.youtube.com/vi/lcCwt0msehY/hqdefault.jpg"
+                    alt="Xyaa travel edit" loading="lazy">
+                  <div class="media-card-play">
+                    <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg></div>
+                  </div>
+                  <div class="media-card-meta"><span class="media-card-label">Travel edit</span><span
+                      class="media-card-badge badge-yt">YouTube</span></div>
+                </a>
+                <a href="https://www.youtube.com/watch?v=j5qu2UALoMw&t=7s" target="_blank" rel="noopener"
+                  class="media-card">
+                  <img class="media-card-thumb" src="https://img.youtube.com/vi/j5qu2UALoMw/hqdefault.jpg"
+                    alt="Xyaa vlog" loading="lazy">
+                  <div class="media-card-play">
+                    <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg></div>
+                  </div>
+                  <div class="media-card-meta"><span class="media-card-label">Vlog edit</span><span
+                      class="media-card-badge badge-yt">YouTube</span></div>
+                </a>
+              </div>
+              <a href="https://youtube.com/shorts/5Uj3eNp2SWg" target="_blank" rel="noopener" class="media-card mt">
+                <img class="media-card-thumb" src="https://img.youtube.com/vi/5Uj3eNp2SWg/hqdefault.jpg"
+                  alt="Xyaa short" loading="lazy">
+                <div class="media-card-play">
+                  <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg></div>
+                </div>
+                <div class="media-card-meta"><span class="media-card-label">YouTube Short</span><span
+                    class="media-card-badge badge-yt">Short</span></div>
               </a>
             </div>
-            <a href="https://youtube.com/shorts/5Uj3eNp2SWg" target="_blank" rel="noopener" class="media-card mt">
-              <img class="media-card-thumb" src="https://img.youtube.com/vi/5Uj3eNp2SWg/hqdefault.jpg" alt="Xyaa short" loading="lazy">
-              <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-              <div class="media-card-meta"><span class="media-card-label">YouTube Short</span><span class="media-card-badge badge-yt">Short</span></div>
-            </a>
-          </div>
-          <!-- <div class="reel-col">
+            <!-- <div class="reel-col">
             <a href="https://www.instagram.com/reel/DPBd14JCCFZ/" target="_blank" rel="noopener" class="media-card">
               <div style="min-height:200px;background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);display:flex;align-items:center;justify-content:center;"><div class="play-btn ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
               <div class="media-card-meta"><span class="media-card-label">Reel — Xyaa</span><span class="media-card-badge badge-ig">Instagram</span></div>
@@ -716,31 +2519,46 @@
               <div class="media-card-meta"><span class="media-card-label">Reel — Xyaa</span><span class="media-card-badge badge-ig">Instagram</span></div>
             </a>
           </div> -->
-        </div>
-      </div>
-
-      <!-- TECHSHOT -->
-      <div class="ch-section">
-        <div class="ch-hdr">
-          <span class="ch-dot" style="background:var(--vfx);"></span>
-          <span class="ch-name">Techshot</span>
-          <a href="https://www.youtube.com/@TechShotTG" target="_blank" rel="noopener" class="ch-link">@TechShotTG ↗</a>
-          <span class="ch-badge" style="background:var(--vfx-bg);color:var(--vfx);">Creator Space</span>
-        </div>
-        <div class="creator-layout">
-          <div>
-            <a href="https://www.youtube.com/watch?v=EihtVYbheBc&t=138s" target="_blank" rel="noopener" class="media-card">
-              <img class="media-card-thumb" src="https://img.youtube.com/vi/EihtVYbheBc/hqdefault.jpg" alt="Techshot gadget review" loading="lazy">
-              <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-              <div class="media-card-meta"><span class="media-card-label">Gadget review</span><span class="media-card-badge badge-yt">YouTube</span></div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=yASbKDe-sjg&t=373s" target="_blank" rel="noopener" class="media-card mt">
-              <img class="media-card-thumb" src="https://img.youtube.com/vi/yASbKDe-sjg/hqdefault.jpg" alt="Techshot long-form review" loading="lazy">
-              <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-              <div class="media-card-meta"><span class="media-card-label">Long-form review</span><span class="media-card-badge badge-yt">YouTube</span></div>
-            </a>
           </div>
-          <!-- <div class="reel-col">
+        </div>
+
+        <!-- TECHSHOT -->
+        <div class="ch-section">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--vfx);"></span>
+            <span class="ch-name">Techshot</span>
+            <a href="https://www.youtube.com/@TechShotTG" target="_blank" rel="noopener" class="ch-link">@TechShotTG
+              ↗</a>
+            <span class="ch-badge" style="background:var(--vfx-bg);color:var(--vfx);">Creator Space</span>
+          </div>
+          <div class="creator-layout">
+            <div>
+              <a href="https://www.youtube.com/watch?v=EihtVYbheBc&t=138s" target="_blank" rel="noopener"
+                class="media-card">
+                <img class="media-card-thumb" src="https://img.youtube.com/vi/EihtVYbheBc/hqdefault.jpg"
+                  alt="Techshot gadget review" loading="lazy">
+                <div class="media-card-play">
+                  <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg></div>
+                </div>
+                <div class="media-card-meta"><span class="media-card-label">Gadget review</span><span
+                    class="media-card-badge badge-yt">YouTube</span></div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=yASbKDe-sjg&t=373s" target="_blank" rel="noopener"
+                class="media-card mt">
+                <img class="media-card-thumb" src="https://img.youtube.com/vi/yASbKDe-sjg/hqdefault.jpg"
+                  alt="Techshot long-form review" loading="lazy">
+                <div class="media-card-play">
+                  <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                      <polygon points="5,3 19,12 5,21" />
+                    </svg></div>
+                </div>
+                <div class="media-card-meta"><span class="media-card-label">Long-form review</span><span
+                    class="media-card-badge badge-yt">YouTube</span></div>
+              </a>
+            </div>
+            <!-- <div class="reel-col">
             <a href="https://www.instagram.com/reel/DOyD3PqiCQ-/" target="_blank" rel="noopener" class="media-card">
               <div style="min-height:200px;background:linear-gradient(135deg,#2E6F95,#6FE7C6);display:flex;align-items:center;justify-content:center;"><div class="play-btn ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
               <div class="media-card-meta"><span class="media-card-label">Reel — Techshot</span><span class="media-card-badge badge-ig">Instagram</span></div>
@@ -762,511 +2580,813 @@
               <div class="media-card-meta"><span class="media-card-label">Reel — Techshot</span><span class="media-card-badge badge-ig">Instagram</span></div>
             </a>
           </div> -->
-        </div>
-      </div>
-
-      <!-- SUFIYAN ALAM -->
-      <div class="ch-section">
-        <div class="ch-hdr">
-          <span class="ch-dot" style="background:var(--photo);"></span>
-          <span class="ch-name">Sufiyan Alam</span>
-          <span class="ch-badge" style="background:var(--photo-bg);color:var(--photo);">Creator Space</span>
-        </div>
-        <div class="g3">
-          <a href="https://youtu.be/NZvogU288Ew" target="_blank" rel="noopener" class="media-card">
-            <img class="media-card-thumb" src="https://img.youtube.com/vi/NZvogU288Ew/hqdefault.jpg" alt="Sufiyan Alam science explainer" loading="lazy">
-            <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-            <div class="media-card-meta"><span class="media-card-label">Science explainer</span><span class="media-card-badge badge-yt">YouTube</span></div>
-          </a>
-          <a href="https://youtu.be/NJjCXM3GBNc" target="_blank" rel="noopener" class="media-card">
-            <img class="media-card-thumb" src="https://img.youtube.com/vi/NJjCXM3GBNc/hqdefault.jpg" alt="Sufiyan Alam philosophy" loading="lazy">
-            <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-            <div class="media-card-meta"><span class="media-card-label">Philosophy explainer</span><span class="media-card-badge badge-yt">YouTube</span></div>
-          </a>
-          <a href="https://youtu.be/xfgt7GVWmk4" target="_blank" rel="noopener" class="media-card">
-            <img class="media-card-thumb" src="https://img.youtube.com/vi/xfgt7GVWmk4/hqdefault.jpg" alt="Sufiyan Alam long-form" loading="lazy">
-            <div class="media-card-play"><div class="play-btn yt"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-            <div class="media-card-meta"><span class="media-card-label">Long-form</span><span class="media-card-badge badge-yt">YouTube</span></div>
-          </a>
-        </div>
-      </div>
-    </div><!-- /creator -->
-
-
-    <!-- ════ BRAND ════ -->
-    <div class="tab-panel" id="tab-brand">
-      <div class="ch-section">
-        <div class="ch-hdr">
-          <span class="ch-dot" style="background:var(--brand);"></span>
-          <span class="ch-name">Bajaj Electricals</span>
-          <span class="ch-badge" style="background:var(--brand-bg);color:var(--brand);">Brand &amp; Commercial</span>
-        </div>
-        <div class="g2">
-          <a href="https://www.instagram.com/reel/DKlu3aFyeP0/" target="_blank" rel="noopener" class="media-card">
-            <div style="min-height:320px;aspect-ratio:9/16;background:linear-gradient(135deg,#C1694A,#EADBD1);display:flex;align-items:center;justify-content:center;">
-              <div class="play-btn ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-            </div>
-            <div class="media-card-meta"><span class="media-card-label">Campaign Reel — Bajaj Electricals</span><span class="media-card-badge badge-ig">Instagram</span></div>
-          </a>
-          <a href="https://www.instagram.com/reel/DKzTkhrIcbM/" target="_blank" rel="noopener" class="media-card">
-            <div style="min-height:320px;aspect-ratio:9/16;background:linear-gradient(135deg,#8B4A2E,#C1694A);display:flex;align-items:center;justify-content:center;">
-              <div class="play-btn ig"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-            </div>
-            <div class="media-card-meta"><span class="media-card-label">Campaign Reel — Bajaj Electricals</span><span class="media-card-badge badge-ig">Instagram</span></div>
-          </a>
-        </div>
-      </div>
-    </div><!-- /brand -->
-
-    <!-- ════ VFX & 3D ════ -->
-    <div class="tab-panel" id="tab-vfx">
-
-      <!-- Concept vape + featured videos -->
-      <div class="ch-hdr" style="margin-bottom:20px;">
-        <span class="ch-dot" style="background:var(--vfx);"></span>
-        <span class="ch-name">VFX &amp; 3D Work</span>
-        <span class="ch-badge" style="background:var(--vfx-bg);color:var(--vfx);">Blender · In-house</span>
-      </div>
-
-      <!-- Concept vape reel + 2 local videos -->
-      <div class="g3 mt2">
-        <div>
-          <a href="https://www.instagram.com/reel/DCPF2mcouxG/" target="_blank" rel="noopener" class="ig-card" style="min-height:200px;">
-            <div class="ig-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-            <div class="ig-card-title">Concept Vape Ad  3D Blender</div>
-            <div class="ig-card-sub">Instagram · VFX Reel</div>
-            <span class="ig-card-btn">Watch ↗</span>
-          </a>
-          <p class="cap">Concept Vape Ad</p>
-        </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/still-rollin.mp4" type="video/mp4">
-            </video>
           </div>
-          <p class="cap">Still Rollin  Reel Concept</p>
         </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/sol-handbag.mp4" type="video/mp4">
-            </video>
-          </div>
-          <p class="cap">SOL Handbag  Product 3D</p>
-        </div>
-      </div>
 
-      <!-- Simulation videos row 1 -->
-      <div class="g3 mt2">
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/car-in-desert.mp4" type="video/mp4">
-            </video>
+        <!-- SUFIYAN ALAM -->
+        <div class="ch-section">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--photo);"></span>
+            <span class="ch-name">Sufiyan Alam</span>
+            <span class="ch-badge" style="background:var(--photo-bg);color:var(--photo);">Creator Space</span>
           </div>
-          <p class="cap">Car In Desert  Blender</p>
-        </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/robot-bollywood.mp4" type="video/mp4">
-            </video>
+          <div class="g3">
+            <a href="https://youtu.be/NZvogU288Ew" target="_blank" rel="noopener" class="media-card">
+              <img class="media-card-thumb" src="https://img.youtube.com/vi/NZvogU288Ew/hqdefault.jpg"
+                alt="Sufiyan Alam science explainer" loading="lazy">
+              <div class="media-card-play">
+                <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg></div>
+              </div>
+              <div class="media-card-meta"><span class="media-card-label">Science explainer</span><span
+                  class="media-card-badge badge-yt">YouTube</span></div>
+            </a>
+            <a href="https://youtu.be/NJjCXM3GBNc" target="_blank" rel="noopener" class="media-card">
+              <img class="media-card-thumb" src="https://img.youtube.com/vi/NJjCXM3GBNc/hqdefault.jpg"
+                alt="Sufiyan Alam philosophy" loading="lazy">
+              <div class="media-card-play">
+                <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg></div>
+              </div>
+              <div class="media-card-meta"><span class="media-card-label">Philosophy explainer</span><span
+                  class="media-card-badge badge-yt">YouTube</span></div>
+            </a>
+            <a href="https://youtu.be/xfgt7GVWmk4" target="_blank" rel="noopener" class="media-card">
+              <img class="media-card-thumb" src="https://img.youtube.com/vi/xfgt7GVWmk4/hqdefault.jpg"
+                alt="Sufiyan Alam long-form" loading="lazy">
+              <div class="media-card-play">
+                <div class="play-btn yt"><svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg></div>
+              </div>
+              <div class="media-card-meta"><span class="media-card-label">Long-form</span><span
+                  class="media-card-badge badge-yt">YouTube</span></div>
+            </a>
           </div>
-          <p class="cap">Robot  Bollywood Concept</p>
         </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/fur-man-dancing.mp4" type="video/mp4">
-            </video>
-          </div>
-          <p class="cap">Fur Man Dancing</p>
-        </div>
-      </div>
+      </div><!-- /creator -->
 
-      <!-- Simulation videos row 2 -->
-      <div class="g3 mt2">
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/flip-fluid.mp4" type="video/mp4">
-            </video>
-          </div>
-          <p class="cap">Flip Fluid Simulation</p>
-        </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/pokeball-cloth.mp4" type="video/mp4">
-            </video>
-          </div>
-          <p class="cap">Pokeball Cloth Simulation</p>
-        </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/liquid-simulation.mp4" type="video/mp4">
-            </video>
-          </div>
-          <p class="cap">Liquid Simulation</p>
-        </div>
-      </div>
 
-      <!-- Drone + particle -->
-      <div class="g2 mt2">
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/drone-miniature.mp4" type="video/mp4">
-            </video>
+      <!-- ════ BRAND ════ -->
+      <div class="tab-panel" id="tab-brand">
+        <div class="ch-section">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--brand);"></span>
+            <span class="ch-name">Bajaj Electricals</span>
+            <span class="ch-badge" style="background:var(--brand-bg);color:var(--brand);">Brand &amp; Commercial</span>
           </div>
-          <p class="cap">Drone Shot Miniature</p>
-        </div>
-        <div>
-          <div class="vid-wrap">
-            <video controls muted playsinline loading="lazy">
-              <source src="assets/videos/particle-simulation.mp4" type="video/mp4">
-            </video>
+          <div class="g2">
+            <a href="https://www.instagram.com/reel/DKlu3aFyeP0/" target="_blank" rel="noopener" class="media-card">
+              <div
+                style="min-height:320px;aspect-ratio:9/16;background:linear-gradient(135deg,#C1694A,#EADBD1);display:flex;align-items:center;justify-content:center;">
+                <div class="play-btn ig"><svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg></div>
+              </div>
+              <div class="media-card-meta"><span class="media-card-label">Campaign Reel — Bajaj Electricals</span><span
+                  class="media-card-badge badge-ig">Instagram</span></div>
+            </a>
+            <a href="https://www.instagram.com/reel/DKzTkhrIcbM/" target="_blank" rel="noopener" class="media-card">
+              <div
+                style="min-height:320px;aspect-ratio:9/16;background:linear-gradient(135deg,#8B4A2E,#C1694A);display:flex;align-items:center;justify-content:center;">
+                <div class="play-btn ig"><svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg></div>
+              </div>
+              <div class="media-card-meta"><span class="media-card-label">Campaign Reel — Bajaj Electricals</span><span
+                  class="media-card-badge badge-ig">Instagram</span></div>
+            </a>
           </div>
-          <p class="cap">Particle Simulation</p>
         </div>
-      </div>
+      </div><!-- /brand -->
 
-      <!-- Official Client Work -->
-      <div style="margin-top:48px;">
-        <div class="ch-hdr">
-          <span class="ch-dot" style="background:var(--brand);"></span>
-          <span class="ch-name">Official Client Work</span>
-          <span class="ch-badge" style="background:var(--brand-bg);color:var(--brand);">Netflix · Kapil Sharma</span>
-        </div>
-        <div class="g4">
-          <div><img class="thumb lb-trigger" src="assets/images/netflix/v1.png" alt="Netflix Set V1" loading="lazy"><p class="cap">Netflix Set  V1</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/netflix/v2.png" alt="Netflix Set V2" loading="lazy"><p class="cap">Netflix Set  V2</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/netflix/v3.png" alt="Netflix Set V3" loading="lazy"><p class="cap">Netflix Set  V3</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/netflix/v4.png" alt="Netflix Set V4" loading="lazy"><p class="cap">Netflix Set  V4</p></div>
-        </div>
-        <div class="g3 mt2">
-          <div><img class="thumb lb-trigger" src="assets/images/netflix/set2-concept2.jpg" alt="Netflix Set 2" loading="lazy"><p class="cap">Netflix  Set 2 Concept</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/netflix/set2-widescreen.jpg" alt="Netflix Set Widescreen" loading="lazy"><p class="cap">Netflix  Set 2 Wide</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/kapil/draft2-final.png" alt="Kapil Sharma Photobooth" loading="lazy"><p class="cap">Kapil Sharma  Photobooth Wall</p></div>
-        </div>
-      </div>
+      <!-- ════ VFX & 3D ════ -->
+      <div class="tab-panel" id="tab-vfx">
 
-      <!-- BMW -->
-      <div style="margin-top:48px;">
-        <div class="ch-hdr">
+        <!-- Concept vape + featured videos -->
+        <div class="ch-hdr" style="margin-bottom:20px;">
           <span class="ch-dot" style="background:var(--vfx);"></span>
-          <span class="ch-name">BMW Lighting Concept</span>
-          <span class="ch-badge" style="background:var(--vfx-bg);color:var(--vfx);">3D Concept · Blender</span>
+          <span class="ch-name">VFX &amp; 3D Work</span>
+          <span class="ch-badge" style="background:var(--vfx-bg);color:var(--vfx);">Blender · In-house</span>
         </div>
-        <div class="g4">
-          <div><img class="thumb lb-trigger" src="assets/images/bmw/front.png" alt="BMW Front" loading="lazy"><p class="cap">Front view</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/bmw/side-1.png" alt="BMW Side 1" loading="lazy"><p class="cap">Side view 1</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/bmw/upper-1.png" alt="BMW Upper" loading="lazy"><p class="cap">Upper angle</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/bmw/back.png" alt="BMW Back" loading="lazy"><p class="cap">Back angle</p></div>
-        </div>
-      </div>
 
-      <!-- Concept stills -->
-      <div style="margin-top:48px;">
-        <div class="ch-hdr">
-          <span class="ch-dot" style="background:var(--photo);"></span>
-          <span class="ch-name">Concept Renders &amp; Stills</span>
-        </div>
-        <div class="g4">
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/still-rollin-poster.png" alt="Still Rollin Concept" loading="lazy"><p class="cap">Still Rollin  Poster</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/one-love-song.png" alt="One Love Song" loading="lazy"><p class="cap">One Love Song  Poster</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/bmw-fuel-station-1.png" alt="BMW Fuel Station" loading="lazy"><p class="cap">BMW at Fuel Station</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/levels-poster.png" alt="Levels Poster" loading="lazy"><p class="cap">Levels  Poster Concept</p></div>
-        </div>
+        <!-- Concept vape reel + 2 local videos -->
         <div class="g3 mt2">
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/3bhk-floor-plan.png" alt="3BHK Floor Plan" loading="lazy"><p class="cap">3BHK  Architectural Render</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/studio-wide.png" alt="Studio Concept Wide" loading="lazy"><p class="cap">Studio Concept  Wide</p></div>
-          <div><img class="thumb lb-trigger" src="assets/images/concepts/road-jungle.png" alt="Road In Jungle" loading="lazy"><p class="cap">Road Passing In Jungle</p></div>
+          <div>
+            <a href="https://www.instagram.com/reel/DCPF2mcouxG/" target="_blank" rel="noopener" class="ig-card"
+              style="min-height:200px;">
+              <div class="ig-card-icon"><svg viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg></div>
+              <div class="ig-card-title">Concept Vape Ad 3D Blender</div>
+              <div class="ig-card-sub">Instagram · VFX Reel</div>
+              <span class="ig-card-btn">Watch ↗</span>
+            </a>
+            <p class="cap">Concept Vape Ad</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/still-rollin.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Still Rollin Reel Concept</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/sol-handbag.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">SOL Handbag Product 3D</p>
+          </div>
+        </div>
+
+        <!-- Simulation videos row 1 -->
+        <div class="g3 mt2">
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/car-in-desert.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Car In Desert Blender</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/robot-bollywood.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Robot Bollywood Concept</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/fur-man-dancing.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Fur Man Dancing</p>
+          </div>
+        </div>
+
+        <!-- Simulation videos row 2 -->
+        <div class="g3 mt2">
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/flip-fluid.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Flip Fluid Simulation</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/pokeball-cloth.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Pokeball Cloth Simulation</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/liquid-simulation.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Liquid Simulation</p>
+          </div>
+        </div>
+
+        <!-- Drone + particle -->
+        <div class="g2 mt2">
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/drone-miniature.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Drone Shot Miniature</p>
+          </div>
+          <div>
+            <div class="vid-wrap">
+              <video controls muted playsinline loading="lazy">
+                <source src="assets/videos/particle-simulation.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cap">Particle Simulation</p>
+          </div>
+        </div>
+
+        <!-- Official Client Work -->
+        <div style="margin-top:48px;">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--brand);"></span>
+            <span class="ch-name">Official Client Work</span>
+            <span class="ch-badge" style="background:var(--brand-bg);color:var(--brand);">Netflix · Kapil Sharma</span>
+          </div>
+          <div class="g4">
+            <div><img class="thumb lb-trigger" src="assets/images/netflix/v1.png" alt="Netflix Set V1" loading="lazy">
+              <p class="cap">Netflix Set V1</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/netflix/v2.png" alt="Netflix Set V2" loading="lazy">
+              <p class="cap">Netflix Set V2</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/netflix/v3.png" alt="Netflix Set V3" loading="lazy">
+              <p class="cap">Netflix Set V3</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/netflix/v4.png" alt="Netflix Set V4" loading="lazy">
+              <p class="cap">Netflix Set V4</p>
+            </div>
+          </div>
+          <div class="g3 mt2">
+            <div><img class="thumb lb-trigger" src="assets/images/netflix/set2-concept2.jpg" alt="Netflix Set 2"
+                loading="lazy">
+              <p class="cap">Netflix Set 2 Concept</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/netflix/set2-widescreen.jpg"
+                alt="Netflix Set Widescreen" loading="lazy">
+              <p class="cap">Netflix Set 2 Wide</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/kapil/draft2-final.png" alt="Kapil Sharma Photobooth"
+                loading="lazy">
+              <p class="cap">Kapil Sharma Photobooth Wall</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- BMW -->
+        <div style="margin-top:48px;">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--vfx);"></span>
+            <span class="ch-name">BMW Lighting Concept</span>
+            <span class="ch-badge" style="background:var(--vfx-bg);color:var(--vfx);">3D Concept · Blender</span>
+          </div>
+          <div class="g4">
+            <div><img class="thumb lb-trigger" src="assets/images/bmw/front.png" alt="BMW Front" loading="lazy">
+              <p class="cap">Front view</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/bmw/side-1.png" alt="BMW Side 1" loading="lazy">
+              <p class="cap">Side view 1</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/bmw/upper-1.png" alt="BMW Upper" loading="lazy">
+              <p class="cap">Upper angle</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/bmw/back.png" alt="BMW Back" loading="lazy">
+              <p class="cap">Back angle</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concept stills -->
+        <div style="margin-top:48px;">
+          <div class="ch-hdr">
+            <span class="ch-dot" style="background:var(--photo);"></span>
+            <span class="ch-name">Concept Renders &amp; Stills</span>
+          </div>
+          <div class="g4">
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/still-rollin-poster.png"
+                alt="Still Rollin Concept" loading="lazy">
+              <p class="cap">Still Rollin Poster</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/one-love-song.png" alt="One Love Song"
+                loading="lazy">
+              <p class="cap">One Love Song Poster</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/bmw-fuel-station-1.png"
+                alt="BMW Fuel Station" loading="lazy">
+              <p class="cap">BMW at Fuel Station</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/levels-poster.png" alt="Levels Poster"
+                loading="lazy">
+              <p class="cap">Levels Poster Concept</p>
+            </div>
+          </div>
+          <div class="g3 mt2">
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/3bhk-floor-plan.png" alt="3BHK Floor Plan"
+                loading="lazy">
+              <p class="cap">3BHK Architectural Render</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/studio-wide.png" alt="Studio Concept Wide"
+                loading="lazy">
+              <p class="cap">Studio Concept Wide</p>
+            </div>
+            <div><img class="thumb lb-trigger" src="assets/images/concepts/road-jungle.png" alt="Road In Jungle"
+                loading="lazy">
+              <p class="cap">Road Passing In Jungle</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /vfx -->
+
+      <!-- ════ WEDDING ════ -->
+      <div class="tab-panel" id="tab-wedding">
+        <div class="ch-hdr">
+          <span class="ch-dot" style="background:var(--wedding);"></span>
+          <span class="ch-name">Wedding Films</span>
+          <span class="ch-badge" style="background:var(--wedding-bg);color:var(--wedding);">Cinematic Coverage</span>
+        </div>
+        <img class="wedding-hero-img lb-trigger" src="assets/images/weddings/dsc09811.jpg" alt="Wedding hero shot"
+          loading="lazy">
+        <div class="g4 mt">
+          <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc00507.jpg" alt="Wedding still 1"
+            loading="lazy">
+          <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc00528.jpg" alt="Wedding still 2"
+            loading="lazy">
+          <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc09907.jpg" alt="Wedding still 3"
+            loading="lazy">
+          <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc09811.jpg" alt="Wedding still 4"
+            loading="lazy">
+        </div>
+        <p class="cap" style="margin-top:10px;">Click any photo to view full size.</p>
+      </div><!-- /wedding -->
+
+    </div><!-- /wrap--wide -->
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="section">
+    <div class="wrap">
+      <div class="process-hdr">
+        <p class="label sr"><span class="rule"></span>How we work</p>
+        <h2 class="process-title sr d1">Our creative <em>process</em></h2>
+        <p class="process-sub sr d2">Four clear steps from brief to delivery. No fluff, no back-and-forths just clean,
+          creative execution.</p>
+      </div>
+      <div class="process-row">
+        <div class="pstep sr d1">
+          <div class="pstep-circle"><span class="pstep-n">01</span></div>
+          <div class="pstep-name">Discovery</div>
+          <div class="pstep-desc">We start with a deep-dive into your brand, goals and audience. Understanding the why
+            before touching the timeline.</div>
+        </div>
+        <div class="pstep sr d2">
+          <div class="pstep-circle"><span class="pstep-n">02</span></div>
+          <div class="pstep-name">Concept</div>
+          <div class="pstep-desc">Mood boards, style references and a creative direction deck. We align on the vision
+            before a single frame is cut.</div>
+        </div>
+        <div class="pstep sr d3">
+          <div class="pstep-circle"><span class="pstep-n">03</span></div>
+          <div class="pstep-name">Production</div>
+          <div class="pstep-desc">Edit, colour, sound design and motion all done in-house. Progress previews and two
+            rounds of revisions, included.</div>
+        </div>
+        <div class="pstep sr d4">
+          <div class="pstep-circle"><span class="pstep-n">04</span></div>
+          <div class="pstep-name">Delivery</div>
+          <div class="pstep-desc">Final files optimised for every platform, plus a debrief to set up your next project
+            before this one even launches.</div>
         </div>
       </div>
-
-    </div><!-- /vfx -->
-
-    <!-- ════ WEDDING ════ -->
-    <div class="tab-panel" id="tab-wedding">
-      <div class="ch-hdr">
-        <span class="ch-dot" style="background:var(--wedding);"></span>
-        <span class="ch-name">Wedding Films</span>
-        <span class="ch-badge" style="background:var(--wedding-bg);color:var(--wedding);">Cinematic Coverage</span>
-      </div>
-      <img class="wedding-hero-img lb-trigger" src="assets/images/weddings/dsc09811.jpg" alt="Wedding hero shot" loading="lazy">
-      <div class="g4 mt">
-        <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc00507.jpg" alt="Wedding still 1" loading="lazy">
-        <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc00528.jpg" alt="Wedding still 2" loading="lazy">
-        <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc09907.jpg" alt="Wedding still 3" loading="lazy">
-        <img class="wedding-still lb-trigger" src="assets/images/weddings/dsc09811.jpg" alt="Wedding still 4" loading="lazy">
-      </div>
-      <p class="cap" style="margin-top:10px;">Click any photo to view full size.</p>
-    </div><!-- /wedding -->
-
-  </div><!-- /wrap--wide -->
-</section>
-
-<!-- PROCESS -->
-<section id="process" class="section">
-  <div class="wrap">
-    <div class="process-hdr">
-      <p class="label sr"><span class="rule"></span>How we work</p>
-      <h2 class="process-title sr d1">Our creative <em>process</em></h2>
-      <p class="process-sub sr d2">Four clear steps from brief to delivery. No fluff, no back-and-forths  just clean, creative execution.</p>
     </div>
-    <div class="process-row">
-      <div class="pstep sr d1"><div class="pstep-circle"><span class="pstep-n">01</span></div><div class="pstep-name">Discovery</div><div class="pstep-desc">We start with a deep-dive into your brand, goals and audience. Understanding the why before touching the timeline.</div></div>
-      <div class="pstep sr d2"><div class="pstep-circle"><span class="pstep-n">02</span></div><div class="pstep-name">Concept</div><div class="pstep-desc">Mood boards, style references and a creative direction deck. We align on the vision before a single frame is cut.</div></div>
-      <div class="pstep sr d3"><div class="pstep-circle"><span class="pstep-n">03</span></div><div class="pstep-name">Production</div><div class="pstep-desc">Edit, colour, sound design and motion  all done in-house. Progress previews and two rounds of revisions, included.</div></div>
-      <div class="pstep sr d4"><div class="pstep-circle"><span class="pstep-n">04</span></div><div class="pstep-name">Delivery</div><div class="pstep-desc">Final files optimised for every platform, plus a debrief to set up your next project before this one even launches.</div></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ABOUT -->
-<section id="about" class="section section-alt">
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="about-visual sr">
-        <div class="about-circles"><div class="ac1"></div><div class="ac2"></div></div>
-        <div class="about-float af1"><div class="af-n">80<span style="font-size:.55em">+</span></div><div class="af-l">Projects</div></div>
-        <div class="about-float af2"><div class="af-n">3<span style="font-size:.55em">+</span></div><div class="af-l">Years active</div></div>
-      </div>
-      <div>
-        <p class="label sr"><span class="rule"></span>Who we are</p>
-        <h2 class="section-title sr d1" style="margin-bottom:24px;">A studio built on<br>craft and <em>clarity</em></h2>
-        <p class="about-body sr d2">PixelBloom started as one editor's obsession with the perfect cut. Today it's a tight-knit creative studio serving creators, brands and couples who care deeply about how their story looks on screen.</p>
-        <p class="about-body sr d2">We believe great video isn't just technically sharp  it's emotionally resonant. Every project we take on gets our full creative energy, from concept to final export.</p>
-        <div class="about-rule sr d3"></div>
-        <div class="about-vals sr d3">
-          <div class="aval"><div class="aval-name">Story-first</div><div class="aval-desc">Every frame earns its place in the narrative.</div></div>
-          <div class="aval"><div class="aval-name">Pixel-perfect</div><div class="aval-desc">Technical excellence is non-negotiable.</div></div>
-          <div class="aval"><div class="aval-name">Fast turnaround</div><div class="aval-desc">Deadlines are respected, always.</div></div>
-          <div class="aval"><div class="aval-name">Clear comms</div><div class="aval-desc">No ghosting, no vague timelines.</div></div>
+  <!-- ABOUT -->
+  <section id="about" class="section section-alt">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-visual sr">
+          <div class="about-circles">
+            <div class="ac1"></div>
+            <div class="ac2"></div>
+          </div>
+          <div class="about-float af1">
+            <div class="af-n">80<span style="font-size:.55em">+</span></div>
+            <div class="af-l">Projects</div>
+          </div>
+          <div class="about-float af2">
+            <div class="af-n">3<span style="font-size:.55em">+</span></div>
+            <div class="af-l">Years active</div>
+          </div>
         </div>
-        <div class="sr d4">
-          <div class="clients-label">Worked with</div>
-          <div class="clients-list">
-            <span class="client-name">Bajaj Electricals</span>
-            <span class="client-name">Xyaa</span>
-            <span class="client-name">Techshot</span>
-            <span class="client-name">Rahul Dua</span>
-            <span class="client-name">Comic Con</span>
-            <span class="client-name">Sufiyan Alam</span>
-            <span class="client-name">Netflix (Set Design)</span>
-            <span class="client-name">Kapil Sharma Show</span>
+        <div>
+          <p class="label sr"><span class="rule"></span>Who we are</p>
+          <h2 class="section-title sr d1" style="margin-bottom:24px;">A studio built on<br>craft and <em>clarity</em>
+          </h2>
+          <p class="about-body sr d2">PixelBloom started as one editor's obsession with the perfect cut. Today it's a
+            tight-knit creative studio serving creators, brands and couples who care deeply about how their story looks
+            on screen.</p>
+          <p class="about-body sr d2">We believe great video isn't just technically sharp it's emotionally resonant.
+            Every project we take on gets our full creative energy, from concept to final export.</p>
+          <div class="about-rule sr d3"></div>
+          <div class="about-vals sr d3">
+            <div class="aval">
+              <div class="aval-name">Story-first</div>
+              <div class="aval-desc">Every frame earns its place in the narrative.</div>
+            </div>
+            <div class="aval">
+              <div class="aval-name">Pixel-perfect</div>
+              <div class="aval-desc">Technical excellence is non-negotiable.</div>
+            </div>
+            <div class="aval">
+              <div class="aval-name">Fast turnaround</div>
+              <div class="aval-desc">Deadlines are respected, always.</div>
+            </div>
+            <div class="aval">
+              <div class="aval-name">Clear comms</div>
+              <div class="aval-desc">No ghosting, no vague timelines.</div>
+            </div>
+          </div>
+          <div class="sr d4">
+            <div class="clients-label">Worked with</div>
+            <div class="clients-list">
+              <span class="client-name">Bajaj Electricals</span>
+              <span class="client-name">Xyaa</span>
+              <span class="client-name">Techshot</span>
+              <span class="client-name">Rahul Dua</span>
+              <span class="client-name">Comic Con</span>
+              <span class="client-name">Sufiyan Alam</span>
+              <span class="client-name">Netflix (Set Design)</span>
+              <span class="client-name">Kapil Sharma Show</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" class="section">
-  <div class="wrap">
-    <div class="testi-hdr">
-      <p class="label sr"><span class="rule"></span>What clients say</p>
-      <h2 class="testi-title sr d1">Heard it straight <em>from them</em></h2>
-    </div>
-  </div>
-  <div class="testi-track-wrap">
-    <div class="testi-track">
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"PixelBloom completely transformed our brand content. Every reel has outperformed everything we made in-house."</div><div class="tcard-author"><div class="tcard-avatar">BJ</div><div><div class="tcard-name">Bajaj Electricals</div><div class="tcard-role">Brand Partner</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"Working with them for my YouTube channel has been incredible. They understand the vibe instantly and the edits always feel fresh."</div><div class="tcard-author"><div class="tcard-avatar">XY</div><div><div class="tcard-name">Xyaa</div><div class="tcard-role">YouTube Creator</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"Our wedding film made me cry the first time I watched it. They captured emotions I didn't even know were on camera. Truly cinematic."</div><div class="tcard-author"><div class="tcard-avatar">P&amp;S</div><div><div class="tcard-name">Pooja &amp; Sanket</div><div class="tcard-role">Wedding Film Client</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"Fast, communicative, consistently top-tier quality. They've become our go-to editor for all Techshot content."</div><div class="tcard-author"><div class="tcard-avatar">TS</div><div><div class="tcard-name">Techshot</div><div class="tcard-role">Tech Creator</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"The Comic Con recap reel went massively viral. They have a real eye for what performs on social media."</div><div class="tcard-author"><div class="tcard-avatar">CC</div><div><div class="tcard-name">Comic Con India</div><div class="tcard-role">Event Brand</div></div></div></div>
-      <!-- duplicates -->
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"PixelBloom completely transformed our brand content. Every reel has outperformed everything we made in-house."</div><div class="tcard-author"><div class="tcard-avatar">BJ</div><div><div class="tcard-name">Bajaj Electricals</div><div class="tcard-role">Brand Partner</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"Working with them for my YouTube channel has been incredible. They understand the vibe instantly and the edits always feel fresh."</div><div class="tcard-author"><div class="tcard-avatar">XY</div><div><div class="tcard-name">Xyaa</div><div class="tcard-role">YouTube Creator</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"Our wedding film made me cry the first time I watched it. They captured emotions I didn't even know were on camera. Truly cinematic."</div><div class="tcard-author"><div class="tcard-avatar">P&amp;S</div><div><div class="tcard-name">Pooja &amp; Sanket</div><div class="tcard-role">Wedding Film Client</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"Fast, communicative, consistently top-tier quality. They've become our go-to editor for all Techshot content."</div><div class="tcard-author"><div class="tcard-avatar">TS</div><div><div class="tcard-name">Techshot</div><div class="tcard-role">Tech Creator</div></div></div></div>
-      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-quote">"The Comic Con recap reel went massively viral. They have a real eye for what performs on social media."</div><div class="tcard-author"><div class="tcard-avatar">CC</div><div><div class="tcard-name">Comic Con India</div><div class="tcard-role">Event Brand</div></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BAND -->
-<div class="cta-band">
-  <div class="wrap cta-inner">
-    <p class="label cta-band-label sr"><span class="rule"></span>Ready to start?</p>
-    <h2 class="cta-title sr d1">Your story deserves<br>to <em>bloom.</em></h2>
-    <p class="cta-sub sr d2">Let's build something worth watching. Drop us a message and we'll get back to you within 24 hours.</p>
-    <div class="cta-actions sr d3">
-      <a href="#contact" class="btn-paper">Start a project <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg></a>
-      <a href="#work" class="btn-ghost-light">See more work</a>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-grid">
-      <div>
-        <p class="label sr"><span class="rule"></span>Get in touch</p>
-        <h2 class="section-title sr d1" style="margin-bottom:20px;--wedding:var(--brand)">Let's make<br>something <em style="color:var(--brand)">great.</em></h2>
-        <p class="about-body sr d2" style="margin-bottom:36px;">Whether you have a brief ready or just a rough idea  we're here for it. Tell us what you're building and let's figure out how PixelBloom can make it better.</p>
-        <div class="channel-list sr d3">
-          <div class="channel"><div class="ch-icon-c"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="ch-lbl">Email</div><div class="ch-val">hello@pixelbloom.in</div></div></div>
-          <div class="channel"><div class="ch-icon-c"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><div><div class="ch-lbl">Instagram</div><div class="ch-val">@pixelbloom.studio</div></div></div>
-          <div class="channel"><div class="ch-icon-c"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div><div><div class="ch-lbl">YouTube</div><div class="ch-val">PixelBloom Studio</div></div></div>
-        </div>
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section">
+    <div class="wrap">
+      <div class="testi-hdr">
+        <p class="label sr"><span class="rule"></span>What clients say</p>
+        <h2 class="testi-title sr d1">Heard it straight <em>from them</em></h2>
       </div>
-      <div class="contact-form sr d2">
-        <div class="form-title">Send us a brief</div>
-        <div class="form-sub">We'll respond within 24 hours.</div>
-        <form id="contactForm" novalidate>
-          <div class="form-row">
-            <div class="fgroup"><label for="fname">First name</label><input type="text" id="fname" placeholder="Varad" required /></div>
-            <div class="fgroup"><label for="lname">Last name</label><input type="text" id="lname" placeholder="Sharma" /></div>
+    </div>
+    <div class="testi-track-wrap">
+      <div class="testi-track">
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"PixelBloom completely transformed our brand content. Every reel has outperformed
+            everything we made in-house."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">BJ</div>
+            <div>
+              <div class="tcard-name">Bajaj Electricals</div>
+              <div class="tcard-role">Brand Partner</div>
+            </div>
           </div>
-          <div class="fgroup"><label for="email">Email address</label><input type="email" id="email" placeholder="you@example.com" required /></div>
-          <div class="fgroup">
-            <label for="service">Service needed</label>
-            <select id="service">
-              <option value="">Select a service…</option>
-              <option>Wedding Film</option><option>Creator Space</option>
-              <option>Brand &amp; Commercial</option><option>VFX &amp; 3D</option>
-              <option>Photography</option><option>Video Editing</option>
-            </select>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"Working with them for my YouTube channel has been incredible. They understand the
+            vibe instantly and the edits always feel fresh."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">XY</div>
+            <div>
+              <div class="tcard-name">Xyaa</div>
+              <div class="tcard-role">YouTube Creator</div>
+            </div>
           </div>
-          <div class="fgroup"><label for="msg">Tell us about your project</label><textarea id="msg" placeholder="Quick overview  what are you making, when do you need it, and what's the vibe?" required></textarea></div>
-          <button type="submit" class="form-btn">Send message →</button>
-        </form>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"Our wedding film made me cry the first time I watched it. They captured emotions I
+            didn't even know were on camera. Truly cinematic."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">P&amp;S</div>
+            <div>
+              <div class="tcard-name">Pooja &amp; Sanket</div>
+              <div class="tcard-role">Wedding Film Client</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"Fast, communicative, consistently top-tier quality. They've become our go-to editor
+            for all Techshot content."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">TS</div>
+            <div>
+              <div class="tcard-name">Techshot</div>
+              <div class="tcard-role">Tech Creator</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"The Comic Con recap reel went massively viral. They have a real eye for what
+            performs on social media."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">CC</div>
+            <div>
+              <div class="tcard-name">Comic Con India</div>
+              <div class="tcard-role">Event Brand</div>
+            </div>
+          </div>
+        </div>
+        <!-- duplicates -->
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"PixelBloom completely transformed our brand content. Every reel has outperformed
+            everything we made in-house."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">BJ</div>
+            <div>
+              <div class="tcard-name">Bajaj Electricals</div>
+              <div class="tcard-role">Brand Partner</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"Working with them for my YouTube channel has been incredible. They understand the
+            vibe instantly and the edits always feel fresh."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">XY</div>
+            <div>
+              <div class="tcard-name">Xyaa</div>
+              <div class="tcard-role">YouTube Creator</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"Our wedding film made me cry the first time I watched it. They captured emotions I
+            didn't even know were on camera. Truly cinematic."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">P&amp;S</div>
+            <div>
+              <div class="tcard-name">Pooja &amp; Sanket</div>
+              <div class="tcard-role">Wedding Film Client</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"Fast, communicative, consistently top-tier quality. They've become our go-to editor
+            for all Techshot content."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">TS</div>
+            <div>
+              <div class="tcard-name">Techshot</div>
+              <div class="tcard-role">Tech Creator</div>
+            </div>
+          </div>
+        </div>
+        <div class="tcard">
+          <div class="tcard-stars">★★★★★</div>
+          <div class="tcard-quote">"The Comic Con recap reel went massively viral. They have a real eye for what
+            performs on social media."</div>
+          <div class="tcard-author">
+            <div class="tcard-avatar">CC</div>
+            <div>
+              <div class="tcard-name">Comic Con India</div>
+              <div class="tcard-role">Event Brand</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div class="wrap cta-inner">
+      <p class="label cta-band-label sr"><span class="rule"></span>Ready to start?</p>
+      <h2 class="cta-title sr d1">Your story deserves<br>to <em>bloom.</em></h2>
+      <p class="cta-sub sr d2">Let's build something worth watching. Drop us a message and we'll get back to you within
+        24 hours.</p>
+      <div class="cta-actions sr d3">
+        <a href="#contact" class="btn-paper">Start a project <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+            stroke="currentColor" stroke-width="1.8">
+            <path d="M2 7h10M8 3l4 4-4 4" />
+          </svg></a>
+        <a href="#work" class="btn-ghost-light">See more work</a>
       </div>
     </div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <div class="footer-mark"><div class="c1"></div><div class="c2"></div></div>
-          <span class="footer-wordmark">PixelBloom</span>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <p class="label sr"><span class="rule"></span>Get in touch</p>
+          <h2 class="section-title sr d1" style="margin-bottom:20px;--wedding:var(--brand)">Let's make<br>something <em
+              style="color:var(--brand)">great.</em></h2>
+          <p class="about-body sr d2" style="margin-bottom:36px;">Whether you have a brief ready or just a rough idea
+            we're here for it. Tell us what you're building and let's figure out how PixelBloom can make it better.</p>
+          <div class="channel-list sr d3">
+            <div class="channel">
+              <div class="ch-icon-c"><svg viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg></div>
+              <div>
+                <div class="ch-lbl">Email</div>
+                <div class="ch-val">hello@pixelbloom.in</div>
+              </div>
+            </div>
+            <div class="channel">
+              <div class="ch-icon-c"><svg viewBox="0 0 24 24">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg></div>
+              <div>
+                <div class="ch-lbl">Instagram</div>
+                <div class="ch-val">@pixelbloom.studio</div>
+              </div>
+            </div>
+            <div class="channel">
+              <div class="ch-icon-c"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                  <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+                </svg></div>
+              <div>
+                <div class="ch-lbl">YouTube</div>
+                <div class="ch-val">PixelBloom Studio</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="footer-desc">A full-service creative studio building visual stories for creators, brands, and people in love.</p>
-        <div class="footer-tagline">Elevating with Digital Buzz</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Services</div>
-        <ul class="footer-links">
-          <li><a href="#services">Wedding Films</a></li><li><a href="#services">Creator Space</a></li>
-          <li><a href="#services">Brand &amp; Commercial</a></li><li><a href="#services">VFX &amp; 3D</a></li>
-          <li><a href="#services">Photography</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Studio</div>
-        <ul class="footer-links">
-          <li><a href="#about">About us</a></li><li><a href="#work">Our work</a></li>
-          <li><a href="#process">Process</a></li><li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Connect</div>
-        <div class="footer-socials">
-          <div class="soc"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-          <div class="soc"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></div>
-          <div class="soc"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <div class="contact-form sr d2">
+          <div class="form-title">Send us a brief</div>
+          <div class="form-sub">We'll respond within 24 hours.</div>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="fgroup"><label for="fname">First name</label><input type="text" id="fname" placeholder="Varad"
+                  required /></div>
+              <div class="fgroup"><label for="lname">Last name</label><input type="text" id="lname"
+                  placeholder="Sharma" /></div>
+            </div>
+            <div class="fgroup"><label for="email">Email address</label><input type="email" id="email"
+                placeholder="you@example.com" required /></div>
+            <div class="fgroup">
+              <label for="service">Service needed</label>
+              <select id="service">
+                <option value="">Select a service…</option>
+                <option>Wedding Film</option>
+                <option>Creator Space</option>
+                <option>Brand &amp; Commercial</option>
+                <option>VFX &amp; 3D</option>
+                <option>Photography</option>
+                <option>Video Editing</option>
+              </select>
+            </div>
+            <div class="fgroup"><label for="msg">Tell us about your project</label><textarea id="msg"
+                placeholder="Quick overview  what are you making, when do you need it, and what's the vibe?"
+                required></textarea></div>
+            <button type="submit" class="form-btn">Send message →</button>
+          </form>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 <span>PixelBloom</span>. All rights reserved.</div>
-      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-mark">
+              <div class="c1"></div>
+              <div class="c2"></div>
+            </div>
+            <span class="footer-wordmark">PixelBloom</span>
+          </div>
+          <p class="footer-desc">A full-service creative studio building visual stories for creators, brands, and people
+            in love.</p>
+          <div class="footer-tagline">Elevating with Digital Buzz</div>
+        </div>
+        <div>
+          <div class="footer-col-title">Services</div>
+          <ul class="footer-links">
+            <li><a href="#services">Wedding Films</a></li>
+            <li><a href="#services">Creator Space</a></li>
+            <li><a href="#services">Brand &amp; Commercial</a></li>
+            <li><a href="#services">VFX &amp; 3D</a></li>
+            <li><a href="#services">Photography</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Studio</div>
+          <ul class="footer-links">
+            <li><a href="#about">About us</a></li>
+            <li><a href="#work">Our work</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Connect</div>
+          <div class="footer-socials">
+            <div class="soc"><svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg></div>
+            <div class="soc"><svg viewBox="0 0 24 24">
+                <path
+                  d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+              </svg></div>
+            <div class="soc"><svg viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 <span>PixelBloom</span>. All rights reserved.</div>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script>
-/* Nav */
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 32), { passive: true });
+  <script>
+    /* Nav */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 32), { passive: true });
 
-/* Scroll reveal */
-const srObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); srObs.unobserve(e.target); } });
-}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
-document.querySelectorAll('.sr').forEach(el => srObs.observe(el));
+    /* Scroll reveal */
+    const srObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); srObs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('.sr').forEach(el => srObs.observe(el));
 
-/* Smooth anchors */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  });
-});
+    /* Smooth anchors */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
 
-/* Tabs */
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
-    btn.classList.add('on');
-    const panel = document.getElementById('tab-' + btn.dataset.tab);
-    if (panel) panel.classList.add('on');
-  });
-});
+    /* Tabs */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
+        btn.classList.add('on');
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        if (panel) panel.classList.add('on');
+      });
+    });
 
-/* Counter */
-function runCount(el, target, suf) {
-  let v = 0; const step = Math.ceil(target / 38);
-  const id = setInterval(() => {
-    v = Math.min(v + step, target);
-    el.innerHTML = v + '<sup>' + suf + '</sup>';
-    if (v >= target) clearInterval(id);
-  }, 28);
-}
-const statsEl = document.querySelector('.hero-stats');
-if (statsEl) {
-  new IntersectionObserver(([e], obs) => {
-    if (e.isIntersecting) {
-      runCount(document.getElementById('cnt1'), 80, '+');
-      runCount(document.getElementById('cnt2'), 3, '+');
-      runCount(document.getElementById('cnt3'), 40, '+');
-      obs.disconnect();
+    /* Counter */
+    function runCount(el, target, suf) {
+      let v = 0; const step = Math.ceil(target / 38);
+      const id = setInterval(() => {
+        v = Math.min(v + step, target);
+        el.innerHTML = v + '<sup>' + suf + '</sup>';
+        if (v >= target) clearInterval(id);
+      }, 28);
     }
-  }, { threshold: 0.6 }).observe(statsEl);
-}
+    const statsEl = document.querySelector('.hero-stats');
+    if (statsEl) {
+      new IntersectionObserver(([e], obs) => {
+        if (e.isIntersecting) {
+          runCount(document.getElementById('cnt1'), 80, '+');
+          runCount(document.getElementById('cnt2'), 3, '+');
+          runCount(document.getElementById('cnt3'), 40, '+');
+          obs.disconnect();
+        }
+      }, { threshold: 0.6 }).observe(statsEl);
+    }
 
-/* Contact form */
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const btn = this.querySelector('.form-btn');
-  const orig = btn.textContent;
-  btn.textContent = 'Message sent ✓';
-  btn.style.background = 'var(--photo)'; btn.style.color = 'var(--ink)';
-  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; this.reset(); }, 3000);
-});
+    /* Contact form */
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-btn');
+      const orig = btn.textContent;
+      btn.textContent = 'Message sent ✓';
+      btn.style.background = 'var(--photo)'; btn.style.color = 'var(--ink)';
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; this.reset(); }, 3000);
+    });
 
-/* Lightbox */
-const lb = document.getElementById('lb');
-const lbImg = document.getElementById('lb-img');
-document.querySelectorAll('.lb-trigger').forEach(img => {
-  img.addEventListener('click', () => {
-    lbImg.src = img.src; lbImg.alt = img.alt;
-    lb.classList.add('open'); document.body.style.overflow = 'hidden';
-  });
-});
-function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
-document.getElementById('lb-x').addEventListener('click', closeLb);
-lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    /* Lightbox */
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lb-img');
+    document.querySelectorAll('.lb-trigger').forEach(img => {
+      img.addEventListener('click', () => {
+        lbImg.src = img.src; lbImg.alt = img.alt;
+        lb.classList.add('open'); document.body.style.overflow = 'hidden';
+      });
+    });
+    function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    document.getElementById('lb-x').addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
 
-/* Parallax blob */
-window.addEventListener('scroll', () => {
-  const blob = document.querySelector('.hero-blob');
-  if (blob) blob.style.transform = `translateY(${window.scrollY * 0.12}px)`;
-}, { passive: true });
-</script>
+    /* Parallax blob */
+    window.addEventListener('scroll', () => {
+      const blob = document.querySelector('.hero-blob');
+      if (blob) blob.style.transform = `translateY(${window.scrollY * 0.12}px)`;
+    }, { passive: true });
+  </script>
 </body>
+
 </html>

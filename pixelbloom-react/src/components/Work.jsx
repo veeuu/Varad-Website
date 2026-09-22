@@ -237,12 +237,76 @@ function WeddingTab({ cat, onLightbox }) {
   )
 }
 
+/* ── CMS flat tab — renders items from Sanity ───────────────── */
+function CmsTab({ items, onLightbox }) {
+  return (
+    <div className="g3">
+      {items.map((item, i) => {
+        const thumbUrl = item.thumbnail?.asset?.url
+          || (item.youtubeId ? `https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg` : null)
+          || (item.url?.includes('youtube') ? `https://img.youtube.com/vi/${item.url.split('v=')[1]?.split('&')[0]}/hqdefault.jpg` : null)
+
+        if (item.mediaType === 'image') {
+          return (
+            <div key={item._id}>
+              <img src={thumbUrl} alt={item.title} className="thumb"
+                onClick={() => onLightbox(thumbUrl)}
+                onError={e => e.target.style.display = 'none'} />
+              {item.caption && <p className="cap">{item.caption}</p>}
+            </div>
+          )
+        }
+        return (
+          <a key={item._id} href={item.url} target="_blank" rel="noreferrer" className="media-card">
+            {thumbUrl
+              ? <img src={thumbUrl} alt={item.title} className={`media-card-thumb${item.portrait ? ' portrait' : ''}`} />
+              : <div style={{ width: '100%', aspectRatio: '16/9', background: 'var(--paper-warm)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--ink-ghost)' }}>{item.title}</div>
+            }
+            <div className={`media-card-play${item.portrait ? ' portrait' : ''}`}>
+              <div className={`play-btn ${item.mediaType === 'youtube' ? 'yt' : 'ig'}`}>
+                <svg viewBox="0 0 24 24" style={{ width: 20, height: 20, fill: '#fff', marginLeft: 3 }}><polygon points="5,3 19,12 5,21" /></svg>
+              </div>
+            </div>
+            <div className="media-card-meta">
+              <span className="media-card-label">{item.title}</span>
+              <span className={`media-card-badge ${item.mediaType === 'youtube' ? 'badge-yt' : 'badge-ig'}`}>
+                {item.mediaType === 'youtube' ? 'YouTube' : 'Instagram'}
+              </span>
+            </div>
+          </a>
+        )
+      })}
+    </div>
+  )
+}
+
+/* ── CMS helper — converts flat Sanity items into tab structure ── */
+function buildCategoriesFromCms(items) {
+  const categoryMeta = {
+    creator: { label: 'Creator Space', color: 'var(--creator)' },
+    brand:   { label: 'Brand & Commercial', color: 'var(--brand)' },
+    vfx:     { label: 'VFX & 3D', color: 'var(--vfx)' },
+    wedding: { label: 'Wedding Films', color: 'var(--wedding)' },
+  }
+  return Object.entries(categoryMeta).map(([id, meta]) => {
+    const catItems = items.filter(i => i.category === id)
+    return {
+      id,
+      ...meta,
+      // For CMS mode we use a simple flat grid per category
+      cmsItems: catItems,
+    }
+  }).filter(c => c.cmsItems.length > 0)
+}
+
 /* ── Main Work section ──────────────────────────────────────── */
 
-export default function Work({ onLightbox }) {
-  const [active, setActive] = useState('creator')
+export default function Work({ onLightbox, cmsPortfolio }) {
+  const useCms = cmsPortfolio?.length > 0
+  const categories = useCms ? buildCategoriesFromCms(cmsPortfolio) : workCategories
+  const [active, setActive] = useState(categories[0]?.id || 'creator')
   const ref = useScrollReveal()
-  const current = workCategories.find(c => c.id === active)
+  const current = categories.find(c => c.id === active) || categories[0]
 
   return (
     <section id="work" style={{ background: 'var(--paper-warm)', padding: '120px 0' }} ref={ref}>
@@ -259,7 +323,7 @@ export default function Work({ onLightbox }) {
 
         {/* tab nav */}
         <div className="sr d2" style={{ display: 'flex', gap: 4, flexWrap: 'wrap', borderBottom: '1px solid var(--border)', marginBottom: 48 }}>
-          {workCategories.map(cat => (
+          {categories.map(cat => (
             <button key={cat.id} onClick={() => setActive(cat.id)} style={{
               fontSize: 12, fontWeight: active === cat.id ? 500 : 400, letterSpacing: '.04em',
               padding: '9px 18px 10px', borderRadius: 'var(--r-pill) var(--r-pill) 0 0',
@@ -273,12 +337,18 @@ export default function Work({ onLightbox }) {
           ))}
         </div>
 
-        {/* tab content */}
+        {/* tab content — CMS flat grid or rich local layouts */}
         <div key={active}>
-          {active === 'creator' && <CreatorTab channels={current.channels} onLightbox={onLightbox} />}
-          {active === 'brand'   && <BrandTab channels={current.channels} onLightbox={onLightbox} />}
-          {active === 'vfx'     && <VfxTab sections={current.sections} onLightbox={onLightbox} />}
-          {active === 'wedding' && <WeddingTab cat={current} onLightbox={onLightbox} />}
+          {useCms ? (
+            <CmsTab items={current.cmsItems} onLightbox={onLightbox} />
+          ) : (
+            <>
+              {active === 'creator' && <CreatorTab channels={current.channels} onLightbox={onLightbox} />}
+              {active === 'brand'   && <BrandTab channels={current.channels} onLightbox={onLightbox} />}
+              {active === 'vfx'     && <VfxTab sections={current.sections} onLightbox={onLightbox} />}
+              {active === 'wedding' && <WeddingTab cat={current} onLightbox={onLightbox} />}
+            </>
+          )}
         </div>
       </div>
     </section>
