@@ -1,4 +1,4 @@
-# ── Large media — never commit these to GitHub ──────────────────
+# ── Large media  never commit these to GitHub ──────────────────
 # MP4 videos (too large for GitHub's 100MB file limit)
 *.mp4
 *.mov

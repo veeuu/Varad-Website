@@ -33,7 +33,7 @@ export default function About() {
               PixelBloom started as one editor's obsession with the perfect cut. Today it's a tight-knit creative studio serving creators, brands and couples who care deeply about how their story looks on screen.
             </p>
             <p className="about-body sr d2">
-              We believe great video isn't just technically sharp — it's emotionally resonant. Every project we take on gets our full creative energy, from concept to final export.
+              We believe great video isn't just technically sharp  it's emotionally resonant. Every project we take on gets our full creative energy, from concept to final export.
             </p>
             <div className="about-rule sr d3" />
             <div className="about-vals sr d3">

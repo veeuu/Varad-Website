@@ -2,7 +2,7 @@ export default {
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
-  // Singleton — only one document of this type
+  // Singleton  only one document of this type
   __experimental_actions: ['update', 'publish'],
   fields: [
     {
@@ -13,19 +13,19 @@ export default {
     },
     {
       name: 'heroHeadlineLine1',
-      title: 'Hero Headline — Line 1',
+      title: 'Hero Headline  Line 1',
       type: 'string',
       initialValue: 'We craft',
     },
     {
       name: 'heroHeadlineEm',
-      title: 'Hero Headline — Italic Word',
+      title: 'Hero Headline  Italic Word',
       type: 'string',
       initialValue: 'stories',
     },
     {
       name: 'heroHeadlineLine2',
-      title: 'Hero Headline — Line 2',
+      title: 'Hero Headline  Line 2',
       type: 'string',
       initialValue: 'that bloom.',
     },

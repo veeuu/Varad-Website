@@ -28,7 +28,7 @@ export default function Process() {
             Our creative <em style={{ fontStyle: 'italic', color: 'var(--creator)' }}>process</em>
           </h2>
           <p className="sr d2" style={{ fontSize: 14.5, fontWeight: 300, color: 'var(--ink-mid)', maxWidth: 440, margin: '0 auto', lineHeight: 1.75 }}>
-            Four clear steps from brief to delivery. No fluff, no back-and-forths — just clean, creative execution.
+            Four clear steps from brief to delivery. No fluff, no back-and-forths  just clean, creative execution.
           </p>
         </div>
 

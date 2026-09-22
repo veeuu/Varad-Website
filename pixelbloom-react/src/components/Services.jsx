@@ -59,7 +59,7 @@ export default function Services({ cmsServices }) {
             <p className="label sr"><span className="rule" />What we do</p>
             <h2 className="section-title sr d1">Built for creators,<br />brands &amp; <em>beyond</em></h2>
           </div>
-          <p className="section-body sr d2">We don't just edit videos — we build visual identities, tell compelling stories, and craft content that actually moves people. Every project gets our full creative attention.</p>
+          <p className="section-body sr d2">We don't just edit videos  we build visual identities, tell compelling stories, and craft content that actually moves people. Every project gets our full creative attention.</p>
         </div>
         <div className="sr d2" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', border: '1px solid var(--border)', borderRadius: 'var(--r-lg)', overflow: 'hidden', gap: 1, background: 'var(--border)' }}>
           {list.map((s, i) => <ServiceCard key={s.num} s={s} delay={i} />)}

@@ -53,7 +53,7 @@ export default function Contact() {
               Let's make<br />something <em style={{ color: 'var(--brand)' }}>great.</em>
             </h2>
             <p className="about-body sr d2" style={{ marginBottom: 36 }}>
-              Whether you have a brief ready or just a rough idea — we're here for it. Tell us what you're building and let's figure out how PixelBloom can make it better.
+              Whether you have a brief ready or just a rough idea  we're here for it. Tell us what you're building and let's figure out how PixelBloom can make it better.
             </p>
             <div className="channel-list sr d3">
               {channels.map(ch => (
@@ -99,7 +99,7 @@ export default function Contact() {
               </div>
               <div className="fgroup">
                 <label htmlFor="msg" style={labelStyle}>Tell us about your project</label>
-                <textarea id="msg" placeholder="Quick overview — what are you making, when do you need it, and what's the vibe?" value={form.msg} onChange={e => setForm(f => ({ ...f, msg: e.target.value }))} style={{ ...inputStyle, height: 112, resize: 'none' }}
+                <textarea id="msg" placeholder="Quick overview  what are you making, when do you need it, and what's the vibe?" value={form.msg} onChange={e => setForm(f => ({ ...f, msg: e.target.value }))} style={{ ...inputStyle, height: 112, resize: 'none' }}
                   onFocus={e => { e.target.style.borderColor = 'var(--brand)'; e.target.style.boxShadow = '0 0 0 3px color-mix(in srgb,var(--brand) 12%,transparent)' }}
                   onBlur={e => { e.target.style.borderColor = 'var(--border-med)'; e.target.style.boxShadow = 'none' }}
                 />

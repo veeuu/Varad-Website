@@ -237,7 +237,7 @@ function WeddingTab({ cat, onLightbox }) {
   )
 }
 
-/* ── CMS flat tab — renders items from Sanity ───────────────── */
+/* ── CMS flat tab  renders items from Sanity ───────────────── */
 function CmsTab({ items, onLightbox }) {
   return (
     <div className="g3">
@@ -280,7 +280,7 @@ function CmsTab({ items, onLightbox }) {
   )
 }
 
-/* ── CMS helper — converts flat Sanity items into tab structure ── */
+/* ── CMS helper  converts flat Sanity items into tab structure ── */
 function buildCategoriesFromCms(items) {
   const categoryMeta = {
     creator: { label: 'Creator Space', color: 'var(--creator)' },
@@ -337,7 +337,7 @@ export default function Work({ onLightbox, cmsPortfolio }) {
           ))}
         </div>
 
-        {/* tab content — CMS flat grid or rich local layouts */}
+        {/* tab content  CMS flat grid or rich local layouts */}
         <div key={active}>
           {useCms ? (
             <CmsTab items={current.cmsItems} onLightbox={onLightbox} />

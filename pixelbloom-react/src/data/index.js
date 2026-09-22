@@ -6,7 +6,7 @@ export const siteSettings = {
   tagline: 'Elevating with Digital Buzz',
   heroEyebrow: 'Creative Digital Studio',
   heroHeadline: ['We craft', 'stories', 'that bloom.'],
-  heroSub: "PixelBloom is a full-service digital creative studio — where strategy meets storytelling, and every frame is built to elevate your brand's buzz.",
+  heroSub: "PixelBloom is a full-service digital creative studio  where strategy meets storytelling, and every frame is built to elevate your brand's buzz.",
   stats: [
     { n: '80', sup: '+', label: 'Projects delivered', id: 'cnt1', target: 80 },
     { n: '3', sup: '+', label: 'Years active', id: 'cnt2', target: 3 },
@@ -22,7 +22,7 @@ export const siteSettings = {
 export const services = [
   {
     num: '01', name: 'Wedding Films', accent: 'var(--wedding)',
-    desc: 'Full-day coverage cut into cinematic trailers and long-form films. We shoot, we edit, we preserve the feeling — forever.',
+    desc: 'Full-day coverage cut into cinematic trailers and long-form films. We shoot, we edit, we preserve the feeling  forever.',
     tags: ['Trailer', 'Long-form', 'Highlight Reel'],
     iconPath: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
   },
@@ -134,8 +134,8 @@ export const workCategories = [
         dotColor: 'var(--brand)',
         layout: 'grid2-portrait',
         items: [
-          { type: 'video', platform: 'ig', portrait: true, thumb: null, label: 'Campaign Reel — Bajaj Electricals', url: 'https://www.instagram.com/reel/DKlu3aFyeP0/', gradFrom: '#C1694A', gradTo: '#EADBD1' },
-          { type: 'video', platform: 'ig', portrait: true, thumb: null, label: 'Campaign Reel — Bajaj Electricals', url: 'https://www.instagram.com/reel/DKzTkhrIcbM/', gradFrom: '#8B4A2E', gradTo: '#C1694A' },
+          { type: 'video', platform: 'ig', portrait: true, thumb: null, label: 'Campaign Reel  Bajaj Electricals', url: 'https://www.instagram.com/reel/DKlu3aFyeP0/', gradFrom: '#C1694A', gradTo: '#EADBD1' },
+          { type: 'video', platform: 'ig', portrait: true, thumb: null, label: 'Campaign Reel  Bajaj Electricals', url: 'https://www.instagram.com/reel/DKzTkhrIcbM/', gradFrom: '#8B4A2E', gradTo: '#C1694A' },
         ],
       },
     ],
@@ -154,13 +154,13 @@ export const workCategories = [
         dotColor: 'var(--vfx)',
         rows: [
           [
-            { type: 'ig-card', label: 'Concept Vape Ad — 3D Blender', sub: 'Instagram · VFX Reel', url: 'https://www.instagram.com/reel/DCPF2mcouxG/', cap: 'Concept Vape Ad' },
-            { type: 'local-video', src: 'assets/videos/still-rollin.mp4', cap: 'Still Rollin — Reel Concept' },
-            { type: 'local-video', src: 'assets/videos/sol-handbag.mp4', cap: 'SOL Handbag — Product 3D' },
+            { type: 'ig-card', label: 'Concept Vape Ad  3D Blender', sub: 'Instagram · VFX Reel', url: 'https://www.instagram.com/reel/DCPF2mcouxG/', cap: 'Concept Vape Ad' },
+            { type: 'local-video', src: 'assets/videos/still-rollin.mp4', cap: 'Still Rollin  Reel Concept' },
+            { type: 'local-video', src: 'assets/videos/sol-handbag.mp4', cap: 'SOL Handbag  Product 3D' },
           ],
           [
-            { type: 'local-video', src: 'assets/videos/car-in-desert.mp4', cap: 'Car In Desert — Blender' },
-            { type: 'local-video', src: 'assets/videos/robot-bollywood.mp4', cap: 'Robot — Bollywood Concept' },
+            { type: 'local-video', src: 'assets/videos/car-in-desert.mp4', cap: 'Car In Desert  Blender' },
+            { type: 'local-video', src: 'assets/videos/robot-bollywood.mp4', cap: 'Robot  Bollywood Concept' },
             { type: 'local-video', src: 'assets/videos/fur-man-dancing.mp4', cap: 'Fur Man Dancing' },
           ],
           [
@@ -181,15 +181,15 @@ export const workCategories = [
         badgeColor: 'var(--brand)',
         dotColor: 'var(--brand)',
         grid4: [
-          { src: 'assets/images/netflix/v1.png', cap: 'Netflix Set — V1' },
-          { src: 'assets/images/netflix/v2.png', cap: 'Netflix Set — V2' },
-          { src: 'assets/images/netflix/v3.png', cap: 'Netflix Set — V3' },
-          { src: 'assets/images/netflix/v4.png', cap: 'Netflix Set — V4' },
+          { src: 'assets/images/netflix/v1.png', cap: 'Netflix Set  V1' },
+          { src: 'assets/images/netflix/v2.png', cap: 'Netflix Set  V2' },
+          { src: 'assets/images/netflix/v3.png', cap: 'Netflix Set  V3' },
+          { src: 'assets/images/netflix/v4.png', cap: 'Netflix Set  V4' },
         ],
         grid3: [
-          { src: 'assets/images/netflix/set2-concept2.jpg', cap: 'Netflix — Set 2 Concept' },
-          { src: 'assets/images/netflix/set2-widescreen.jpg', cap: 'Netflix — Set 2 Wide' },
-          { src: 'assets/images/kapil/draft2-final.png', cap: 'Kapil Sharma — Photobooth Wall' },
+          { src: 'assets/images/netflix/set2-concept2.jpg', cap: 'Netflix  Set 2 Concept' },
+          { src: 'assets/images/netflix/set2-widescreen.jpg', cap: 'Netflix  Set 2 Wide' },
+          { src: 'assets/images/kapil/draft2-final.png', cap: 'Kapil Sharma  Photobooth Wall' },
         ],
       },
       {
@@ -210,14 +210,14 @@ export const workCategories = [
         badge: '',
         dotColor: 'var(--photo)',
         grid4: [
-          { src: 'assets/images/concepts/still-rollin-poster.png', cap: 'Still Rollin — Poster' },
-          { src: 'assets/images/concepts/one-love-song.png', cap: 'One Love Song — Poster' },
+          { src: 'assets/images/concepts/still-rollin-poster.png', cap: 'Still Rollin  Poster' },
+          { src: 'assets/images/concepts/one-love-song.png', cap: 'One Love Song  Poster' },
           { src: 'assets/images/concepts/bmw-fuel-station-1.png', cap: 'BMW at Fuel Station' },
-          { src: 'assets/images/concepts/levels-poster.png', cap: 'Levels — Poster Concept' },
+          { src: 'assets/images/concepts/levels-poster.png', cap: 'Levels  Poster Concept' },
         ],
         grid3: [
-          { src: 'assets/images/concepts/3bhk-floor-plan.png', cap: '3BHK — Architectural Render' },
-          { src: 'assets/images/concepts/studio-wide.png', cap: 'Studio Concept — Wide' },
+          { src: 'assets/images/concepts/3bhk-floor-plan.png', cap: '3BHK  Architectural Render' },
+          { src: 'assets/images/concepts/studio-wide.png', cap: 'Studio Concept  Wide' },
           { src: 'assets/images/concepts/road-jungle.png', cap: 'Road Passing In Jungle' },
         ],
       },
@@ -240,7 +240,7 @@ export const workCategories = [
 export const processSteps = [
   { n: '01', name: 'Discovery', desc: "We start with a deep-dive into your brand, goals and audience. Understanding the why before touching the timeline." },
   { n: '02', name: 'Concept', desc: "Mood boards, style references and a creative direction deck. We align on the vision before a single frame is cut." },
-  { n: '03', name: 'Production', desc: "Edit, colour, sound design and motion — all done in-house. Progress previews and two rounds of revisions, included." },
+  { n: '03', name: 'Production', desc: "Edit, colour, sound design and motion  all done in-house. Progress previews and two rounds of revisions, included." },
   { n: '04', name: 'Delivery', desc: "Final files optimised for every platform, plus a debrief to set up your next project before this one even launches." },
 ]
 

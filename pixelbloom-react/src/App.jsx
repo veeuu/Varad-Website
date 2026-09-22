@@ -39,7 +39,7 @@ export default function App() {
     })
   }, [])
 
-  // Pass cms data down — components use it if available, else use local data
+  // Pass cms data down  components use it if available, else use local data
   const data = cms ?? null
 
   return (

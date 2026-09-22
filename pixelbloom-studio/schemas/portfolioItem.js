@@ -57,7 +57,7 @@ export default {
       name: 'youtubeId',
       title: 'YouTube Video ID',
       type: 'string',
-      description: 'e.g. Npb0Pc6AItM — leave blank to use URL',
+      description: 'e.g. Npb0Pc6AItM  leave blank to use URL',
       hidden: ({ document }) => document?.mediaType !== 'youtube',
     },
     {
