@@ -1458,34 +1458,6 @@ body { background: var(--paper); }
   grid-column: 1;
   position: relative;
 }
-#work .work-showcase-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 14px;
-  padding: 10px 12px 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255,255,255,.25);
-}
-#work .work-showcase-tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-#work .work-showcase-name {
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-}
 #work .work-showcase-side {
   display: grid;
   grid-template-rows: repeat(2, minmax(0, 1fr));

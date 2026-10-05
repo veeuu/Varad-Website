@@ -121,7 +121,7 @@ function ChHdr({ ch }) {
 
 /* ── Tab panels ─────────────────────────────────────────────── */
 
-function FeaturedShowcase({ items, onLightbox, accent = 'var(--brand)' }) {
+function FeaturedShowcase({ items, onLightbox }) {
   const spotlight = items[0]
   const sideCards = items.slice(1, 3)
   const lowerCards = items.slice(3, 6)
@@ -131,10 +131,6 @@ function FeaturedShowcase({ items, onLightbox, accent = 'var(--brand)' }) {
   return (
     <div className="work-showcase">
       <div className="work-showcase-featured">
-        <div className="work-showcase-header" style={{ borderColor: accent }}>
-          <span className="work-showcase-tag" style={{ background: accent, color: '#fff' }}>Featured</span>
-          <span className="work-showcase-name">{spotlight.label}</span>
-        </div>
         <VideoCard item={spotlight} onLightbox={onLightbox} />
       </div>
 
@@ -165,12 +161,12 @@ function CreatorTab({ channels, onLightbox }) {
     return ch.items || []
   })
 
-  return <FeaturedShowcase items={featuredItems} onLightbox={onLightbox} accent="var(--creator)" />
+  return <FeaturedShowcase items={featuredItems} onLightbox={onLightbox} />
 }
 
 function BrandTab({ channels, onLightbox }) {
   const featuredItems = channels.flatMap(ch => ch.items || [])
-  return <FeaturedShowcase items={featuredItems} onLightbox={onLightbox} accent="var(--brand)" />
+  return <FeaturedShowcase items={featuredItems} onLightbox={onLightbox} />
 }
 
 function VfxTab({ sections, onLightbox }) {
