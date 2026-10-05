@@ -1,6 +1,7 @@
 .wedding-page {
   --wedding-ink: #16140f;
   --wedding-muted: #777168;
+  cursor: none;
   min-height: 100vh;
   overflow: hidden;
   color: var(--wedding-ink);
@@ -51,8 +52,8 @@
 .wedding-page-intro h1 { margin: 19px 0 12px; font: 300 clamp(46px, 6.3vw, 78px)/.93 var(--serif, Georgia, serif); letter-spacing: -.055em; }
 .wedding-page-intro h1 em { color: #c1694a; font-weight: 300; }
 .wedding-page-lede { max-width: 500px; margin: 0 auto; color: #777168; font-size: 13px; font-weight: 300; line-height: 1.75; }
-.wedding-wheel-layout { width: 100%; min-height: 485px; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; align-items: center; gap: 0; margin-top: 4px; }
-.wedding-wheel { position: relative; width: 100%; height: 470px; perspective: 1200px; perspective-origin: 50% 48%; }
+.wedding-wheel-layout { width: 100%; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; align-items: center; gap: 0; margin-top: clamp(32px, 5vh, 58px); }
+.wedding-wheel { --wheel-radius: clamp(210px, 23vw, 285px); position: relative; width: 100%; height: 520px; perspective: 1400px; perspective-origin: 50% 48%; }
 .wedding-wheel-ring { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(calc(var(--active-index) * -60deg)); transition: transform .7s cubic-bezier(.2,.8,.2,1); }
 .wedding-wheel-card {
   position: absolute;
@@ -70,7 +71,7 @@
   color: var(--wedding-ink);
   background: rgba(248,246,240,.94);
   box-shadow: 0 24px 68px rgba(22,20,15,.13);
-  transform: translate(-50%, -50%) rotateY(calc(var(--item-index) * 60deg)) translateZ(clamp(245px, 29vw, 365px));
+  transform: translate(-50%, -50%) rotateY(calc(var(--item-index) * 60deg)) translateZ(var(--wheel-radius));
   backface-visibility: hidden;
   transition: border-color .45s ease, box-shadow .45s ease, opacity .45s ease;
   cursor: pointer;
@@ -102,27 +103,16 @@
 .petal-three { transform: translateX(-50%) rotate(32deg); }
 .wedding-card-name { font: 400 28px/1 var(--serif, Georgia, serif); letter-spacing: -.03em; }
 .wedding-card-caption { margin-top: 8px; color: #8e877e; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
-.wedding-wheel-center { position: absolute; z-index: 2; top: 50%; left: 50%; width: 66px; height: 66px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.75); border-radius: 50%; color: rgba(22,20,15,.7); background: rgba(248,246,240,.76); box-shadow: 0 4px 20px rgba(22,20,15,.08); transform: translate(-50%,-50%); pointer-events: none; backdrop-filter: blur(8px); }
-.wedding-wheel-center span { font: italic 20px var(--serif, Georgia, serif); }
-.wedding-wheel-center i { position: absolute; right: 9px; bottom: 11px; width: 6px; height: 6px; border-radius: 50%; background: #e8879c; box-shadow: 0 0 0 4px rgba(232,135,156,.15); }
 .wedding-wheel-orbit { position: absolute; z-index: 1; top: 50%; left: 50%; border: 1px solid rgba(193,105,74,.12); border-radius: 50%; transform: translate(-50%,-50%) rotateX(68deg); pointer-events: none; }
 .wedding-wheel-orbit-outer { width: 82%; height: 82%; }
 .wedding-wheel-orbit-inner { width: 64%; height: 64%; border-color: rgba(232,135,156,.15); }
-.wedding-active-story { width: min(100%, 620px); align-self: center; padding: 13px 18px 12px; border-top: 1px solid color-mix(in srgb, var(--story-accent) 50%, transparent); text-align: center; animation: weddingStoryIn .55s both; }
-.wedding-active-meta { display: flex; justify-content: center; align-items: center; gap: 9px; color: #938b80; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; }
-.wedding-active-meta span:first-child { color: var(--story-accent); font: italic 15px var(--serif, Georgia, serif); letter-spacing: 0; }
-.wedding-active-story h2 { margin: 12px 0 6px; font: 400 clamp(32px, 4vw, 48px)/1 var(--serif, Georgia, serif); letter-spacing: -.04em; }
-.wedding-active-story p { margin: 0 0 10px; color: #777168; font: italic 16px/1.5 var(--serif, Georgia, serif); }
-.wedding-coming-soon { display: inline-flex; align-items: center; gap: 8px; color: #a08b76; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
-.wedding-coming-soon::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--story-accent); }
-.wedding-wheel-controls { display: flex; justify-content: center; align-items: center; gap: 21px; margin-top: -2px; }
-.wedding-wheel-controls > button { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(22,20,15,.15); border-radius: 50%; color: var(--wedding-muted); font-size: 15px; transition: color .2s ease, background .2s ease, border-color .2s ease; }
-.wedding-wheel-controls > button:hover { color: white; background: var(--wedding-ink); border-color: var(--wedding-ink); }
-.wedding-wheel-pagination { display: flex; align-items: center; gap: 8px; }
-.wedding-wheel-pagination button { width: 6px; height: 6px; padding: 0; border-radius: 99px; background: rgba(22,20,15,.2); transition: width .3s ease, background .3s ease; }
-.wedding-wheel-pagination button[aria-current="step"] { width: 23px; background: #c1694a; }
 .wedding-page-footer { display: flex; justify-content: space-between; padding: 20px clamp(24px,5vw,76px); border-top: 1px solid rgba(22,20,15,.08); color: #8c857b; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
-@keyframes weddingStoryIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.wedding-page button, .wedding-page a { cursor: none; }
+.wedding-page-cursor { position: fixed; z-index: 120; top: 0; left: 0; width: 42px; height: 42px; opacity: 0; color: #a66d58; pointer-events: none; will-change: transform, opacity; transition: opacity .2s ease; }
+.wedding-page-cursor svg { width: 100%; height: 100%; overflow: visible; fill: rgba(248,246,240,.82); stroke: currentColor; stroke-width: 1.15; filter: drop-shadow(0 3px 8px rgba(22,20,15,.16)); transition: transform .22s ease, color .22s ease; }
+.wedding-page-cursor .cursor-inner-ring { stroke: rgba(232,135,156,.72); stroke-dasharray: 2 2; }
+.wedding-page-cursor .cursor-sparkle { stroke: #d4a05a; stroke-linecap: round; stroke-width: 1.6; }
+.wedding-page-cursor.is-interactive svg { color: #c1694a; transform: rotate(-18deg) scale(1.2); }
 @keyframes weddingCardGather {
   from { opacity: 0; translate: var(--entry-x) var(--entry-y); rotate: var(--entry-angle); scale: .72; }
   to { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1; }
@@ -130,38 +120,35 @@
 
 @media (max-width: 950px) {
   .wedding-wheel-layout { grid-template-columns: minmax(0,1fr); gap: 0; }
-  .wedding-wheel { height: 430px; }
-  .wedding-wheel-card { width: 210px; height: 300px; transform: translate(-50%,-50%) rotateY(calc(var(--item-index) * 60deg)) translateZ(265px); }
+  .wedding-wheel { --wheel-radius: 235px; height: 470px; }
+  .wedding-wheel-card { width: 210px; height: 300px; }
   .wedding-card-art { height: 198px; }
-  .wedding-active-story { width: min(100%,620px); margin: -10px auto 10px; padding: 12px 18px; }
-  .wedding-wheel-controls { margin-bottom: 12px; }
 }
 @media (max-width: 600px) {
+  .wedding-page, .wedding-page button, .wedding-page a { cursor: auto; }
+  .wedding-page-cursor { display: none; }
   .wedding-page-nav { height: 66px; padding: 0 20px; }
   .wedding-brand { font-size: 15px; }
   .wedding-back { padding: 8px 11px; font-size: 9px; }
   .wedding-menu-section { min-height: calc(100svh - 110px); padding: 32px 16px 24px; }
   .wedding-page-intro h1 { margin-top: 16px; font-size: clamp(42px, 12vw, 56px); }
   .wedding-page-lede { max-width: 340px; font-size: 11px; }
-  .wedding-wheel-layout { margin-top: 10px; }
-  .wedding-wheel { height: 320px; perspective: 900px; }
-  .wedding-wheel-card { width: 154px; height: 224px; padding: 10px; border-radius: 17px; transform: translate(-50%,-50%) rotateY(calc(var(--item-index) * 60deg)) translateZ(180px); }
+  .wedding-wheel-layout { margin-top: 28px; }
+  .wedding-wheel { --wheel-radius: 155px; height: 360px; perspective: 1000px; }
+  .wedding-wheel-card { width: 154px; height: 224px; padding: 10px; border-radius: 17px; }
   .wedding-card-number { font-size: 12px; }
   .wedding-card-art { height: 145px; margin: 5px 0 10px; border-radius: 10px; }
   .wedding-card-sun { width: 34px; height: 34px; top: 17px; right: 22px; }
   .wedding-card-name { font-size: 21px; }
   .wedding-card-caption { margin-top: 5px; font-size: 6px; }
-  .wedding-wheel-center { width: 46px; height: 46px; }
-  .wedding-wheel-center span { font-size: 15px; }
   .wedding-wheel-orbit-outer { width: 96%; height: 72%; }
   .wedding-wheel-orbit-inner { width: 74%; height: 56%; }
-  .wedding-active-story { width: min(100%, 340px); margin: -4px auto 8px; padding: 7px 10px; }
-  .wedding-active-story h2 { margin: 8px 0 3px; font-size: 32px; }
-  .wedding-active-story p { margin-bottom: 7px; font-size: 14px; }
-  .wedding-coming-soon { font-size: 7px; }
-  .wedding-wheel-controls { gap: 14px; }
   .wedding-page-footer { padding: 16px 20px; font-size: 7px; }
 }
+@media (hover: none), (pointer: coarse) {
+  .wedding-page, .wedding-page button, .wedding-page a { cursor: auto; }
+  .wedding-page-cursor { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .wedding-wheel-ring, .wedding-active-story, .wedding-wheel-card { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .wedding-wheel-ring, .wedding-wheel-card { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }

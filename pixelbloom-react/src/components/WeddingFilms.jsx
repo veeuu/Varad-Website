@@ -1,23 +1,22 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './WeddingFilms.css'
 
 const CEREMONIES = [
-  { name: 'Haldi', number: '01', note: 'A little sunshine, a lot of laughter.', accent: '#D4A05A', wash: '#F6D99F' },
-  { name: 'Engagement', number: '02', note: 'The beginning of your forever story.', accent: '#C1694A', wash: '#E8B5A2' },
-  { name: 'Wedding', number: '03', note: 'The moment two stories become one.', accent: '#E8879C', wash: '#F3C9D2' },
-  { name: 'Sangeet', number: '04', note: 'Big feelings. Bigger dance moves.', accent: '#80551F', wash: '#D5B57B' },
-  { name: 'Reception', number: '05', note: 'One more night worth remembering.', accent: '#6E8B89', wash: '#B9D0C6' },
-  { name: 'Pre-wedding', number: '06', note: 'Your story, before the big day.', accent: '#9B7182', wash: '#D8BDCA' },
+  { name: 'Haldi', number: '01', accent: '#D4A05A', wash: '#F6D99F' },
+  { name: 'Engagement', number: '02', accent: '#C1694A', wash: '#E8B5A2' },
+  { name: 'Wedding', number: '03', accent: '#E8879C', wash: '#F3C9D2' },
+  { name: 'Sangeet', number: '04', accent: '#80551F', wash: '#D5B57B' },
+  { name: 'Reception', number: '05', accent: '#6E8B89', wash: '#B9D0C6' },
+  { name: 'Pre-wedding', number: '06', accent: '#9B7182', wash: '#D8BDCA' },
 ]
 
 export default function WeddingFilms({ onBack }) {
+  const cursorRef = useRef(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [hasGathered, setHasGathered] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   )
-  const active = CEREMONIES[activeIndex]
-
   const move = useCallback(direction => {
     setActiveIndex(index => (index + direction + CEREMONIES.length) % CEREMONIES.length)
   }, [])
@@ -32,6 +31,27 @@ export default function WeddingFilms({ onBack }) {
     window.scrollTo(0, 0)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [move, onBack])
+
+  useEffect(() => {
+    const cursor = cursorRef.current
+    const page = cursor?.closest('.wedding-page')
+    if (!cursor || !page) return undefined
+
+    const onPointerMove = event => {
+      if (event.pointerType !== 'mouse') return
+      cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`
+      cursor.style.opacity = '1'
+      cursor.classList.toggle('is-interactive', Boolean(event.target.closest('button, a')))
+    }
+    const onPointerLeave = () => { cursor.style.opacity = '0' }
+
+    page.addEventListener('pointermove', onPointerMove)
+    page.addEventListener('pointerleave', onPointerLeave)
+    return () => {
+      page.removeEventListener('pointermove', onPointerMove)
+      page.removeEventListener('pointerleave', onPointerLeave)
+    }
+  }, [])
 
   useEffect(() => {
     if (hasGathered) return undefined
@@ -111,35 +131,28 @@ export default function WeddingFilms({ onBack }) {
                 </button>
               ))}
             </div>
-            <div className="wedding-wheel-center" aria-hidden="true">
-              <span>PB</span>
-              <i/>
-            </div>
           </div>
 
-          <div className="wedding-active-story" aria-live="polite" key={active.name} style={{ '--story-accent': active.accent }}>
-            <div className="wedding-active-meta"><span>{active.number}</span><span>Wedding film chapter</span></div>
-            <h2>{active.name}</h2>
-            <p>{active.note}</p>
-            <span className="wedding-coming-soon">Film collection coming soon</span>
-          </div>
         </div>
 
-        <div className="wedding-wheel-controls">
-          <button type="button" onClick={() => move(-1)} aria-label="Previous celebration">←</button>
-          <div className="wedding-wheel-pagination" aria-label={`${activeIndex + 1} of ${CEREMONIES.length}`}>
-            {CEREMONIES.map((ceremony, index) => (
-              <button key={ceremony.name} type="button" aria-label={`Show ${ceremony.name}`} aria-current={index === activeIndex ? 'step' : undefined} onClick={() => setActiveIndex(index)} />
-            ))}
-          </div>
-          <button type="button" onClick={() => move(1)} aria-label="Next celebration">→</button>
-        </div>
       </section>
 
       <footer className="wedding-page-footer">
         <span>PixelBloom Weddings</span>
         <span>Made for the moments that matter.</span>
       </footer>
+      <div ref={cursorRef} className="wedding-page-cursor" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="16.5" />
+          <circle className="cursor-inner-ring" cx="20" cy="20" r="11" />
+          <path d="M20 13.5c2.7 3.2 3.9 5.3 0 7.1-3.9-1.8-2.7-3.9 0-7.1Z" />
+          <path d="M26.5 20c-3.2 2.7-5.3 3.9-7.1 0 1.8-3.9 3.9-2.7 7.1 0Z" />
+          <path d="M20 26.5c-2.7-3.2-3.9-5.3 0-7.1 3.9 1.8 2.7 3.9 0 7.1Z" />
+          <path d="M13.5 20c3.2-2.7 5.3-3.9 7.1 0-1.8 3.9-3.9 2.7-7.1 0Z" />
+          <circle cx="20" cy="20" r="1.25" />
+          <path className="cursor-sparkle" d="M34 5v6M31 8h6" />
+        </svg>
+      </div>
     </main>
   )
 }
