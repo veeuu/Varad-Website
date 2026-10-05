@@ -1734,6 +1734,7 @@ footer { padding-top: 12px; }
     grid-auto-rows: auto;
   }
   #services .bento-feat { min-height: 430px; }
+  #services .bento-feat-tags { padding-right: 52px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
