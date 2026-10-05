@@ -1081,7 +1081,7 @@ em.accent-lt { color: var(--brand); }
 .contact-ch-val { color: var(--ink); }
 
 footer { background: var(--paper-warm); }
-.footer-wordmark-big { color: rgba(22,20,15,.06); }
+.footer-wordmark-big { color: rgba(22,20,15,.1); }
 .footer-main,
 .footer-bottom { border-color: var(--border); }
 .footer-wordmark { color: var(--ink); }
@@ -1124,18 +1124,6 @@ body { background: var(--paper); }
   background:
     radial-gradient(ellipse at var(--pointer-x) var(--pointer-y), rgba(232,135,156,.22), transparent 40%),
     linear-gradient(135deg, #F6F2EB 0%, var(--paper) 56%, #EEE9DF 100%);
-}
-#hero::after {
-  content: 'STORIES';
-  position: absolute;
-  right: 1.5vw;
-  bottom: -2vw;
-  z-index: 0;
-  color: rgba(22,20,15,.025);
-  font: 500 clamp(150px, 27vw, 420px)/.8 var(--serif);
-  letter-spacing: -.09em;
-  pointer-events: none;
-  user-select: none;
 }
 .hero-left {
   padding: 10px 0;
@@ -1616,7 +1604,6 @@ footer { padding-top: 12px; }
   .hero-left { padding: 32px 0 24px; }
   .hero-h1 { font-size: clamp(64px, 12vw, 108px); }
   .hero-right { display: flex; min-height: min(620px, 80vw); width: min(100%, 660px); justify-self: center; margin: 24px auto 48px; }
-  #hero::after { right: -5vw; bottom: -2vw; font-size: 36vw; }
   .about-top { min-height: auto; }
   .footer-wordmark-big { padding-inline: 24px; }
 }
