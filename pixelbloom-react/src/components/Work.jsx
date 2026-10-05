@@ -3,7 +3,12 @@ import gsap from 'gsap'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { workCategories } from '../data'
 
-const publicAsset = path => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+const publicAsset = path => {
+  const assetPath = path.replace(/^\/+/, '')
+  return import.meta.env.DEV
+    ? `/__local-assets/${assetPath}`
+    : `${import.meta.env.BASE_URL}${assetPath}`
+}
 
 /* ── Shared helpers ─────────────────────────────────────────── */
 
