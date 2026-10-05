@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { workCategories } from '../data'
 
@@ -19,7 +20,7 @@ function VideoCard({ item, onLightbox }) {
   const isPortrait = item.portrait
 
   return (
-    <a href={item.url} target="_blank" rel="noreferrer" className="media-card">
+    <a href={item.url} target="_blank" rel="noreferrer" className="media-card" data-cursor="WATCH">
       {/* thumbnail or gradient fallback */}
       {item.gradFrom ? (
         <div style={{ width: '100%', aspectRatio: isPortrait ? '9/16' : '16/9', minHeight: isPortrait ? 320 : undefined, background: `linear-gradient(135deg,${item.gradFrom},${item.gradTo})`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -57,7 +58,7 @@ function ImageThumb({ src, cap, onLightbox, className = 'thumb' }) {
       {err ? (
         <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 'var(--r-lg)', background: 'var(--paper-warm)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--ink-ghost)' }}>{cap}</div>
       ) : (
-        <img src={`/${src}`} alt={cap} className={className} onClick={() => onLightbox(`/${src}`)} onError={() => setErr(true)} />
+        <img src={`/${src}`} alt={cap} className={className} data-cursor="ZOOM" onClick={() => onLightbox(`/${src}`)} onError={() => setErr(true)} />
       )}
       {cap && <p className="cap">{cap}</p>}
     </div>
@@ -112,54 +113,56 @@ function ChHdr({ ch }) {
 
 /* ── Tab panels ─────────────────────────────────────────────── */
 
-function CreatorTab({ channels, onLightbox }) {
+function FeaturedShowcase({ items, onLightbox, accent = 'var(--brand)' }) {
+  const spotlight = items[0]
+  const sideCards = items.slice(1, 3)
+  const lowerCards = items.slice(3, 6)
+
+  if (!spotlight) return null
+
   return (
-    <>
-      {channels.map((ch, ci) => (
-        <div key={ci} className="ch-section">
-          <ChHdr ch={ch} />
-          {ch.layout === 'creator' ? (
-            // Xyaa: main big card + 2-grid + bottom card
-            <div className="creator-layout">
-              <div>
-                <VideoCard item={ch.mainItem} onLightbox={onLightbox} />
-                <div className="g2 mt">
-                  {ch.gridItems.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
-                </div>
-                <div className="mt">
-                  <VideoCard item={ch.bottomItem} onLightbox={onLightbox} />
-                </div>
-              </div>
-            </div>
-          ) : ch.layout === 'simple' ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {ch.items.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
-            </div>
-          ) : (
-            // grid3
-            <div className="g3">
-              {ch.items.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
-            </div>
-          )}
+    <div className="work-showcase">
+      <div className="work-showcase-featured">
+        <div className="work-showcase-header" style={{ borderColor: accent }}>
+          <span className="work-showcase-tag" style={{ background: accent, color: '#fff' }}>Featured</span>
+          <span className="work-showcase-name">{spotlight.label}</span>
         </div>
-      ))}
-    </>
+        <VideoCard item={spotlight} onLightbox={onLightbox} />
+      </div>
+
+      <div className="work-showcase-side">
+        {sideCards.map((item, i) => (
+          <div key={`${item.label}-${i}`} className="work-mini-card">
+            <VideoCard item={item} onLightbox={onLightbox} />
+          </div>
+        ))}
+      </div>
+
+      {lowerCards.length > 0 && (
+        <div className="work-showcase-lower">
+          {lowerCards.map((item, i) => (
+            <div key={`${item.label}-${i}`} className="work-lower-card">
+              <VideoCard item={item} onLightbox={onLightbox} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 
+function CreatorTab({ channels, onLightbox }) {
+  const featuredItems = channels.flatMap(ch => {
+    if (ch.layout === 'creator') return [ch.mainItem, ...ch.gridItems, ch.bottomItem]
+    return ch.items || []
+  })
+
+  return <FeaturedShowcase items={featuredItems} onLightbox={onLightbox} accent="var(--creator)" />
+}
+
 function BrandTab({ channels, onLightbox }) {
-  return (
-    <>
-      {channels.map((ch, ci) => (
-        <div key={ci} className="ch-section">
-          <ChHdr ch={ch} />
-          <div className="g2">
-            {ch.items.map((item, i) => <VideoCard key={i} item={item} onLightbox={onLightbox} />)}
-          </div>
-        </div>
-      ))}
-    </>
-  )
+  const featuredItems = channels.flatMap(ch => ch.items || [])
+  return <FeaturedShowcase items={featuredItems} onLightbox={onLightbox} accent="var(--brand)" />
 }
 
 function VfxTab({ sections, onLightbox }) {
@@ -306,7 +309,16 @@ export default function Work({ onLightbox, cmsPortfolio }) {
   const categories = useCms ? buildCategoriesFromCms(cmsPortfolio) : workCategories
   const [active, setActive] = useState(categories[0]?.id || 'creator')
   const ref = useScrollReveal()
+  const panelRef = useRef(null)
   const current = categories.find(c => c.id === active) || categories[0]
+
+  useEffect(() => {
+    if (!panelRef.current) return
+    const tween = gsap.fromTo(panelRef.current,
+      { opacity: 0, y: 24, filter: 'blur(8px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.65, ease: 'power3.out' })
+    return () => tween.kill()
+  }, [active])
 
   return (
     <section id="work" style={{ background: 'var(--paper-warm)', padding: '120px 0' }} ref={ref}>
@@ -338,7 +350,7 @@ export default function Work({ onLightbox, cmsPortfolio }) {
         </div>
 
         {/* tab content  CMS flat grid or rich local layouts */}
-        <div key={active}>
+        <div key={active} ref={panelRef}>
           {useCms ? (
             <CmsTab items={current.cmsItems} onLightbox={onLightbox} />
           ) : (
