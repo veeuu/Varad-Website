@@ -159,19 +159,28 @@ export default function Services({ cmsServices }) {
 
   return (
     <section id="services">
-      <div className="wrap">
+      <div className="wrap--wide services-wrap">
 
         {/* header */}
-        <div ref={headerRef} style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:48, alignItems:'end', marginBottom:72, opacity:0 }}>
-          <div>
+        <div ref={headerRef} className="services-intro" style={{ opacity:0 }}>
+          <div className="services-intro-main">
             <p className="label services-eyebrow"><span className="rule"/>What we do</p>
-            <h2 className="display-md" style={{ marginTop:18 }}>
+            <h2 className="display-md services-title">
               Built for creators,<br/>brands &amp; <em className="accent">beyond</em>
             </h2>
           </div>
-          <p style={{ fontSize:14.5,fontWeight:300,color:'var(--ink-mid)',lineHeight:1.78,maxWidth:360,alignSelf:'end' }}>
-            We don't just edit videos — we build visual identities, tell compelling stories, and craft content that actually moves people. Every project gets our full creative attention.
-          </p>
+          <aside className="services-intro-aside">
+            <div className="services-intro-meta">
+              <span>01 — 06</span>
+              <span>Creative disciplines</span>
+            </div>
+            <p className="services-intro-description">
+              We don't just edit videos — we build visual identities, tell compelling stories, and craft content that actually moves people. Every project gets our full creative attention.
+            </p>
+            <div className="services-intro-points" aria-label="Our approach">
+              <span>Strategy</span><span>Story</span><span>Craft</span><span>Impact</span>
+            </div>
+          </aside>
         </div>
 
         {/* bento grid */}
