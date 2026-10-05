@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { siteSettings } from '../data'
+import Aurora from './Aurora'
 
 /* ── counter hook ──────────────────────────────────────────── */
 function useCounter(ref, target, suffix) {
@@ -37,6 +38,9 @@ function Chars({ text, style }) {
 }
 
 export default function Hero({ cmsSettings }) {
+  const [showAurora, setShowAurora] = useState(() =>
+    typeof window === 'undefined' || window.matchMedia('(min-width: 701px)').matches
+  )
   const s     = cmsSettings || siteSettings
   const local = siteSettings
 
@@ -59,6 +63,14 @@ export default function Hero({ cmsSettings }) {
   const scrollRef  = useRef(null)
 
   useEffect(() => {
+    const media = window.matchMedia('(min-width: 701px)')
+    const update = event => setShowAurora(event.matches)
+    setShowAurora(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
     tl.fromTo(scrollRef.current, { opacity:0, y:10 }, { opacity:1, y:0, duration:0.4 }, 1.3)
@@ -68,6 +80,16 @@ export default function Hero({ cmsSettings }) {
 
   return (
     <section id="hero">
+      {showAurora && (
+        <Aurora
+          colorStops={['#D4A05A', '#E8879C', '#6E8B89']}
+          blend={0.42}
+          amplitude={1.15}
+          speed={0.85}
+        />
+      )}
+      <div className="hero-glass-layer" aria-hidden="true" />
+
       {/* noise overlay */}
       <div style={{
         position:'absolute',inset:0,pointerEvents:'none',opacity:.025,zIndex:2,

@@ -1121,15 +1121,22 @@ body { background: var(--paper); }
   isolation: isolate;
   --pointer-x: 50%;
   --pointer-y: 50%;
-  background:
-    radial-gradient(ellipse at var(--pointer-x) var(--pointer-y), rgba(232,135,156,.22), transparent 40%),
-    linear-gradient(135deg, #F6F2EB 0%, var(--paper) 56%, #EEE9DF 100%);
+  background: linear-gradient(135deg, #F6F2EB 0%, var(--paper) 56%, #EEE9DF 100%);
+}
+.hero-glass-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.42));
+  pointer-events: none;
 }
 .hero-left {
   padding: 10px 0;
   max-width: 100%;
   width: 100%;
   grid-column: 1 / -1;
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1613,6 +1620,7 @@ footer { padding-top: 12px; }
 @media (max-width: 700px) {
   #nav { height: 66px; }
   #hero { padding: 94px 22px 24px; }
+  .hero-glass-layer { background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.32)); }
   .hero-kicker { font-size: 8px; letter-spacing: .12em; }
   .hero-h1 { font-size: clamp(46px, 11.5vw, 76px); }
   .hero-sub { font-size: 13px; }
