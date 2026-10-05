@@ -324,17 +324,15 @@ export default function Work({ onLightbox, cmsPortfolio }) {
     <section id="work" style={{ background: 'var(--paper-warm)', padding: '120px 0' }} ref={ref}>
       <div className="wrap--wide">
         {/* header */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40, gap: 24 }}>
-          <div>
-            <p className="label sr"><span className="rule" />Selected work</p>
-            <h2 className="sr d1" style={{ fontFamily: 'var(--serif)', fontSize: 'clamp(34px,3.8vw,52px)', fontWeight: 300, lineHeight: 1.1 }}>
-              Projects we're <em style={{ fontStyle: 'italic', color: 'var(--wedding)' }}>proud of</em>
-            </h2>
-          </div>
+        <div className="work-section-header">
+          <p className="label sr"><span className="rule" />Selected work</p>
+          <h2 className="sr d1 work-section-title">
+            Projects we're <em style={{ fontStyle: 'italic', color: 'var(--wedding)' }}>proud of</em>
+          </h2>
         </div>
 
         {/* tab nav */}
-        <div className="sr d2" style={{ display: 'flex', gap: 4, flexWrap: 'wrap', borderBottom: '1px solid var(--border)', marginBottom: 48 }}>
+        <div className="sr d2 work-section-tabs" style={{ display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap', borderBottom: '1px solid var(--border)', marginBottom: 48 }}>
           {categories.map(cat => (
             <button key={cat.id} onClick={() => setActive(cat.id)} style={{
               fontSize: 12, fontWeight: active === cat.id ? 500 : 400, letterSpacing: '.04em',
