@@ -75,6 +75,11 @@
   transition: border-color .45s ease, box-shadow .45s ease, opacity .45s ease;
   cursor: pointer;
 }
+.wedding-wheel-ring:not(.has-gathered) .wedding-wheel-card {
+  pointer-events: none;
+  animation: weddingCardGather .95s cubic-bezier(.18,.78,.22,1) both;
+  animation-delay: var(--entry-delay);
+}
 .wedding-wheel-card.is-active { border-color: color-mix(in srgb, var(--card-accent) 70%, white); box-shadow: 0 30px 90px rgba(22,20,15,.18), 0 0 0 5px color-mix(in srgb, var(--card-accent) 15%, transparent); }
 .wedding-card-number { align-self: flex-end; color: var(--card-accent); font: italic 15px var(--serif, Georgia, serif); }
 .wedding-card-art {
@@ -118,6 +123,10 @@
 .wedding-wheel-pagination button[aria-current="step"] { width: 23px; background: #c1694a; }
 .wedding-page-footer { display: flex; justify-content: space-between; padding: 20px clamp(24px,5vw,76px); border-top: 1px solid rgba(22,20,15,.08); color: #8c857b; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
 @keyframes weddingStoryIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes weddingCardGather {
+  from { opacity: 0; translate: var(--entry-x) var(--entry-y); rotate: var(--entry-angle); scale: .72; }
+  to { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1; }
+}
 
 @media (max-width: 950px) {
   .wedding-wheel-layout { grid-template-columns: minmax(0,1fr); gap: 0; }
@@ -154,5 +163,5 @@
   .wedding-page-footer { padding: 16px 20px; font-size: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .wedding-wheel-ring, .wedding-active-story { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .wedding-wheel-ring, .wedding-active-story, .wedding-wheel-card { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }

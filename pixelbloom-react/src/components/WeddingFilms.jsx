@@ -13,6 +13,9 @@ const CEREMONIES = [
 export default function WeddingFilms({ onBack }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
+  const [hasGathered, setHasGathered] = useState(() =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
   const active = CEREMONIES[activeIndex]
 
   const move = useCallback(direction => {
@@ -31,10 +34,17 @@ export default function WeddingFilms({ onBack }) {
   }, [move, onBack])
 
   useEffect(() => {
+    if (hasGathered) return undefined
+    const timeout = window.setTimeout(() => setHasGathered(true), 1450)
+    return () => window.clearTimeout(timeout)
+  }, [hasGathered])
+
+  useEffect(() => {
+    if (!hasGathered) return undefined
     if (isPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
     const interval = window.setInterval(() => move(1), 1000)
     return () => window.clearInterval(interval)
-  }, [isPaused, move])
+  }, [hasGathered, isPaused, move])
 
   return (
     <main className="wedding-page">
@@ -68,7 +78,7 @@ export default function WeddingFilms({ onBack }) {
           >
             <div className="wedding-wheel-orbit wedding-wheel-orbit-outer" aria-hidden="true"/>
             <div className="wedding-wheel-orbit wedding-wheel-orbit-inner" aria-hidden="true"/>
-            <div className="wedding-wheel-ring" style={{ '--active-index': activeIndex }}>
+            <div className={`wedding-wheel-ring${hasGathered ? ' has-gathered' : ''}`} style={{ '--active-index': activeIndex }}>
               {CEREMONIES.map((ceremony, index) => (
                 <button
                   key={ceremony.name}
@@ -78,9 +88,14 @@ export default function WeddingFilms({ onBack }) {
                     '--item-index': index,
                     '--card-accent': ceremony.accent,
                     '--card-wash': ceremony.wash,
+                    '--entry-x': ['-72vw', '72vw', '-64vw', '68vw', '10vw', '-8vw'][index],
+                    '--entry-y': ['-38vh', '-31vh', '35vh', '39vh', '-68vh', '65vh'][index],
+                    '--entry-angle': ['-52deg', '48deg', '-62deg', '55deg', '36deg', '-43deg'][index],
+                    '--entry-delay': `${index * 90}ms`,
                   }}
                   aria-pressed={index === activeIndex}
                   aria-label={`${ceremony.name} ceremony`}
+                  disabled={!hasGathered}
                   onClick={() => setActiveIndex(index)}
                 >
                   <span className="wedding-card-number">{ceremony.number}</span>
