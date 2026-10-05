@@ -3,6 +3,8 @@ import gsap from 'gsap'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import { workCategories } from '../data'
 
+const publicAsset = path => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+
 /* ── Shared helpers ─────────────────────────────────────────── */
 
 function PlayBtn({ platform }) {
@@ -53,12 +55,13 @@ function VideoCard({ item, onLightbox }) {
 
 function ImageThumb({ src, cap, onLightbox, className = 'thumb' }) {
   const [err, setErr] = useState(false)
+  const imageUrl = publicAsset(src)
   return (
     <div>
       {err ? (
         <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 'var(--r-lg)', background: 'var(--paper-warm)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'var(--ink-ghost)' }}>{cap}</div>
       ) : (
-        <img src={`/${src}`} alt={cap} className={className} data-cursor="ZOOM" onClick={() => onLightbox(`/${src}`)} onError={() => setErr(true)} />
+        <img src={imageUrl} alt={cap} className={className} data-cursor="ZOOM" onClick={() => onLightbox(imageUrl)} onError={() => setErr(true)} />
       )}
       {cap && <p className="cap">{cap}</p>}
     </div>
@@ -70,7 +73,7 @@ function LocalVideo({ src, cap }) {
     <div>
       <div className="vid-wrap">
         <video controls muted playsInline loading="lazy">
-          <source src={`/${src}`} type="video/mp4" />
+          <source src={publicAsset(src)} type="video/mp4" />
         </video>
       </div>
       {cap && <p className="cap">{cap}</p>}
@@ -228,7 +231,7 @@ function WeddingTab({ cat, onLightbox }) {
       {heroErr ? (
         <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: 'var(--r-lg)', background: 'var(--paper-warm)', border: '1px solid var(--border)', marginBottom: 12 }} />
       ) : (
-        <img src={`/${cat.heroImg}`} alt="Wedding hero shot" className="wedding-hero-img" onClick={() => onLightbox(`/${cat.heroImg}`)} onError={() => setHeroErr(true)} />
+        <img src={publicAsset(cat.heroImg)} alt="Wedding hero shot" className="wedding-hero-img" onClick={() => onLightbox(publicAsset(cat.heroImg))} onError={() => setHeroErr(true)} />
       )}
       <div className="g4 mt">
         {cat.stills.map((s, i) => (

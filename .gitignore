@@ -25,6 +25,7 @@ pixelbloom-react/node_modules/
 pixelbloom-studio/node_modules/
 pixelbloom-react/dist/
 pixelbloom-studio/dist/
+pixelbloom-react/public/assets/images/
 
 # ── Environment secrets ──────────────────────────────────────────
 pixelbloom-react/.env
