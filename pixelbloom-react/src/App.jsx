@@ -14,6 +14,7 @@ import Lightbox      from './components/Lightbox'
 import CustomCursor  from './components/CustomCursor'
 import PageLoader    from './components/PageLoader'
 import ScrollProgress from './components/ScrollProgress'
+import WeddingFilms from './components/WeddingFilms'
 
 import { getSiteSettings, getServices, getPortfolioItems, getTestimonials } from './lib/sanity'
 import * as localData from './data'
@@ -22,6 +23,13 @@ export default function App() {
   const [lightboxSrc,  setLightboxSrc]  = useState(null)
   const [cms,          setCms]          = useState(null)
   const [loaderDone,   setLoaderDone]   = useState(false)
+  const [showWeddingFilms, setShowWeddingFilms] = useState(() => window.location.hash === '#/wedding-films')
+
+  useEffect(() => {
+    const syncRoute = () => setShowWeddingFilms(window.location.hash === '#/wedding-films')
+    window.addEventListener('hashchange', syncRoute)
+    return () => window.removeEventListener('hashchange', syncRoute)
+  }, [])
 
   // Sanity CMS — optional
   useEffect(() => {
@@ -36,6 +44,10 @@ export default function App() {
   }, [])
 
   const data = cms ?? null
+
+  if (showWeddingFilms) {
+    return <WeddingFilms onBack={() => { window.location.hash = '' }} />
+  }
 
   return (
     <>

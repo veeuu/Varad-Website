@@ -64,19 +64,20 @@ function FeatCard({ s }) {
       </div>
 
       {/* arrow */}
-      <div style={{
-        position:'absolute',bottom:44,right:44,
-        width:40,height:40,borderRadius:'50%',
-        border:'1px solid var(--border-med)',
-        display:'flex',alignItems:'center',justifyContent:'center',
-        transition:'border-color var(--t),background var(--t)',
-        background: hov ? 'rgba(232,135,156,.15)' : 'transparent',
-        borderColor: hov ? 'var(--wedding)' : 'var(--border-med)',
-      }}>
+      <a
+        href="#/wedding-films"
+        aria-label="Explore Wedding Films"
+        className="bento-feat-link"
+        onClick={event => event.stopPropagation()}
+        style={{
+          background: hov ? 'rgba(232,135,156,.15)' : 'transparent',
+          borderColor: hov ? 'var(--wedding)' : 'var(--border-med)',
+        }}
+      >
         <svg viewBox="0 0 14 14" fill="none" stroke="var(--ink-mid)" strokeWidth="1.5" style={{ width:14,height:14 }}>
           <path d="M2 7h10M8 3l4 4-4 4"/>
         </svg>
-      </div>
+      </a>
     </div>
   )
 }

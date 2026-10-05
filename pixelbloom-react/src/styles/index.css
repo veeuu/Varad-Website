@@ -386,6 +386,21 @@ em.accent-lt { font-style: italic; color: var(--accent); }
   transition: border-color var(--t), background var(--t);
 }
 .bento-feat:hover .bento-feat-icon { border-color: var(--wedding); background: rgba(232,135,156,.1); }
+.bento-feat-link {
+  position: absolute;
+  right: 44px;
+  bottom: 44px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-med);
+  border-radius: 50%;
+  transition: border-color var(--t), background var(--t), transform var(--t);
+}
+.bento-feat-link svg { width: 14px; height: 14px; }
+.bento-feat-link:hover { transform: translate(3px,-3px); }
 .bento-feat-name { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--paper); margin-bottom: 12px; line-height: 1.15; }
 .bento-feat-desc { font-size: 13px; font-weight: 300; color: rgba(242,239,232,.55); line-height: 1.78; margin-bottom: 28px; }
 .bento-feat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
