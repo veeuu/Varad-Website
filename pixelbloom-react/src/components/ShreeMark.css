@@ -1,0 +1,40 @@
+.shree-mark {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: 48px;
+  height: 28px;
+  margin-left: 3px;
+  pointer-events: none;
+}
+
+.shree-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #16140f;
+}
+
+.shree-mark path {
+  fill: none;
+  stroke: #16140f;
+  stroke-linecap: round;
+  stroke-width: 1.7;
+}
+
+.shree-mark text {
+  font-family: 'Noto Serif Devanagari', 'Nirmala UI', serif;
+  font-size: 31px;
+  font-weight: 500;
+  text-anchor: middle;
+}
+
+@media (max-width: 600px) {
+  .shree-mark {
+    width: 42px;
+    height: 26px;
+    margin-left: 0;
+  }
+
+  .shree-mark text { font-size: 29px; }
+}

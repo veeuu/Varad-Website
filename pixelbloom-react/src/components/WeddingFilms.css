@@ -10,6 +10,7 @@
     linear-gradient(145deg, #f6f2eb, #f2efe8 58%, #eee9df);
 }
 .wedding-page-nav {
+  position: relative;
   height: 76px;
   max-width: 1600px;
   margin: 0 auto;
@@ -18,6 +19,15 @@
   align-items: center;
   justify-content: space-between;
 }
+.wedding-shree-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.wedding-shree-mark .shree-mark { width: 66px; height: 38px; margin: 0; }
 .wedding-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 500; letter-spacing: -.03em; }
 .wedding-brand-mark { position: relative; width: 34px; height: 26px; }
 .wedding-brand-mark i { position: absolute; top: 2px; width: 22px; height: 22px; border-radius: 50%; }
@@ -128,6 +138,7 @@
   .wedding-page, .wedding-page button, .wedding-page a { cursor: auto; }
   .wedding-page-cursor { display: none; }
   .wedding-page-nav { height: 66px; padding: 0 20px; }
+  .wedding-shree-mark .shree-mark { width: 46px; height: 28px; }
   .wedding-brand { font-size: 15px; }
   .wedding-back { padding: 8px 11px; font-size: 9px; }
   .wedding-menu-section { min-height: calc(100svh - 110px); padding: 32px 16px 24px; }

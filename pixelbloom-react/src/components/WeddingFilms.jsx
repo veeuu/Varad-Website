@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import './WeddingFilms.css'
+import ShreeMark from './ShreeMark'
 
 const CEREMONIES = [
   { name: 'Haldi', number: '01', accent: '#D4A05A', wash: '#F6D99F' },
@@ -69,6 +70,7 @@ export default function WeddingFilms({ onBack }) {
   return (
     <main className="wedding-page">
       <header className="wedding-page-nav">
+        <div className="wedding-shree-mark"><ShreeMark /></div>
         <a className="wedding-brand" href="#home" onClick={event => { event.preventDefault(); onBack() }}>
           <span className="wedding-brand-mark" aria-hidden="true"><i/><i/></span>
           <span>PixelBloom</span>
