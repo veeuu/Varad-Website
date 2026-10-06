@@ -462,6 +462,7 @@
   }
   .pricing-shree-mark .shree-mark { width: 46px; height: 28px; }
   .pricing-back-link {
+    grid-column: 3;
     justify-self: end;
     gap: 5px;
     padding: 8px 9px;
