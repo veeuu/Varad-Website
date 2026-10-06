@@ -71,7 +71,7 @@ export default function Nav() {
           onMouseEnter={e => gsap.to(e.currentTarget, { scale:1.04, duration:0.22 })}
           onMouseLeave={e => gsap.to(e.currentTarget, { scale:1, duration:0.22 })}
         >
-          <div style={{ position:'relative', width:46, height:34, flexShrink:0 }}>
+          <div className="nav-brand-mark" style={{ position:'relative', width:46, height:34, flexShrink:0 }}>
             <div style={{ position:'absolute',width:26,height:26,borderRadius:'50%',top:4,left:0,background:'radial-gradient(circle at 38% 36%,#787673,#1e1c1b)',opacity:.82 }}/>
             <div style={{ position:'absolute',width:26,height:26,borderRadius:'50%',top:4,left:18,background:'radial-gradient(circle at 62% 36%,#EFD8D2,#D9A9A0)',opacity:.76 }}/>
           </div>

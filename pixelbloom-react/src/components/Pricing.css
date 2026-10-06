@@ -439,11 +439,35 @@
 }
 
 @media (max-width: 600px) {
-  .pricing-page-nav { height: 66px; padding: 0 20px; }
-  .pricing-brand { font-size: 15px; }
-  .pricing-brand-mark { transform: scale(.9); transform-origin: left center; margin-right: -3px; }
+  .pricing-page-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 8px;
+    height: 66px;
+    padding: 0 16px;
+  }
+  .pricing-brand {
+    min-width: 0;
+    justify-self: start;
+    gap: 7px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .pricing-brand-mark {
+    width: 30px;
+    flex: 0 0 30px;
+    transform: scale(.84);
+    transform-origin: left center;
+    margin-right: -5px;
+  }
   .pricing-shree-mark .shree-mark { width: 46px; height: 28px; }
-  .pricing-back-link { padding: 8px 11px; font-size: 9px; }
+  .pricing-back-link {
+    justify-self: end;
+    gap: 5px;
+    padding: 8px 9px;
+    font-size: 9px;
+    white-space: nowrap;
+  }
   .pricing-hero { min-height: 400px; padding: 68px 22px 56px; }
   .pricing-hero-stamp { right: 22px; bottom: 18px; }
   .pricing-packages { width: min(100% - 36px, 420px); padding: 58px 0 50px; }
@@ -457,4 +481,12 @@
   .pricing-footnote p { min-width: calc(100% - 36px); }
   .pricing-footnote a { margin-left: 31px; }
   .pricing-note-band { flex-wrap: wrap; gap: 9px; font-size: 15px; }
+}
+
+@media (max-width: 360px) {
+  .pricing-page-nav { padding-inline: 12px; column-gap: 4px; }
+  .pricing-brand { font-size: 12px; }
+  .pricing-brand-mark { display: none; }
+  .pricing-shree-mark .shree-mark { width: 40px; }
+  .pricing-back-link { padding-inline: 7px; font-size: 8px; }
 }
