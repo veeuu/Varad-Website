@@ -15,6 +15,7 @@ import CustomCursor  from './components/CustomCursor'
 import PageLoader    from './components/PageLoader'
 import ScrollProgress from './components/ScrollProgress'
 import WeddingFilms from './components/WeddingFilms'
+import Pricing from './components/Pricing'
 
 import { getSiteSettings, getServices, getPortfolioItems, getTestimonials } from './lib/sanity'
 import * as localData from './data'
@@ -23,10 +24,10 @@ export default function App() {
   const [lightboxSrc,  setLightboxSrc]  = useState(null)
   const [cms,          setCms]          = useState(null)
   const [loaderDone,   setLoaderDone]   = useState(false)
-  const [showWeddingFilms, setShowWeddingFilms] = useState(() => window.location.hash === '#/wedding-films')
+  const [route, setRoute] = useState(() => window.location.hash)
 
   useEffect(() => {
-    const syncRoute = () => setShowWeddingFilms(window.location.hash === '#/wedding-films')
+    const syncRoute = () => setRoute(window.location.hash)
     window.addEventListener('hashchange', syncRoute)
     return () => window.removeEventListener('hashchange', syncRoute)
   }, [])
@@ -45,8 +46,17 @@ export default function App() {
 
   const data = cms ?? null
 
-  if (showWeddingFilms) {
+  if (route === '#/wedding-films') {
     return <WeddingFilms onBack={() => { window.location.hash = '' }} />
+  }
+
+  if (route === '#/pricing') {
+    return (
+      <>
+        <Pricing />
+        <Footer />
+      </>
+    )
   }
 
   return (

@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import ShreeMark from './ShreeMark'
 import './Nav.css'
 
-const LINKS = ['Services', 'Work', 'Process', 'About', 'Contact']
+const LINKS = ['Services', 'Work', 'Process', 'About', 'Pricing', 'Contact']
 
 export default function Nav() {
   const [stuck,  setStuck]  = useState(false)
@@ -95,7 +95,7 @@ export default function Nav() {
           <button
             className={`nav-menu-toggle${open ? ' is-open' : ''}`}
             onClick={() => setOpen(value => !value)}
-            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="nav-menu"
           >
@@ -131,7 +131,7 @@ export default function Nav() {
               <a
                 key={link}
                 className="nav-menu-item"
-                href={`#${link.toLowerCase()}`}
+                href={link === 'Pricing' ? '#/pricing' : `#${link.toLowerCase()}`}
                 onClick={() => setOpen(false)}
                 tabIndex={open ? 0 : -1}
               >
