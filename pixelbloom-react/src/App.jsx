@@ -24,6 +24,7 @@ import * as localData from './data'
 const BrandCommercial = lazy(() => import('./components/BrandCommercial'))
 const Vfx3D = lazy(() => import('./components/Vfx3D'))
 const VideoEditing = lazy(() => import('./components/VideoEditing'))
+const Photography = lazy(() => import('./components/Photography'))
 
 export default function App() {
   const [lightboxSrc,  setLightboxSrc]  = useState(null)
@@ -38,7 +39,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    if (['#/wedding-films', '#/creator-space', '#/brand-commercial', '#/vfx-3d', '#/video-editing'].includes(route)) {
+    if (['#/wedding-films', '#/creator-space', '#/brand-commercial', '#/vfx-3d', '#/video-editing', '#/photography'].includes(route)) {
       window.scrollTo(0, 0)
     }
   }, [route])
@@ -85,6 +86,14 @@ export default function App() {
     return (
       <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Video Editing page" />}>
         <VideoEditing onBack={() => { window.location.hash = '' }} />
+      </Suspense>
+    )
+  }
+
+  if (route === '#/photography') {
+    return (
+      <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Photography page" />}>
+        <Photography onBack={() => { window.location.hash = '' }} />
       </Suspense>
     )
   }

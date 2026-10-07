@@ -1,0 +1,88 @@
+.refine-frame {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  background: #27272a;
+  color: #f5f5f5;
+}
+
+.refine-frame__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .48;
+  filter: blur(12px) saturate(.55);
+  transform: scale(1.08);
+  transition:
+    opacity 650ms cubic-bezier(.23, 1, .32, 1),
+    filter 650ms cubic-bezier(.23, 1, .32, 1),
+    transform 650ms cubic-bezier(.23, 1, .32, 1);
+}
+
+.refine-frame[data-stage='1'] .refine-frame__media {
+  opacity: .62;
+  filter: blur(8px) saturate(.7);
+  transform: scale(1.065);
+}
+
+.refine-frame[data-stage='2'] .refine-frame__media {
+  opacity: .76;
+  filter: blur(4px) saturate(.86);
+  transform: scale(1.035);
+}
+
+.refine-frame[data-stage='3'] .refine-frame__media {
+  opacity: .88;
+  filter: blur(0) saturate(1);
+  transform: scale(1.015);
+}
+
+.refine-frame__sweep {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -45%;
+  width: 34%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(245, 245, 245, .06) 28%,
+    rgba(245, 245, 245, .28) 50%,
+    rgba(245, 245, 245, .08) 72%,
+    transparent
+  );
+  filter: blur(7px);
+  animation: refine-frame-sweep 650ms cubic-bezier(.23, 1, .32, 1) both;
+  pointer-events: none;
+}
+
+.refine-frame__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(17, 19, 16, .93), rgba(17, 19, 16, .72) 38%, rgba(17, 19, 16, .1) 100%),
+    linear-gradient(0deg, rgba(17, 19, 16, .48), transparent 50%);
+  pointer-events: none;
+}
+
+@keyframes refine-frame-sweep {
+  from { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  to { transform: translateX(520%); opacity: 0; }
+}
+
+@media (max-width: 700px) {
+  .refine-frame__shade {
+    background:
+      linear-gradient(180deg, rgba(17, 19, 16, .2), rgba(17, 19, 16, .38) 38%, rgba(17, 19, 16, .9) 82%, #111310),
+      linear-gradient(90deg, rgba(17, 19, 16, .24), transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .refine-frame__media { transition: none; }
+  .refine-frame__sweep { animation: none; }
+}
