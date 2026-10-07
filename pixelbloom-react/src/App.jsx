@@ -22,6 +22,7 @@ import { getSiteSettings, getServices, getPortfolioItems, getTestimonials } from
 import * as localData from './data'
 
 const BrandCommercial = lazy(() => import('./components/BrandCommercial'))
+const Vfx3D = lazy(() => import('./components/Vfx3D'))
 
 export default function App() {
   const [lightboxSrc,  setLightboxSrc]  = useState(null)
@@ -61,6 +62,14 @@ export default function App() {
     return (
       <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Brand & Commercial page" />}>
         <BrandCommercial onBack={() => { window.location.hash = '' }} />
+      </Suspense>
+    )
+  }
+
+  if (route === '#/vfx-3d') {
+    return (
+      <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading VFX and 3D page" />}>
+        <Vfx3D onBack={() => { window.location.hash = '' }} />
       </Suspense>
     )
   }
