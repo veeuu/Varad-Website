@@ -33,6 +33,7 @@ export default function Ballpit({
 
     let frameId = 0
     let previousTime = 0
+    let startedAt = 0
     let stableFrames = 0
     let rollingOut = false
     let completed = false
@@ -108,6 +109,10 @@ export default function Ballpit({
     const animate = time => {
       if (disposed) return
       frameId = window.requestAnimationFrame(animate)
+      if (!startedAt) startedAt = time
+      const elapsed = time - startedAt
+      const settling = elapsed >= 1800
+      const bounce = settling ? 0.35 : wallBounce
       const frames = previousTime ? Math.min((time - previousTime) / (1000 / 60), 2.5) : 1
       previousTime = time
 
@@ -115,13 +120,13 @@ export default function Ballpit({
       for (let index = 0; index < ballCount; index++) {
         if (!active[index]) continue
         const offset = index * 3
-        const damping = Math.pow(friction, frames)
+        const damping = Math.pow(settling ? 0.91 : friction, frames)
         const direction = positions[offset] < 0 || (positions[offset] === 0 && index % 2 === 0) ? -1 : 1
         if (rollingOut) {
           velocities[offset] = THREE.MathUtils.clamp(
-            (velocities[offset] + direction * 0.003 * frames) * damping,
-            -0.12,
-            0.12,
+            (velocities[offset] + direction * 0.02 * frames) * damping,
+            -0.22,
+            0.22,
           )
         } else {
           velocities[offset] *= damping
@@ -139,7 +144,7 @@ export default function Ballpit({
         const radius = radii[index]
         if (!rollingOut && (positions[offset] < -bounds.x + radius || positions[offset] > bounds.x - radius)) {
           positions[offset] = THREE.MathUtils.clamp(positions[offset], -bounds.x + radius, bounds.x - radius)
-          velocities[offset] *= -wallBounce
+          velocities[offset] *= -bounce
         }
         if (positions[offset + 1] < -bounds.y + radius || positions[offset + 1] > bounds.y - radius) {
           const hitFloor = positions[offset + 1] < -bounds.y + radius
@@ -147,12 +152,12 @@ export default function Ballpit({
           if (hitFloor && Math.abs(velocities[offset + 1]) < 0.08) {
             velocities[offset + 1] = 0
           } else {
-            velocities[offset + 1] *= -wallBounce
+            velocities[offset + 1] *= -bounce
           }
         }
         if (positions[offset + 2] < -bounds.z + radius || positions[offset + 2] > bounds.z - radius) {
           positions[offset + 2] = THREE.MathUtils.clamp(positions[offset + 2], -bounds.z + radius, bounds.z - radius)
-          velocities[offset + 2] *= -wallBounce
+          velocities[offset + 2] *= -bounce
         }
         if (rollingOut && Math.abs(positions[offset]) > bounds.viewX + radius) {
           active[index] = 0
@@ -190,7 +195,7 @@ export default function Ballpit({
             (velocities[secondOffset + 1] - velocities[firstOffset + 1]) * ny +
             (velocities[secondOffset + 2] - velocities[firstOffset + 2]) * nz
           if (relativeVelocity < 0) {
-            const impulse = -(1 + wallBounce) * relativeVelocity / 2
+            const impulse = -(1 + bounce) * relativeVelocity / 2
             velocities[firstOffset] -= impulse * nx
             velocities[firstOffset + 1] -= impulse * ny
             velocities[firstOffset + 2] -= impulse * nz
@@ -221,8 +226,8 @@ export default function Ballpit({
         balls.setMatrixAt(index, dummy.matrix)
       }
       if (!rollingOut) {
-        stableFrames = maxSpeedSquared < 0.000625 ? stableFrames + frames : 0
-        if (stableFrames >= 90) rollingOut = true
+        stableFrames = maxSpeedSquared < 0.0036 ? stableFrames + frames : 0
+        if (stableFrames >= 30 || elapsed >= 4000) rollingOut = true
       }
       balls.instanceMatrix.needsUpdate = true
       renderer.render(scene, camera)
