@@ -1,0 +1,21 @@
+.ballpit {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.ballpit__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ballpit__error {
+  position: absolute;
+  inset: 50% 24px auto;
+  transform: translateY(-50%);
+  color: #f4f1ea;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+}

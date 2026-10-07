@@ -448,6 +448,14 @@ em.accent-lt { font-style: italic; color: var(--accent); }
 .bento-card-link-vfx:focus-visible {
   outline-color: var(--vfx);
 }
+.bento-card-link-video:hover {
+  border-color: var(--brand);
+  background: var(--brand-bg);
+  color: var(--brand);
+}
+.bento-card-link-video:focus-visible {
+  outline-color: var(--brand);
+}
 .bento-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(22,20,15,.1); background: var(--paper); }
 .bento-card-accent {
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
