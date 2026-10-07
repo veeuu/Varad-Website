@@ -201,8 +201,39 @@
 
 @media (max-width: 390px) {
   .photography-back { font-size: 11px; }
-  .photography-content h1 { font-size: clamp(48px, 12.5vw, 64px); }
+  .photography-content h1 { font-size: clamp(40px, 12.5vw, 64px); }
   .photography-cta { padding: 12px 20px; }
+}
+
+@media (max-width: 360px) {
+  .photography-nav { padding-inline: 16px; }
+  .photography-brand { gap: 7px; font-size: 14px; }
+  .photography-brand-mark { width: 30px; }
+  .photography-brand-mark i { width: 21px; height: 21px; }
+  .photography-brand-mark i:last-child { left: 13px; }
+  .photography-back { gap: 5px; font-size: 10px; }
+  .photography-hero { padding-inline: 20px; }
+  .photography-content h1 { font-size: clamp(38px, 12vw, 44px); }
+  .photography-services { gap: 7px; margin-top: 22px; }
+  .photography-services span { padding: 7px 10px; font-size: 9px; }
+  .photography-actions { margin-top: 26px; }
+}
+
+@media (max-height: 500px) and (min-width: 701px) {
+  .photography-nav { height: 60px; }
+  .photography-hero {
+    min-height: calc(100svh - 60px);
+    padding-block: 24px;
+  }
+  .photography-content { width: min(560px, 100%); }
+  .photography-eyebrow { margin-bottom: 14px; }
+  .photography-content h1 {
+    margin-bottom: 14px;
+    font-size: clamp(48px, 7vw, 66px);
+  }
+  .photography-description { line-height: 1.6; }
+  .photography-services { margin-top: 16px; }
+  .photography-actions { margin-top: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
