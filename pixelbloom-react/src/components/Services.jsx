@@ -128,11 +128,11 @@ function SmallCard({ s }) {
           <span key={t} className="bento-tag" style={{ borderColor: hov ? s.accent : undefined, color: hov ? s.accent : undefined }}>{t}</span>
         ))}
       </div>
-      {s.num === '02' && (
+      {(s.num === '02' || s.num === '03') && (
         <a
-          href="#/creator-space"
-          aria-label="Explore Creator Space"
-          className="bento-feat-link bento-card-link"
+          href={s.num === '02' ? '#/creator-space' : '#/brand-commercial'}
+          aria-label={`Explore ${s.name}`}
+          className={`bento-feat-link bento-card-link${s.num === '03' ? ' bento-card-link-brand' : ''}`}
           onClick={event => event.stopPropagation()}
         >
           <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">

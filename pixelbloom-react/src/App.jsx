@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import Nav           from './components/Nav'
 import Hero          from './components/Hero'
 import MarqueeBand   from './components/MarqueeBand'
@@ -20,6 +20,8 @@ import CreatorSpace from './components/CreatorSpace'
 
 import { getSiteSettings, getServices, getPortfolioItems, getTestimonials } from './lib/sanity'
 import * as localData from './data'
+
+const BrandCommercial = lazy(() => import('./components/BrandCommercial'))
 
 export default function App() {
   const [lightboxSrc,  setLightboxSrc]  = useState(null)
@@ -53,6 +55,14 @@ export default function App() {
 
   if (route === '#/creator-space') {
     return <CreatorSpace onBack={() => { window.location.hash = '' }} />
+  }
+
+  if (route === '#/brand-commercial') {
+    return (
+      <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Brand & Commercial page" />}>
+        <BrandCommercial onBack={() => { window.location.hash = '' }} />
+      </Suspense>
+    )
   }
 
   if (route === '#/pricing') {
