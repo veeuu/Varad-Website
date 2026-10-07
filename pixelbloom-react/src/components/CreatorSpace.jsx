@@ -48,7 +48,6 @@ export default function CreatorSpace({ onBack }) {
             clickBurst
           />
           <span className="creator-visual-caption">A little more than an edit</span>
-          <span className="creator-visual-index">01 / 03</span>
         </div>
 
         <div className="creator-copy">

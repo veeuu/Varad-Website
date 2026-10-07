@@ -36,6 +36,12 @@ export default function App() {
     return () => window.removeEventListener('hashchange', syncRoute)
   }, [])
 
+  useEffect(() => {
+    if (['#/wedding-films', '#/creator-space', '#/brand-commercial', '#/vfx-3d'].includes(route)) {
+      window.scrollTo(0, 0)
+    }
+  }, [route])
+
   // Sanity CMS — optional
   useEffect(() => {
     const isSanityConfigured = !import.meta.env.VITE_SANITY_PROJECT_ID?.includes('YOUR_PROJECT')
