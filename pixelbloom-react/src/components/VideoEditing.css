@@ -62,8 +62,8 @@
 
 .video-editing-brand-mark i:last-child {
   left: 15px;
-  background: radial-gradient(circle at 62% 36%, #e4c987, #bd8546);
-  opacity: .86;
+  background: radial-gradient(circle at 62% 36%, var(--logo-mark-highlight), var(--logo-mark-shadow));
+  opacity: .76;
 }
 
 .video-editing-back {

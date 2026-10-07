@@ -48,8 +48,8 @@
 
 .pricing-brand-mark i:last-child {
   left: 13px;
-  background: radial-gradient(circle at 62% 36%, #efd8d2, #d9a9a0);
-  opacity: .9;
+  background: radial-gradient(circle at 62% 36%, var(--logo-mark-highlight), var(--logo-mark-shadow));
+  opacity: .76;
 }
 
 .pricing-shree-mark {

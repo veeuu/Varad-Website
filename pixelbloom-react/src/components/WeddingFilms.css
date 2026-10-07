@@ -32,7 +32,7 @@
 .wedding-brand-mark { position: relative; width: 34px; height: 26px; }
 .wedding-brand-mark i { position: absolute; top: 2px; width: 22px; height: 22px; border-radius: 50%; }
 .wedding-brand-mark i:first-child { left: 0; background: radial-gradient(circle at 38% 36%,#787673,#1e1c1b); opacity: .8; }
-.wedding-brand-mark i:last-child { left: 13px; background: radial-gradient(circle at 62% 36%,#efd8d2,#d9a9a0); opacity: .9; }
+.wedding-brand-mark i:last-child { left: 13px; background: radial-gradient(circle at 62% 36%,var(--logo-mark-highlight),var(--logo-mark-shadow)); opacity: .76; }
 .wedding-back {
   display: inline-flex;
   align-items: center;

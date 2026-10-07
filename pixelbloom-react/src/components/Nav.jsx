@@ -73,7 +73,7 @@ export default function Nav() {
         >
           <div className="nav-brand-mark" style={{ position:'relative', width:46, height:34, flexShrink:0 }}>
             <div style={{ position:'absolute',width:26,height:26,borderRadius:'50%',top:4,left:0,background:'radial-gradient(circle at 38% 36%,#787673,#1e1c1b)',opacity:.82 }}/>
-            <div style={{ position:'absolute',width:26,height:26,borderRadius:'50%',top:4,left:18,background:'radial-gradient(circle at 62% 36%,#EFD8D2,#D9A9A0)',opacity:.76 }}/>
+            <div style={{ position:'absolute',width:26,height:26,borderRadius:'50%',top:4,left:18,background:'radial-gradient(circle at 62% 36%,var(--logo-mark-highlight),var(--logo-mark-shadow))',opacity:.76 }}/>
           </div>
           <span style={{ fontSize:19,fontWeight:500,letterSpacing:'-.02em',color:logoColor }}>PixelBloom</span>
         </a>

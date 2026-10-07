@@ -62,8 +62,8 @@
 
 .vfx-brand-mark i:last-child {
   left: 15px;
-  background: radial-gradient(circle at 62% 36%, #d5e1c9, #849b75);
-  opacity: .86;
+  background: radial-gradient(circle at 62% 36%, var(--logo-mark-highlight), var(--logo-mark-shadow));
+  opacity: .76;
 }
 
 .vfx-back {
