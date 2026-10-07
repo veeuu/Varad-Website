@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { footerLinks } from '../data'
+import TechText from './TechText'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,8 +33,22 @@ export default function Footer() {
   return (
     <footer>
       {/* oversized wordmark decoration */}
-      <div ref={wordmarkRef} className="footer-wordmark-big" style={{ opacity:0, paddingTop:72 }}>
-        PixelBloom
+      <div ref={wordmarkRef} className="footer-wordmark-wrap" style={{ opacity:0 }}>
+        <TechText
+          text="PixelBloom"
+          className="footer-wordmark-big"
+          fontSize={280}
+          reach={200}
+          softness={0.7}
+          dashLength={4}
+          dashGap={2}
+          specks={15}
+          speed={1}
+          selection
+          labels
+          draggable
+          sweep
+        />
       </div>
 
       {/* main grid */}

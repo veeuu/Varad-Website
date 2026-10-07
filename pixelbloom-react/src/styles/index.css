@@ -845,15 +845,19 @@ em.accent-lt { font-style: italic; color: var(--accent); }
 footer { background: var(--dark); position: relative; overflow: hidden; }
 .footer-wordmark-big {
   font-family: var(--serif);
-  font-size: clamp(64px, 9vw, 140px);
+  font-size: clamp(72px, 11vw, 156px);
   font-weight: 300; line-height: 1;
-  letter-spacing: -.04em;
-  color: rgba(255,255,255,.04);
-  white-space: nowrap;
+  letter-spacing: .035em;
+  color: #302e29;
+  height: clamp(180px, 15vw, 210px);
   padding: 0 52px;
-  user-select: none; pointer-events: none;
+  user-select: none;
   display: block;
   overflow: hidden;
+}
+.footer-wordmark-wrap {
+  overflow: hidden;
+  padding: 24px 0 28px;
 }
 .footer-main {
   display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
@@ -1704,8 +1708,8 @@ body { background: var(--paper); }
 .form-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(22,20,15,.18); }
 
 footer { padding-top: 12px; }
-.footer-wordmark-big { font-size: clamp(88px, 16vw, 240px); line-height: .78; letter-spacing: -.075em; }
-.footer-main { padding-top: 68px; }
+.footer-wordmark-big { font-size: clamp(72px, 11vw, 156px); line-height: 1; letter-spacing: .035em; }
+.footer-main { padding-top: 40px; }
 .footer-links a:hover { transform: translateX(4px); }
 .soc:hover { transform: translateY(-5px) rotate(-5deg); }
 
