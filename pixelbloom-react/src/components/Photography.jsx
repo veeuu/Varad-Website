@@ -3,12 +3,12 @@ import RefineFrame from './RefineFrame'
 import ShreeMark from './ShreeMark'
 
 const PHOTOGRAPHY_IMAGES = [
-  { src: '/assets/images/weddings/dsc09811.jpg', alt: 'Wedding event photography' },
-  { src: '/assets/images/weddings/dsc00507.jpg', alt: 'Candid event moment' },
-  { src: '/assets/images/concepts/studio-wide.png', alt: 'Behind the scenes in the studio' },
-  { src: '/assets/images/bmw/front.png', alt: 'Automotive product photography' },
-  { src: '/assets/images/weddings/dsc09907.jpg', alt: 'Celebration captured in a still' },
-  { src: '/assets/images/bmw/upper-1.png', alt: 'Product detail photography' },
+  { src: `${import.meta.env.BASE_URL}assets/images/weddings/dsc09811.jpg`, alt: 'Wedding event photography' },
+  { src: `${import.meta.env.BASE_URL}assets/images/weddings/dsc00507.jpg`, alt: 'Candid event moment' },
+  { src: `${import.meta.env.BASE_URL}assets/images/concepts/studio-wide.png`, alt: 'Behind the scenes in the studio' },
+  { src: `${import.meta.env.BASE_URL}assets/images/bmw/front.png`, alt: 'Automotive product photography' },
+  { src: `${import.meta.env.BASE_URL}assets/images/weddings/dsc09907.jpg`, alt: 'Celebration captured in a still' },
+  { src: `${import.meta.env.BASE_URL}assets/images/bmw/upper-1.png`, alt: 'Product detail photography' },
 ]
 
 export default function Photography({ onBack }) {
