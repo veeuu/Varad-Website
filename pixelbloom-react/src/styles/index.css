@@ -1052,6 +1052,27 @@ em.accent-lt { color: var(--brand); }
 #process {
   background: var(--paper-cold);
 }
+.process-gallery-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 54px;
+  opacity: 0;
+}
+.process-gallery { margin: 0 -52px; }
+@media (max-width: 900px) {
+  .process-gallery-header { gap: 30px; }
+  .process-gallery { margin-inline: -24px; }
+}
+@media (max-width: 700px) {
+  .process-gallery-header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+  .process-gallery { margin-inline: -20px; }
+}
 .process-bg-num { color: rgba(22,20,15,.035); }
 .process-header-label { color: var(--ink-light); }
 .process-header-label .rule { background: var(--ink-light); }
