@@ -52,17 +52,6 @@
   opacity: .76;
 }
 
-.pricing-shree-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.pricing-shree-mark .shree-mark { width: 66px; height: 38px; margin: 0; }
-
 .pricing-back-link {
   display: inline-flex;
   align-items: center;
@@ -460,7 +449,6 @@
     transform-origin: left center;
     margin-right: -5px;
   }
-  .pricing-shree-mark .shree-mark { width: 46px; height: 28px; }
   .pricing-back-link {
     grid-column: 3;
     justify-self: end;
@@ -488,6 +476,5 @@
   .pricing-page-nav { padding-inline: 12px; column-gap: 4px; }
   .pricing-brand { font-size: 12px; }
   .pricing-brand-mark { display: none; }
-  .pricing-shree-mark .shree-mark { width: 40px; }
   .pricing-back-link { padding-inline: 7px; font-size: 8px; }
 }

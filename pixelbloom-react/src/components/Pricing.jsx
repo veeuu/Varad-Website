@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import ShreeMark from './ShreeMark'
 import './Pricing.css'
 
 const PACKAGES = [
@@ -63,7 +62,6 @@ export default function Pricing() {
           <span className="pricing-brand-mark" aria-hidden="true"><i /><i /></span>
           <span>PixelBloom</span>
         </a>
-        <div className="pricing-shree-mark"><ShreeMark /></div>
         <a className="pricing-back-link" href="#hero">
           <span aria-hidden="true">←</span> Back to studio
         </a>
