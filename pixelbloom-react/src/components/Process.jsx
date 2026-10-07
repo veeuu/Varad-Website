@@ -39,9 +39,16 @@ export default function Process() {
               Our creative <em className="accent-cr">process</em>
             </h2>
           </div>
-          <p className="process-subtitle">
-            Four clear steps from brief to delivery — no fluff, no back-and-forths, just clean creative execution every time.
-          </p>
+          <div className="process-subtitle-block">
+            <p className="process-subtitle">
+              <span>Four clear steps</span> from brief to delivery — no fluff, no back-and-forths, just clean creative execution every time.
+            </p>
+            <div className="process-mini-timeline" aria-hidden="true">
+              {processSteps.map(step => (
+                <span key={step.n}>{step.name}</span>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div ref={stepsRef} className="process-gallery">
