@@ -16,6 +16,7 @@ import PageLoader    from './components/PageLoader'
 import ScrollProgress from './components/ScrollProgress'
 import WeddingFilms from './components/WeddingFilms'
 import Pricing from './components/Pricing'
+import CreatorSpace from './components/CreatorSpace'
 
 import { getSiteSettings, getServices, getPortfolioItems, getTestimonials } from './lib/sanity'
 import * as localData from './data'
@@ -48,6 +49,10 @@ export default function App() {
 
   if (route === '#/wedding-films') {
     return <WeddingFilms onBack={() => { window.location.hash = '' }} />
+  }
+
+  if (route === '#/creator-space') {
+    return <CreatorSpace onBack={() => { window.location.hash = '' }} />
   }
 
   if (route === '#/pricing') {

@@ -415,6 +415,23 @@ em.accent-lt { font-style: italic; color: var(--accent); }
   transition: transform var(--t), box-shadow var(--t), background var(--t);
   border: 1px solid var(--border);
 }
+.bento-card-link {
+  right: 28px;
+  bottom: 28px;
+  width: 36px;
+  height: 36px;
+  color: var(--ink-mid);
+  background: var(--paper-warm);
+}
+.bento-card-link:hover {
+  border-color: var(--creator);
+  background: var(--creator-bg);
+  color: var(--creator-ink);
+}
+.bento-card-link:focus-visible {
+  outline: 2px solid var(--creator-ink);
+  outline-offset: 3px;
+}
 .bento-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(22,20,15,.1); background: var(--paper); }
 .bento-card-accent {
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
