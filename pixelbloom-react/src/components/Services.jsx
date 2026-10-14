@@ -27,17 +27,6 @@ function FeatCard({ s }) {
       <div className="bento-feat-bg"/>
       <div className="bento-feat-num">{s.num}</div>
 
-      {/* top badge */}
-      <div style={{
-        position:'absolute',top:44,left:44,
-        fontSize:10,letterSpacing:'.18em',textTransform:'uppercase',
-        color:'var(--ink-light)',
-        display:'flex',alignItems:'center',gap:8,
-      }}>
-        <span style={{ width:18,height:1,background:'var(--wedding)' }}/>
-        Featured Service
-      </div>
-
       <div className="bento-feat-icon">
         <svg viewBox="0 0 24 24" style={{ width:22,height:22,stroke:'var(--wedding)',fill:'none',strokeWidth:1.5 }}>
           {ICONS[s.num]}
@@ -71,10 +60,18 @@ function FeatCard({ s }) {
 /* ── Regular bento card ──────────────────────────────────── */
 function SmallCard({ s }) {
   const [hov, setHov] = useState(false)
+  const serviceBackground = {
+    '02': 'color-mix(in srgb, var(--creator) 22%, #fffaf4)',
+    '03': 'color-mix(in srgb, var(--brand) 22%, #fffaf4)',
+    '04': 'color-mix(in srgb, var(--vfx) 22%, #fffaf4)',
+    '05': 'color-mix(in srgb, var(--photo) 22%, #fffaf4)',
+    '06': 'color-mix(in srgb, var(--brand) 22%, #fffaf4)',
+  }[s.num] || 'var(--paper-warm)'
 
   return (
     <div
       className="bento-card service-card-wrap"
+      style={{ '--service-accent': s.accent, '--service-background': serviceBackground }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
@@ -83,7 +80,7 @@ function SmallCard({ s }) {
       {/* hover glow spot */}
       <div style={{
         position:'absolute',top:-30,right:-30,width:120,height:120,borderRadius:'50%',
-        background:`radial-gradient(circle,${s.accent}22 0%,transparent 72%)`,
+        background:'radial-gradient(circle, color-mix(in srgb, var(--service-accent) 24%, transparent) 0%, transparent 72%)',
         opacity: hov ? 1 : 0, transition:'opacity 0.4s', pointerEvents:'none',
       }}/>
 
