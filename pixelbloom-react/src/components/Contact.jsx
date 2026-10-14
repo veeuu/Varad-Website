@@ -29,7 +29,7 @@ const CHANNELS = [
   },
 ]
 
-export default function Contact() {
+export default function Contact({ pageVariant = false }) {
   const leftRef  = useRef(null)
   const rightRef = useRef(null)
   const [form, setForm] = useState({ fname:'', lname:'', email:'', service:'', msg:'' })
@@ -56,7 +56,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact">
+    <section id="contact" className={pageVariant ? 'contact-page-section' : undefined}>
       <div className="contact-split">
 
         {/* ── LEFT — dark ──────────────────────────── */}
@@ -65,16 +65,25 @@ export default function Contact() {
 
           <p className="label contact-left-label">
             <span className="rule" style={{ background:'var(--ink-light)' }}/>
-            Get in touch
+            {pageVariant ? 'A little hello goes a long way' : 'Get in touch'}
           </p>
 
           <h2 className="display-md contact-left-title" style={{ marginTop:20, marginBottom:24 }}>
-            Let's make<br/>something <em className="accent-br">great.</em>
+            {pageVariant ? <>Have a story?<br/>Let’s make it <em className="accent-br">shine.</em></> : <>Let's make<br/>something <em className="accent-br">great.</em></>}
           </h2>
 
           <p className="contact-lead">
-            Whether you have a brief ready or just a rough idea — we're here for it. Tell us what you're building and let's figure out how PixelBloom can make it better.
+            {pageVariant
+              ? 'Big idea, small spark, or a project already in motion — tell us what you’re imagining. We’ll help you shape it into something memorable.'
+              : "Whether you have a brief ready or just a rough idea — we're here for it. Tell us what you're building and let's figure out how PixelBloom can make it better."}
           </p>
+
+          {pageVariant && (
+            <div className="contact-page-note">
+              <span className="contact-page-note-star" aria-hidden="true">✳</span>
+              <span>Good things begin with a conversation.</span>
+            </div>
+          )}
 
           <div className="contact-channel-list">
             {CHANNELS.map(ch => (
@@ -96,8 +105,11 @@ export default function Contact() {
 
         {/* ── RIGHT — form ─────────────────────────── */}
         <div ref={rightRef} className="contact-right" style={{ opacity:0 }}>
-          <div className="contact-form-title">Send us a brief</div>
-          <div className="contact-form-sub">We'll respond within 24 hours.</div>
+          <div className="contact-page-form-heading">
+            {pageVariant && <span className="contact-page-step">YOUR PROJECT <i /> 01 / 02</span>}
+            <div className="contact-form-title">{pageVariant ? 'Tell us a little about it' : 'Send us a brief'}</div>
+            <div className="contact-form-sub">{pageVariant ? 'A few details are all we need to get started.' : "We'll respond within 24 hours."}</div>
+          </div>
 
           {sent ? (
             <div className="form-sent">
@@ -130,8 +142,9 @@ export default function Contact() {
                 <textarea id="msg" placeholder="Brief description, timeline, budget range…" value={form.msg} onChange={e => set('msg')(e.target.value)}/>
               </div>
               <button type="submit" className="form-btn">
-                Send brief →
+                {pageVariant ? 'Send your note' : 'Send brief'} <span aria-hidden="true">→</span>
               </button>
+              {pageVariant && <p className="contact-page-privacy">No pressure, no templates — just a real reply from our team.</p>}
             </form>
           )}
         </div>
@@ -149,8 +162,6 @@ function F({ label, id, type='text', placeholder, v, onChange }) {
       <input
         id={id} type={type} placeholder={placeholder} value={v}
         onChange={e => onChange(e.target.value)}
-        onFocus={e => { e.target.style.borderColor='var(--wedding)'; e.target.style.boxShadow='0 0 0 3px rgba(232,135,156,.2)' }}
-        onBlur={e  => { e.target.style.borderColor='';               e.target.style.boxShadow='' }}
       />
     </div>
   )

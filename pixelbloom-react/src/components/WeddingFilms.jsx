@@ -1,5 +1,4 @@
 import './WeddingFilms.css'
-import ShreeMark from './ShreeMark'
 
 const imagePath = file => `${import.meta.env.BASE_URL}assets/images/weddings/${file}`
 
@@ -48,7 +47,6 @@ export default function WeddingFilms({ onBack }) {
           <span className="wedding-brand-mark" aria-hidden="true"><i/><i/></span>
           <span>PixelBloom</span>
         </a>
-        <div className="wedding-shree-mark"><ShreeMark /></div>
         <button className="wedding-back" type="button" onClick={onBack}>
           <span aria-hidden="true">←</span> Back to studio
         </button>

@@ -1,0 +1,13 @@
+.ganesh-mark {
+  display: block;
+  width: 36px;
+  height: 44px;
+  color: #e85a2a;
+}
+
+@media (max-width: 600px) {
+  .ganesh-mark {
+    width: 32px;
+    height: 40px;
+  }
+}

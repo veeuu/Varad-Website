@@ -1,4 +1,4 @@
-.nav-shree-mark {
+.nav-ganesh-mark {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -7,12 +7,6 @@
   justify-content: center;
   transform: translate(-50%, -50%);
   pointer-events: none;
-}
-
-.nav-shree-mark .shree-mark {
-  width: 66px;
-  height: 30px;
-  margin: 0;
 }
 
 .nav-menu-toggle {
@@ -227,11 +221,6 @@
     margin-right: -7px;
   }
 
-  .nav-shree-mark .shree-mark {
-    width: 48px;
-    height: 24px;
-  }
-
   #nav > div:last-child {
     justify-self: end;
   }
@@ -272,7 +261,7 @@
   #nav { padding-inline: 12px; column-gap: 4px; }
   #nav .nav-brand-mark { display: none; }
   #nav > a > span { font-size: 14px !important; }
-  .nav-shree-mark .shree-mark { width: 42px; }
+  .nav-ganesh-mark { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

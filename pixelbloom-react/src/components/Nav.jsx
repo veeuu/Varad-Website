@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import ShreeMark from './ShreeMark'
+import GaneshMark from './GaneshMark'
 import './Nav.css'
 
 const LINKS = ['Services', 'Work', 'Process', 'About', 'Pricing', 'Contact']
@@ -64,7 +64,7 @@ export default function Nav() {
         transition: 'background .4s var(--ease), border-color .4s, box-shadow .4s, backdrop-filter .4s',
       }}>
 
-        <div className="nav-shree-mark"><ShreeMark /></div>
+        <div className="nav-ganesh-mark"><GaneshMark /></div>
 
         {/* Logo */}
         <a href="#hero" style={{ display:'flex', alignItems:'center', gap:10 }}
