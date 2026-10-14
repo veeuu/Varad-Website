@@ -16,27 +16,13 @@ const ICONS = {
 
 /* ── Feature card (first service, full left col) ─────────── */
 function FeatCard({ s }) {
-  const cardRef = useRef(null)
   const [hov, setHov] = useState(false)
-
-  const onMove = (e) => {
-    const r = cardRef.current.getBoundingClientRect()
-    const x = ((e.clientX - r.left) / r.width  - 0.5) * 18
-    const y = ((e.clientY - r.top)  / r.height - 0.5) * 18
-    gsap.to(cardRef.current, { rotateY:x, rotateX:-y, duration:0.4, ease:'power1.out', transformPerspective:900 })
-  }
-  const onLeave = () => {
-    gsap.to(cardRef.current, { rotateY:0, rotateX:0, duration:0.6, ease:'elastic.out(1,.5)' })
-    setHov(false)
-  }
 
   return (
     <div
-      ref={cardRef}
       className="bento-feat"
-      onMouseMove={onMove}
       onMouseEnter={() => setHov(true)}
-      onMouseLeave={onLeave}
+      onMouseLeave={() => setHov(false)}
     >
       <div className="bento-feat-bg"/>
       <div className="bento-feat-num">{s.num}</div>
@@ -74,7 +60,7 @@ function FeatCard({ s }) {
           borderColor: hov ? 'var(--wedding)' : 'var(--border-med)',
         }}
       >
-        <svg viewBox="0 0 14 14" fill="none" stroke="var(--ink-mid)" strokeWidth="1.5" style={{ width:14,height:14 }}>
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
           <path d="M2 7h10M8 3l4 4-4 4"/>
         </svg>
       </a>
@@ -84,27 +70,13 @@ function FeatCard({ s }) {
 
 /* ── Regular bento card ──────────────────────────────────── */
 function SmallCard({ s }) {
-  const cardRef = useRef(null)
   const [hov, setHov] = useState(false)
-
-  const onMove = (e) => {
-    const r = cardRef.current.getBoundingClientRect()
-    const x = ((e.clientX - r.left) / r.width  - 0.5) * 10
-    const y = ((e.clientY - r.top)  / r.height - 0.5) * 10
-    gsap.to(cardRef.current, { rotateY:x, rotateX:-y, duration:0.35, ease:'power1.out', transformPerspective:700 })
-  }
-  const onLeave = () => {
-    gsap.to(cardRef.current, { rotateY:0, rotateX:0, duration:0.55, ease:'elastic.out(1,.5)' })
-    setHov(false)
-  }
 
   return (
     <div
-      ref={cardRef}
       className="bento-card service-card-wrap"
-      onMouseMove={onMove}
       onMouseEnter={() => setHov(true)}
-      onMouseLeave={onLeave}
+      onMouseLeave={() => setHov(false)}
     >
       <div className="bento-card-accent" style={{ background:s.accent }}/>
 
