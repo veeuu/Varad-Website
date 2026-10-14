@@ -1390,6 +1390,15 @@ body { background: var(--paper); }
 .btn-dark:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(22,20,15,.18); }
 .hero-stats { width: max-content; max-width: 100%; justify-content: center; gap: clamp(22px, 4vw, 52px); padding-top: 24px; margin: 0 auto; }
 .stat-n { font-size: 40px; }
+#hero .hero-h1 {
+  font-weight: 400;
+  text-shadow: 0 3px 26px rgba(242, 239, 232, .76);
+}
+#hero .hero-h1 em {
+  text-shadow: 0 5px 24px rgba(193, 105, 74, .2);
+}
+#hero .hero-tagline { font-weight: 400; }
+#hero .hero-sub { color: #39362f; }
 .hero-right {
   min-height: 580px;
   border-radius: 48% 48% 42% 42% / 43% 43% 48% 48%;

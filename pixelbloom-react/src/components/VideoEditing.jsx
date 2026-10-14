@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './VideoEditing.css'
 import Ballpit from './Ballpit'
 import DomeGallery from './DomeGallery'
-import ShreeMark from './ShreeMark'
 
 export default function VideoEditing({ onBack }) {
   const [galleryVisible, setGalleryVisible] = useState(false)
@@ -10,7 +9,6 @@ export default function VideoEditing({ onBack }) {
   return (
     <main className="video-editing-page">
       <header className="video-editing-nav">
-        <div className="video-editing-shree"><ShreeMark /></div>
         <a
           className="video-editing-brand"
           href="#"
@@ -38,7 +36,7 @@ export default function VideoEditing({ onBack }) {
             maxVerticalRotationDeg={0}
             segments={34}
             dragDampening={2}
-            grayscale
+            grayscale={false}
             className="video-editing-gallery"
           />
         ) : (

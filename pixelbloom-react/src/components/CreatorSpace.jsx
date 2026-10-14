@@ -1,6 +1,5 @@
 import './CreatorSpace.css'
 import DitherVeil from './DitherVeil'
-import ShreeMark from './ShreeMark'
 
 const CREATOR_IMAGE = 'https://images.unsplash.com/photo-1737071371043-761e02b1ef95?q=80&w=1400&auto=format&fit=crop'
 
@@ -8,7 +7,6 @@ export default function CreatorSpace({ onBack }) {
   return (
     <main className="creator-page">
       <header className="creator-page-nav">
-        <div className="creator-shree-mark"><ShreeMark /></div>
         <a
           className="creator-brand"
           href="#"
@@ -31,20 +29,21 @@ export default function CreatorSpace({ onBack }) {
             src={CREATOR_IMAGE}
             pattern="floyd"
             pixelSize={2}
-            inkColor="#120f17"
-            paperColor="#f4f1ea"
+            inkColor="#f2efe8"
+            paperColor="#342b28"
             revealRadius={200}
             softness={0.6}
             linger={1}
             fit="contain"
-            rimColor="#a78bfa"
+            rimColor="#e85a2a"
             palette="duotone"
             levels={2}
-            contrast={1.15}
+            contrast={1.25}
             brightness={0}
-            rim={0}
+            rim={0.24}
+            transparentBackground
             reverse={false}
-            wander={false}
+            wander
             clickBurst
           />
           <span className="creator-visual-caption">A little more than an edit</span>

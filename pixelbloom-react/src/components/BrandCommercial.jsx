@@ -1,12 +1,10 @@
 import './BrandCommercial.css'
 import { GridScan } from './GridScan'
-import ShreeMark from './ShreeMark'
 
 export default function BrandCommercial({ onBack }) {
   return (
     <main className="brand-commercial-page">
       <header className="brand-commercial-nav">
-        <div className="brand-commercial-shree"><ShreeMark /></div>
         <a
           className="brand-commercial-brand"
           href="#"
@@ -29,16 +27,16 @@ export default function BrandCommercial({ onBack }) {
           style={{ position: 'absolute', inset: 0 }}
           sensitivity={0.55}
           lineThickness={1}
-          linesColor="#2F293A"
+          linesColor="#a48270"
           gridScale={0.1}
-          scanColor="#FF9FFC"
-          scanOpacity={0.4}
+          scanColor="#e85a2a"
+          scanOpacity={0.72}
           enablePost
-          bloomIntensity={0.6}
-          chromaticAberration={0.002}
-          noiseIntensity={0.01}
-          lineJitter={0.1}
-          scanGlow={0.5}
+          bloomIntensity={0.75}
+          chromaticAberration={0.0015}
+          noiseIntensity={0.008}
+          lineJitter={0.14}
+          scanGlow={0.75}
           scanSoftness={2}
         />
         <div className="brand-commercial-shade" aria-hidden="true"/>

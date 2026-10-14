@@ -1,12 +1,10 @@
 import './Vfx3D.css'
 import ModelViewer from './ModelViewer'
-import ShreeMark from './ShreeMark'
 
 export default function Vfx3D({ onBack }) {
   return (
     <main className="vfx-page">
       <header className="vfx-nav">
-        <div className="vfx-shree"><ShreeMark /></div>
         <a
           className="vfx-brand"
           href="#"

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import './Ballpit.css'
 
-const BALL_COLORS = [0xd4a05a, 0xb8d59c, 0xe8879c, 0xd7c6ed, 0xe9e4d9]
+const BALL_COLORS = [0x783b2e, 0x43552f, 0x9a641d, 0x59416e, 0x285052]
 
 export default function Ballpit({
   count = 100,

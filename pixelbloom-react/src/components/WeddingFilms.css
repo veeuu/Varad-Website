@@ -78,8 +78,9 @@
 .wedding-story h2,
 .wedding-inquiry h2 {
   font-family: var(--serif, Georgia, serif);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -.055em;
+  text-wrap: balance;
 }
 .wedding-cover h1 {
   margin: 26px 0 20px;
@@ -99,14 +100,15 @@
 .wedding-story h2 em,
 .wedding-inquiry h2 em {
   color: var(--wedding-clay);
-  font-weight: 300;
+  font-weight: 400;
+  text-shadow: 0 4px 20px rgba(168, 97, 72, .16);
 }
 .wedding-cover-description {
   max-width: 310px;
   margin: 0;
   color: var(--wedding-muted);
   font-size: 13px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.8;
 }
 .wedding-text-link {
@@ -207,7 +209,7 @@
   margin: 0 0 6px;
   color: var(--wedding-muted);
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.85;
 }
 .wedding-photo-grid {
@@ -321,6 +323,10 @@
   text-transform: uppercase;
 }
 .wedding-page button, .wedding-page a { cursor: pointer; }
+.wedding-page .wedding-eyebrow { font-size: 10px; letter-spacing: .2em; }
+.wedding-page .wedding-story h2 { text-shadow: 0 3px 18px rgba(244, 240, 233, .7); }
+.wedding-photo-card figcaption span:last-child { color: #64594f; }
+.wedding-page-footer { font-weight: 500; }
 .wedding-page button { font: inherit; }
 .wedding-page a:focus-visible, .wedding-page button:focus-visible {
   outline: 2px solid var(--wedding-clay);

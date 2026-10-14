@@ -1,8 +1,9 @@
 .vfx-page {
+  --vfx-accent-dark: #526743;
   min-height: 100vh;
   overflow: hidden;
-  color: var(--paper);
-  background: #111310;
+  color: var(--ink);
+  background: var(--paper);
 }
 
 .vfx-nav {
@@ -13,21 +14,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 6vw;
-  border-bottom: 1px solid rgba(244, 241, 234, .1);
-}
-
-.vfx-shree {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.vfx-shree .shree-mark {
-  width: 66px;
-  height: 30px;
-  margin: 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .vfx-brand {
@@ -70,13 +57,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: rgba(244, 241, 234, .64);
+  color: var(--ink-mid);
   font-size: 12px;
   transition: color var(--t-fast);
 }
 
 .vfx-back:hover,
-.vfx-work-link:hover { color: #c3d7ac; }
+.vfx-work-link:hover { color: var(--vfx-accent-dark); }
 
 .vfx-hero {
   position: relative;
@@ -93,8 +80,8 @@
   z-index: 1;
   inset: 0;
   background:
-    linear-gradient(90deg, #111310 0%, rgba(17, 19, 16, .92) 26%, rgba(17, 19, 16, .58) 48%, rgba(17, 19, 16, .08) 82%),
-    linear-gradient(0deg, rgba(17, 19, 16, .24), transparent 34%);
+    linear-gradient(90deg, #f2efe8 0%, rgba(242, 239, 232, .96) 26%, rgba(242, 239, 232, .72) 48%, rgba(242, 239, 232, .08) 82%),
+    linear-gradient(0deg, rgba(210, 200, 183, .2), transparent 34%);
   content: '';
   pointer-events: none;
 }
@@ -110,40 +97,47 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 28px;
-  color: #b8d59c;
+  color: var(--vfx-accent-dark);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: .2em;
   text-transform: uppercase;
+  animation: vfx-copy-in .7s .08s both;
 }
 
 .vfx-eyebrow span {
   width: 24px;
   height: 1px;
   background: currentColor;
+  transform-origin: left;
+  animation: vfx-rule-in .65s .2s both;
 }
 
 .vfx-copy h1 {
   margin-bottom: 24px;
-  color: var(--paper);
+  color: var(--ink);
   font-family: var(--serif);
   font-size: clamp(58px, 7vw, 100px);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -.045em;
   line-height: .91;
+  text-shadow: 0 2px 18px rgba(242, 239, 232, .76);
+  animation: vfx-title-in .95s .12s cubic-bezier(.22, 1, .36, 1) both;
 }
 
 .vfx-copy h1 em {
-  color: #b8d59c;
-  font-weight: 300;
+  color: var(--vfx-accent-dark);
+  font-weight: 400;
+  text-shadow: 0 4px 22px rgba(82, 103, 67, .2);
 }
 
 .vfx-description {
   max-width: 490px;
-  color: rgba(244, 241, 234, .72);
+  color: var(--ink-mid);
   font-size: 14px;
   font-weight: 300;
   line-height: 1.9;
+  animation: vfx-copy-in .75s .3s both;
 }
 
 .vfx-services {
@@ -155,26 +149,32 @@
 
 .vfx-services span {
   padding: 8px 14px;
-  border: 1px solid rgba(184, 213, 156, .32);
+  border: 1px solid rgba(82, 103, 67, .28);
   border-radius: var(--r-pill);
-  background: rgba(17, 19, 16, .44);
-  color: rgba(244, 241, 234, .84);
+  background: rgba(255, 255, 255, .4);
+  color: var(--ink-mid);
   font-size: 10px;
   letter-spacing: .08em;
   backdrop-filter: blur(8px);
+  animation: vfx-copy-in .55s both;
 }
+
+.vfx-services span:nth-child(1) { animation-delay: .4s; }
+.vfx-services span:nth-child(2) { animation-delay: .5s; }
+.vfx-services span:nth-child(3) { animation-delay: .6s; }
 
 .vfx-actions {
   display: flex;
   align-items: center;
   gap: 24px;
   margin-top: 34px;
+  animation: vfx-copy-in .7s .62s both;
 }
 
 .vfx-cta {
   border: 1px solid #b8d59c;
   background: #b8d59c;
-  color: #111310;
+  color: var(--ink);
   cursor: pointer;
 }
 
@@ -187,7 +187,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: rgba(244, 241, 234, .7);
+  color: var(--ink-mid);
   font-size: 11px;
   transition: color var(--t-fast);
 }
@@ -198,6 +198,7 @@
   inset: 0;
   pointer-events: none;
   isolation: isolate;
+  background: radial-gradient(ellipse at 73% 47%, rgba(212, 160, 90, .3), rgba(193, 105, 74, .1) 34%, transparent 62%);
 }
 
 .vfx-visual .model-viewer {
@@ -212,6 +213,30 @@
   pointer-events: auto;
 }
 
+.vfx-visual .model-viewer__status {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  color: var(--ink);
+  background: rgba(242, 239, 232, .88);
+  box-shadow: 0 8px 24px rgba(22, 20, 15, .1);
+}
+
+@keyframes vfx-copy-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vfx-title-in {
+  from { opacity: 0; filter: blur(8px); transform: translateY(24px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+@keyframes vfx-rule-in {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+
 @media (max-width: 900px) {
   .vfx-hero {
     padding-inline: 6vw;
@@ -222,7 +247,6 @@
 
 @media (max-width: 700px) {
   .vfx-nav { height: 68px; padding: 0 20px; }
-  .vfx-shree { display: none; }
   .vfx-brand { font-size: 16px; }
 
   .vfx-hero {
@@ -232,8 +256,8 @@
 
   .vfx-hero::after {
     background:
-      linear-gradient(180deg, rgba(17, 19, 16, .12) 0%, rgba(17, 19, 16, .28) 30%, rgba(17, 19, 16, .84) 52%, #111310 78%),
-      linear-gradient(90deg, rgba(17, 19, 16, .42), transparent);
+      linear-gradient(180deg, rgba(242, 239, 232, .08) 0%, rgba(242, 239, 232, .2) 30%, rgba(242, 239, 232, .88) 52%, #f2efe8 78%),
+      linear-gradient(90deg, rgba(242, 239, 232, .36), transparent);
   }
 
   .vfx-copy { width: min(100%, 520px); margin-top: auto; }
@@ -254,5 +278,8 @@
 @media (prefers-reduced-motion: reduce) {
   .vfx-page *,
   .vfx-page *::before,
-  .vfx-page *::after { scroll-behavior: auto !important; }
+  .vfx-page *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+  }
 }

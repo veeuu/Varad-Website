@@ -266,6 +266,7 @@ uniform float uContrast;
 uniform float uBrightness;
 uniform float uReverse;
 uniform float uIntro;
+uniform float uTransparentBackground;
 uniform float uHold;
 uniform vec3 uMatte;
 uniform float uKey;
@@ -364,7 +365,9 @@ void main() {
   vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
   float spread = length((cellUv - 0.5) * aspect) / length(aspect * 0.5);
   float appear = step(spread * 0.72 + bayer(cell + vec2(3.0, 5.0)) * 0.28, uIntro * 1.001);
-  fragColor = vec4(mix(uInk, color, appear), 1.0);
+  vec3 result = mix(uInk, color, appear);
+  float opacity = clamp(length(result - uInk) * 1.5, 0.0, 1.0) * appear;
+  fragColor = vec4(result, mix(1.0, opacity, uTransparentBackground));
 }
 `;
 
@@ -384,6 +387,7 @@ const DitherVeil = ({
   linger = 1,
   rimColor = '#a78bfa',
   rim = 0,
+  transparentBackground = false,
   reverse = false,
   wander = false,
   clickBurst = true,
@@ -410,6 +414,7 @@ const DitherVeil = ({
       linger,
       rimColor,
       rim,
+      transparentBackground,
       reverse,
       wander,
       clickBurst
@@ -422,7 +427,12 @@ const DitherVeil = ({
     if (!container) return undefined;
 
     const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio || 1, 2), alpha: false, antialias: false });
+    const renderer = new Renderer({
+      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      alpha: true,
+      antialias: false,
+      premultipliedAlpha: false
+    });
     const gl = renderer.gl;
     const canvas = gl.canvas;
     canvas.style.display = 'block';
@@ -494,6 +504,7 @@ const DitherVeil = ({
       uBrightness: { value: 0 },
       uReverse: { value: 0 },
       uIntro: { value: 0 },
+      uTransparentBackground: { value: 0 },
       uHold: { value: HOLD },
       uMatte: { value: [0, 0, 0] },
       uKey: { value: 0 },
@@ -708,6 +719,7 @@ const DitherVeil = ({
       viewUniforms.uContrast.value = s.contrast;
       viewUniforms.uBrightness.value = s.brightness;
       viewUniforms.uReverse.value = s.reverse ? 1 : 0;
+      viewUniforms.uTransparentBackground.value = s.transparentBackground ? 1 : 0;
       const intro = image ? Math.min(1, (now - introStart) / INTRO_MS) : 0;
       viewUniforms.uIntro.value = 1 - Math.pow(1 - intro, 2);
       renderer.render({ scene: viewMesh });
