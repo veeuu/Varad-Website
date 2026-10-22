@@ -1,10 +1,14 @@
 import './BrandCommercial.css'
 import { GridScan } from './GridScan'
+import ShreeMark from './ShreeMark'
 
-export default function BrandCommercial({ onBack }) {
+export default function BrandCommercial({ onBack, designVersion = 'current' }) {
+  const isPreviousDesign = designVersion === 'previous'
+
   return (
     <main className="brand-commercial-page">
       <header className="brand-commercial-nav">
+        {isPreviousDesign && <div className="brand-commercial-shree"><ShreeMark /></div>}
         <a
           className="brand-commercial-brand"
           href="#"
@@ -27,16 +31,16 @@ export default function BrandCommercial({ onBack }) {
           style={{ position: 'absolute', inset: 0 }}
           sensitivity={0.55}
           lineThickness={1}
-          linesColor="#a48270"
+          linesColor={isPreviousDesign ? '#2F293A' : '#a48270'}
           gridScale={0.1}
-          scanColor="#e85a2a"
-          scanOpacity={0.72}
+          scanColor={isPreviousDesign ? '#FF9FFC' : '#e85a2a'}
+          scanOpacity={isPreviousDesign ? 0.4 : 0.72}
           enablePost
-          bloomIntensity={0.75}
-          chromaticAberration={0.0015}
-          noiseIntensity={0.008}
-          lineJitter={0.14}
-          scanGlow={0.75}
+          bloomIntensity={isPreviousDesign ? 0.6 : 0.75}
+          chromaticAberration={isPreviousDesign ? 0.002 : 0.0015}
+          noiseIntensity={isPreviousDesign ? 0.01 : 0.008}
+          lineJitter={isPreviousDesign ? 0.1 : 0.14}
+          scanGlow={isPreviousDesign ? 0.5 : 0.75}
           scanSoftness={2}
         />
         <div className="brand-commercial-shade" aria-hidden="true"/>

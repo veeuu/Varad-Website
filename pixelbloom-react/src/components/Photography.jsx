@@ -1,5 +1,6 @@
 import './Photography.css'
 import RefineFrame from './RefineFrame'
+import ShreeMark from './ShreeMark'
 
 const PHOTOGRAPHY_IMAGES = [
   { src: `${import.meta.env.BASE_URL}assets/images/weddings/dsc09811.jpg`, alt: 'Wedding event photography' },
@@ -10,10 +11,11 @@ const PHOTOGRAPHY_IMAGES = [
   { src: `${import.meta.env.BASE_URL}assets/images/bmw/upper-1.png`, alt: 'Product detail photography' },
 ]
 
-export default function Photography({ onBack }) {
+export default function Photography({ onBack, designVersion = 'current' }) {
   return (
     <main className="photography-page">
       <header className="photography-nav">
+        {designVersion === 'previous' && <div className="photography-shree"><ShreeMark /></div>}
         <a
           className="photography-brand"
           href="#"

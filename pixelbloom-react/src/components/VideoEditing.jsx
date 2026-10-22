@@ -2,13 +2,17 @@ import { useState } from 'react'
 import './VideoEditing.css'
 import Ballpit from './Ballpit'
 import DomeGallery from './DomeGallery'
+import ShreeMark from './ShreeMark'
 
-export default function VideoEditing({ onBack }) {
+const PREVIOUS_BALL_COLORS = [0xd4a05a, 0xb8d59c, 0xe8879c, 0xd7c6ed, 0xe9e4d9]
+
+export default function VideoEditing({ onBack, designVersion = 'current' }) {
   const [galleryVisible, setGalleryVisible] = useState(false)
 
   return (
     <main className="video-editing-page">
       <header className="video-editing-nav">
+        {designVersion === 'previous' && <div className="video-editing-shree"><ShreeMark /></div>}
         <a
           className="video-editing-brand"
           href="#"
@@ -36,7 +40,7 @@ export default function VideoEditing({ onBack }) {
             maxVerticalRotationDeg={0}
             segments={34}
             dragDampening={2}
-            grayscale={false}
+            grayscale={designVersion === 'previous'}
             className="video-editing-gallery"
           />
         ) : (
@@ -47,6 +51,7 @@ export default function VideoEditing({ onBack }) {
             friction={0.9975}
             wallBounce={0.95}
             followCursor={false}
+            colors={designVersion === 'previous' ? PREVIOUS_BALL_COLORS : undefined}
             onComplete={() => setGalleryVisible(true)}
           />
         )}

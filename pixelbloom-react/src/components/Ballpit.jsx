@@ -11,6 +11,7 @@ export default function Ballpit({
   wallBounce = 0.95,
   followCursor = false,
   className = '',
+  colors = BALL_COLORS,
   onComplete,
 }) {
   const canvasRef = useRef(null)
@@ -81,7 +82,7 @@ export default function Ballpit({
       velocities[offset] = (random() - 0.5) * 0.06
       velocities[offset + 1] = (random() - 0.5) * 0.05
       velocities[offset + 2] = (random() - 0.5) * 0.04
-      balls.setColorAt(index, sphereColor.setHex(BALL_COLORS[index % BALL_COLORS.length]))
+      balls.setColorAt(index, sphereColor.setHex(colors[index % colors.length]))
     }
 
     const bounds = { x: 5, y: 3.5, z: 2.5, viewX: 5 }
@@ -251,7 +252,7 @@ export default function Ballpit({
       if (balls.instanceColor) balls.instanceColor.dispose()
       renderer.dispose()
     }
-  }, [count, friction, gravity, wallBounce, followCursor])
+  }, [colors, count, friction, gravity, wallBounce, followCursor])
 
   return (
     <div className={`ballpit${className ? ` ${className}` : ''}`}>

@@ -17,6 +17,7 @@ import ScrollProgress from './components/ScrollProgress'
 import WeddingFilms from './components/WeddingFilms'
 import Pricing from './components/Pricing'
 import CreatorSpace from './components/CreatorSpace'
+import DesignToggle from './components/DesignToggle'
 
 import { getSiteSettings, getServices, getPortfolioItems, getTestimonials } from './lib/sanity'
 import * as localData from './data'
@@ -31,6 +32,7 @@ export default function App() {
   const [cms,          setCms]          = useState(null)
   const [loaderDone,   setLoaderDone]   = useState(false)
   const [route, setRoute] = useState(() => window.location.hash)
+  const [designVersion, setDesignVersion] = useState('current')
 
   useEffect(() => {
     const syncRoute = () => setRoute(window.location.hash)
@@ -57,49 +59,59 @@ export default function App() {
   }, [])
 
   const data = cms ?? null
+  const withDesignToggle = content => (
+    <>
+      {content}
+      <DesignToggle designVersion={designVersion} onChange={setDesignVersion} />
+    </>
+  )
 
   if (route === '#/wedding-films') {
-    return <WeddingFilms onBack={() => { window.location.hash = '' }} />
+    return withDesignToggle(
+      <WeddingFilms designVersion={designVersion} onBack={() => { window.location.hash = '' }} />
+    )
   }
 
   if (route === '#/creator-space') {
-    return <CreatorSpace onBack={() => { window.location.hash = '' }} />
+    return withDesignToggle(
+      <CreatorSpace designVersion={designVersion} onBack={() => { window.location.hash = '' }} />
+    )
   }
 
   if (route === '#/brand-commercial') {
-    return (
+    return withDesignToggle(
       <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Brand & Commercial page" />}>
-        <BrandCommercial onBack={() => { window.location.hash = '' }} />
+        <BrandCommercial designVersion={designVersion} onBack={() => { window.location.hash = '' }} />
       </Suspense>
     )
   }
 
   if (route === '#/vfx-3d') {
-    return (
+    return withDesignToggle(
       <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading VFX and 3D page" />}>
-        <Vfx3D onBack={() => { window.location.hash = '' }} />
+        <Vfx3D designVersion={designVersion} onBack={() => { window.location.hash = '' }} />
       </Suspense>
     )
   }
 
   if (route === '#/video-editing') {
-    return (
+    return withDesignToggle(
       <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Video Editing page" />}>
-        <VideoEditing onBack={() => { window.location.hash = '' }} />
+        <VideoEditing designVersion={designVersion} onBack={() => { window.location.hash = '' }} />
       </Suspense>
     )
   }
 
   if (route === '#/photography') {
-    return (
+    return withDesignToggle(
       <Suspense fallback={<main className="brand-commercial-loading" aria-label="Loading Photography page" />}>
-        <Photography onBack={() => { window.location.hash = '' }} />
+        <Photography designVersion={designVersion} onBack={() => { window.location.hash = '' }} />
       </Suspense>
     )
   }
 
   if (route === '#/pricing') {
-    return (
+    return withDesignToggle(
       <>
         <Pricing />
         <Footer />
@@ -107,7 +119,7 @@ export default function App() {
     )
   }
 
-  return (
+  return withDesignToggle(
     <>
       {/* Custom mouse cursor (desktop only) */}
       <CustomCursor />
