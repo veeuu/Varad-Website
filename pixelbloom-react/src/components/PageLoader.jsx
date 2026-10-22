@@ -90,7 +90,7 @@ export default function PageLoader({ onDone }) {
             <div style={{
               position: 'absolute', width: 34, height: 34, borderRadius: '50%',
               top: 5, left: 22,
-              background: 'radial-gradient(circle at 62% 36%,#EFD8D2,#D9A9A0)',
+              background: 'radial-gradient(circle at 62% 36%,var(--logo-mark-highlight),var(--logo-mark-shadow))',
               opacity: 0.8,
             }} />
           </div>

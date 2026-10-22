@@ -1,0 +1,38 @@
+@media (min-width: 901px) {
+  .wrap {
+    width: 100%;
+    max-width: 2200px;
+    padding-inline: clamp(24px, 4vw, 88px);
+  }
+
+  .wrap--wide {
+    width: 100%;
+    max-width: 2360px;
+    padding-inline: clamp(24px, 4vw, 88px);
+  }
+
+  .wrap--full { padding-inline: clamp(24px, 4vw, 88px); }
+
+  #services .services-wrap {
+    max-width: 2200px;
+    padding-inline: clamp(24px, 4vw, 88px);
+  }
+
+  #work .wrap--wide { max-width: 2200px; }
+
+  .footer-main,
+  .footer-bottom {
+    max-width: 2200px;
+    padding-inline: clamp(32px, 4vw, 88px);
+  }
+
+  .footer-wordmark-big { padding-inline: clamp(32px, 4vw, 88px); }
+
+  .pricing-page-nav { max-width: 2000px; }
+
+  .wedding-page-nav,
+  .wedding-cover { width: min(100%, 2000px); }
+
+  .wedding-story,
+  .wedding-inquiry { width: min(100%, 1680px); }
+}

@@ -73,7 +73,7 @@ export default function About() {
             width:72, height:56, opacity:.12,
           }}>
             <div style={{ position:'absolute',width:46,height:46,borderRadius:'50%',top:5,left:0,background:'radial-gradient(circle at 38% 36%,#787673,#1e1c1b)' }}/>
-            <div style={{ position:'absolute',width:46,height:46,borderRadius:'50%',top:5,left:28,background:'radial-gradient(circle at 62% 36%,#EFD8D2,#D9A9A0)' }}/>
+            <div style={{ position:'absolute',width:46,height:46,borderRadius:'50%',top:5,left:28,background:'radial-gradient(circle at 62% 36%,var(--logo-mark-highlight),var(--logo-mark-shadow))' }}/>
           </div>
         </div>
 

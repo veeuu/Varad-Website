@@ -7,16 +7,23 @@ export default function DesignToggle({ designVersion, onChange }) {
   useEffect(() => {
     if (!showPreviousDesign) return undefined
 
-    const stylesheet = document.createElement('link')
-    stylesheet.rel = 'stylesheet'
-    stylesheet.href = `${import.meta.env.BASE_URL}previous-design.css`
-    stylesheet.dataset.previousDesign = 'true'
-    stylesheet.onerror = () => {
-      console.error(`Unable to load the previous design stylesheet: ${stylesheet.href}`)
-    }
-    document.head.append(stylesheet)
+    const stylesheets = ['previous-design.css', 'wide-layout.css'].map(file => {
+      const stylesheet = document.createElement('link')
+      stylesheet.rel = 'stylesheet'
+      stylesheet.href = `${import.meta.env.BASE_URL}${file}`
+      stylesheet.dataset.previousDesign = 'true'
+      stylesheet.onerror = () => {
+        console.error(`Unable to load the design stylesheet: ${stylesheet.href}`)
+      }
+      return stylesheet
+    })
+    stylesheets.forEach(stylesheet => {
+      document.head.append(stylesheet)
+    })
 
-    return () => stylesheet.remove()
+    return () => {
+      stylesheets.forEach(stylesheet => stylesheet.remove())
+    }
   }, [showPreviousDesign])
 
   return (

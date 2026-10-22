@@ -61,11 +61,11 @@ function FeatCard({ s }) {
 function SmallCard({ s }) {
   const [hov, setHov] = useState(false)
   const serviceBackground = {
-    '02': 'color-mix(in srgb, var(--creator) 22%, #fffaf4)',
-    '03': 'color-mix(in srgb, var(--brand) 22%, #fffaf4)',
-    '04': 'color-mix(in srgb, var(--vfx) 22%, #fffaf4)',
-    '05': 'color-mix(in srgb, var(--photo) 22%, #fffaf4)',
-    '06': 'color-mix(in srgb, var(--brand) 22%, #fffaf4)',
+    '02': 'color-mix(in srgb, var(--creator) 36%, #fffaf4)',
+    '03': 'color-mix(in srgb, var(--brand) 36%, #fffaf4)',
+    '04': 'color-mix(in srgb, var(--vfx) 36%, #fffaf4)',
+    '05': 'color-mix(in srgb, var(--photo) 36%, #fffaf4)',
+    '06': 'color-mix(in srgb, var(--brand) 36%, #fffaf4)',
   }[s.num] || 'var(--paper-warm)'
 
   return (
