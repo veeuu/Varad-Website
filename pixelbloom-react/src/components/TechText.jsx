@@ -105,6 +105,7 @@ export default function TechText({
       const style = getComputedStyle(container)
       const family = style.fontFamily || 'serif'
       const weight = style.fontWeight || '300'
+      const textColor = style.getPropertyValue('--tech-text-color').trim() || '#302e29'
       const layoutMetrics = layout()
       context.setTransform(dpr, 0, 0, dpr, 0, 0)
       context.clearRect(0, 0, width, height)
@@ -137,20 +138,20 @@ export default function TechText({
         const x = glyph.x + glyph.offsetX
         const y = layoutMetrics.baseline + glyph.offsetY
         context.globalAlpha = 0.16
-        context.fillStyle = '#302e29'
+        context.fillStyle = textColor
         context.fillText(glyph.character, x, y)
         context.globalAlpha = index === activeIndex ? 0.72 : 0.42
-        context.strokeStyle = '#302e29'
+        context.strokeStyle = textColor
         context.strokeText(glyph.character, x, y)
         if (index === activeIndex) {
           context.globalAlpha = 0.3 + 0.54 * focusStrength
           context.setLineDash([])
-          context.fillStyle = '#302e29'
+          context.fillStyle = textColor
           context.fillText(glyph.character, x, y)
           context.globalAlpha = 0.3 + 0.42 * focusStrength
           context.lineWidth = 1.5
           context.setLineDash([dashLength, dashGap])
-          context.strokeStyle = '#302e29'
+          context.strokeStyle = textColor
           context.strokeText(glyph.character, x, y)
           if (selection) {
             const metrics = context.measureText(glyph.character)

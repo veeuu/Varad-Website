@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import GaneshMark from './GaneshMark'
+import ThemeToggle from './ThemeToggle'
 import './Nav.css'
 
 const LINKS = ['Services', 'Work', 'Process', 'About', 'Pricing', 'Contact']
 
-export default function Nav() {
+export default function Nav({ theme, onToggleTheme }) {
   const [stuck,  setStuck]  = useState(false)
   const [mobile, setMobile] = useState(false)
   const [open,   setOpen]   = useState(false)
@@ -48,7 +49,9 @@ export default function Nav() {
   }, [open, mobile])
 
   /* frosted light navigation */
-  const navBg     = stuck ? 'rgba(242,239,232,.92)' : 'transparent'
+  const navBg     = stuck
+    ? theme === 'dark' ? 'rgba(15,13,12,.92)' : 'rgba(242,239,232,.92)'
+    : 'transparent'
   const navBorder = stuck ? '1px solid var(--border)' : '1px solid transparent'
   const logoColor = 'var(--ink)'
   const hamColor  = 'var(--ink)'
@@ -80,6 +83,7 @@ export default function Nav() {
 
         {/* CTA and menu toggle */}
         <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           {!mobile && (
             <a href="#contact" className="nav-cta" style={{
               fontSize:12.5, fontWeight:500, color:'var(--ink)',

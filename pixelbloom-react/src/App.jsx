@@ -27,12 +27,31 @@ const Vfx3D = lazy(() => import('./components/Vfx3D'))
 const VideoEditing = lazy(() => import('./components/VideoEditing'))
 const Photography = lazy(() => import('./components/Photography'))
 
+const getInitialTheme = () => {
+  try {
+    return window.localStorage.getItem('pixelbloom-theme') === 'dark' ? 'dark' : 'light'
+  } catch (error) {
+    console.error('Unable to read the saved color theme.', error)
+    return 'light'
+  }
+}
+
 export default function App() {
+  const [theme, setTheme] = useState(getInitialTheme)
   const [lightboxSrc,  setLightboxSrc]  = useState(null)
   const [cms,          setCms]          = useState(null)
   const [loaderDone,   setLoaderDone]   = useState(false)
   const [route, setRoute] = useState(() => window.location.hash)
   const [designVersion, setDesignVersion] = useState('current')
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    try {
+      window.localStorage.setItem('pixelbloom-theme', theme)
+    } catch (error) {
+      console.error('Unable to save the selected color theme.', error)
+    }
+  }, [theme])
 
   useEffect(() => {
     const syncRoute = () => setRoute(window.location.hash)
@@ -130,7 +149,7 @@ export default function App() {
       {/* Cinematic page loader — shows once, then reveals site */}
       {!loaderDone && <PageLoader onDone={() => setLoaderDone(true)} />}
 
-      <Nav />
+      <Nav theme={theme} onToggleTheme={() => setTheme(value => value === 'dark' ? 'light' : 'dark')} />
 
       <main>
         <Hero        cmsSettings={data?.settings} />

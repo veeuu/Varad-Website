@@ -80,7 +80,7 @@
 
 .nav-menu-prelayer-warm { background: #d4a05a; }
 .nav-menu-prelayer-rose { background: #c1694a; }
-.nav-menu-prelayer-paper { background: #f2efe8; }
+.nav-menu-prelayer-paper { background: var(--paper); }
 .nav-menu-overlay.is-open .nav-menu-prelayer { transform: translateX(0); }
 .nav-menu-overlay.is-open .nav-menu-prelayer-warm { transition-delay: 0s; }
 .nav-menu-overlay.is-open .nav-menu-prelayer-rose { transition-delay: .07s; }
